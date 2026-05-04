@@ -1,0 +1,86 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const posts = (await getCollection('blog')).sort((a, b) =>
+  b.data.published_date.localeCompare(a.data.published_date),
+);
+---
+
+<BaseLayout
+  title="Blog — AH-design"
+  htmlClass="no-js vlt-is--contact-01 vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
+>
+  <div class="vlt-site-overlay"></div>
+  <main class="vlt-main">
+    <div class="vlt-page-content">
+      <div class="vlt-page-title vlt-page-title--style-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-7 offset-md-1">
+              <h1 class="vlt-page-title__title">We blog about our passions</h1>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="vlt-page-title__phantom-title lax"
+                data-lax-translate-x="0 0, vw (vw*0.5)"
+                data-lax-opacity="1 1, 250 0"
+                data-lax-anchor=".vlt-page-title">
+                Blog
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="content"></div>
+      <section>
+        <div class="vlt-gap-120"></div>
+        <div class="container">
+          <div class="vlt-gap-90"></div>
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <div
+                class="vlt-isotope-grid"
+                data-columns="1"
+                data-layout="masonry"
+                data-x-gap="0|0"
+                data-y-gap="80|80"
+                data-controls="#vlt-filter-blog-02"
+                data-load-more-selector="#vlt-load-more-blog-02"
+              >
+                <div class="grid-sizer"></div>
+                {posts.map((post) => (
+                  <div class=" grid-item filter-design">
+                    <article class="vlt-post vlt-post--style-4">
+                      <div class="vlt-post__media">
+                        <a class="vlt-post__link" href={`/post/${post.data.slug}`}></a>
+                        <img src={post.data.thumbnail} alt={post.data.thumbnail_alt} loading="lazy" />
+                      </div>
+                      <div class="vlt-post__content">
+                        <header class="vlt-post__header">
+                          <div class="vlt-post-meta">
+                            <span>{post.data.published_date_raw}</span>
+                            <span>{post.data.category_title}</span>
+                          </div>
+                          <h3 class="vlt-post-title">
+                            <a href={`/post/${post.data.slug}`}>{post.data.title}</a>
+                          </h3>
+                        </header>
+                        <div class="vlt-post-excerpt">
+                          <p>{post.data.brief}</p>
+                        </div>
+                      </div>
+                    </article>
+                  </div>
+                ))}
+              </div>
+              <div class="vlt-gap-100"></div>
+              <div class="text-center"></div>
+            </div>
+          </div>
+        </div>
+        <div class="vlt-gap-120"></div>
+      </section>
+    </div>
+  </main>
+</BaseLayout>

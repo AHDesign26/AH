@@ -1,0 +1,140 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.data.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+
+const allPosts = (await getCollection('blog')).sort((a, b) =>
+  b.data.published_date.localeCompare(a.data.published_date),
+);
+const allCategories = await getCollection('categories');
+const categoriesWithCount = allCategories.map((cat) => ({
+  slug: cat.data.slug,
+  title: cat.data.title,
+  count: allPosts.filter((p) => p.data.category_slug === cat.data.slug).length,
+}));
+const allCategoriesCount = allPosts.length;
+
+const author = post.data.author_slug
+  ? await getEntry('authors', post.data.author_slug)
+  : null;
+
+const recentPosts = allPosts.slice(0, 4);
+---
+
+<BaseLayout
+  title={`${post.data.meta_title} — AH-design`}
+  description={post.data.meta_desc}
+  htmlClass="no-js vlt-is--contact-01 vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
+>
+  <div class="vlt-site-overlay"></div>
+  <main class="vlt-main">
+    <section style="padding-top: 150px;">
+      <div class="container">
+        <div class="vlt-post-media-title vlt-post-media-title--style-1 jarallax">
+          {post.data.hero_image && (
+            <img class="jarallax-img" src={post.data.hero_image} alt={post.data.hero_alt} loading="lazy" />
+          )}
+        </div>
+      </div>
+    </section>
+
+    <div class="vlt-page-content vlt-page-content--padding">
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8">
+              <article class="vlt-single-post vlt-single-post--style-4">
+                <header class="vlt-single-post__header">
+                  <h2 class="vlt-post-title">{post.data.title}</h2>
+                  {post.data.subtitle && (
+                    <h3 style="padding-top: 20px;">{post.data.subtitle}</h3>
+                  )}
+                  <div class="vlt-post-meta">
+                    <span>{post.data.published_date_raw}</span>
+                    <span>{post.data.category_title}</span>
+                  </div>
+                </header>
+                <div class="vlt-single-post__content">
+                  <Fragment set:html={post.data.body_html} />
+                  <div class="vlt-gap-70"></div>
+                </div>
+
+                {author && (
+                  <div class="vlt-about-author">
+                    <div class="vlt-about-author__avatar">
+                      <a href={`/author/${author.data.id}`}>
+                        {author.data.photo && (
+                          <img src={author.data.photo} alt={author.data.photo_alt} loading="lazy" />
+                        )}
+                      </a>
+                    </div>
+                    <div class="vlt-about-author__content">
+                      <h5 class="vlt-about-author__title">{author.data.name}</h5>
+                      <p class="vlt-about-author__text">
+                        <Fragment set:html={author.data.bio_html} />
+                      </p>
+                      <a class="vlt-btn vlt-btn--secondary vlt-btn--sm" href={`/author/${author.data.id}`} target="_self">Author posts</a>
+                    </div>
+                  </div>
+                )}
+              </article>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="vlt-sidebar vlt-sidebar--right">
+                <div class="vlt-widget vlt-widget--search">
+                  <form class="vlt-search-form">
+                    <input type="text" placeholder="Search" />
+                    <button>
+                      <i class="icon-search-2"></i>
+                    </button>
+                  </form>
+                </div>
+
+                <div class="vlt-widget vlt-widget--categories">
+                  <h5 class="vlt-widget__title">Categories</h5>
+                  <ul>
+                    <li><a href="/blog">All Categories <span>({allCategoriesCount})</span></a></li>
+                    {categoriesWithCount.map((cat) => (
+                      <li>
+                        <a href={`/category/${cat.slug}`}>
+                          {cat.title} <span>( {cat.count} )</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div class="vlt-widget vlt-widget--recent-posts">
+                  <h5 class="vlt-widget__title">Recent Posts</h5>
+                  {recentPosts.map((rp) => (
+                    <div class="vlt-widget-post">
+                      <div class="vlt-widget-post__thumbnail">
+                        <a href={`/post/${rp.data.slug}`}>
+                          {rp.data.thumbnail && <img src={rp.data.thumbnail} alt="" loading="lazy" />}
+                        </a>
+                      </div>
+                      <div class="vlt-widget-post__content">
+                        <span>{rp.data.published_date_raw} / {rp.data.category_title}</span>
+                        <h5><a href={`/post/${rp.data.slug}`}>{rp.data.title}</a></h5>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</BaseLayout>
