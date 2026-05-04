@@ -1,0 +1,82 @@
+backend:
+  name: github
+  repo: AHDesign26/AH
+  branch: main
+  base_url: https://ahdesign.website
+  auth_endpoint: /api/cms-oauth/auth
+
+# Where uploaded media goes. CF Pages will serve files placed under public/
+# at the corresponding URL, so /uploads/cms/foo.png is reachable.
+media_folder: public/uploads/cms
+public_folder: /uploads/cms
+
+publish_mode: simple
+
+logo_url: /static/img/root/logoAH-black.png
+
+site_url: https://ahdesign.website
+display_url: https://ahdesign.website
+
+collections:
+  - name: blog
+    label: Blog posts
+    folder: src/content/blog
+    create: true
+    delete: true
+    extension: md
+    format: yaml-frontmatter
+    slug: '{{slug}}'
+    identifier_field: slug
+    summary: '{{title}} — {{published_date_raw}}'
+    fields:
+      - { label: Slug, name: slug, widget: string }
+      - { label: Title, name: title, widget: string }
+      - { label: Subtitle, name: subtitle, widget: string, required: false }
+      - { label: Published date (ISO), name: published_date, widget: string, hint: 'YYYY-MM-DD' }
+      - { label: Published date (display), name: published_date_raw, widget: string, hint: 'e.g. 12 Aug, 2022' }
+      - { label: Day, name: published_date_day, widget: string, hint: '01..31' }
+      - { label: Month (short), name: published_date_month, widget: string, hint: 'Jan..Dec' }
+      - { label: Category slug, name: category_slug, widget: relation, collection: categories, search_fields: [title, slug], value_field: slug, display_fields: [title] }
+      - { label: Category title, name: category_title, widget: string }
+      - { label: Author slug, name: author_slug, widget: relation, collection: authors, search_fields: [name, slug], value_field: slug, display_fields: [name] }
+      - { label: Author id, name: author_id, widget: number, value_type: int }
+      - { label: Hero image, name: hero_image, widget: image, required: false, allow_multiple: false }
+      - { label: Hero alt text, name: hero_alt, widget: string, required: false, default: '' }
+      - { label: Thumbnail, name: thumbnail, widget: image, required: false, allow_multiple: false }
+      - { label: Thumbnail alt text, name: thumbnail_alt, widget: string, required: false, default: '' }
+      - { label: Brief, name: brief, widget: text, required: false }
+      - { label: Meta title, name: meta_title, widget: string }
+      - { label: Meta description, name: meta_desc, widget: text, required: false }
+      - { label: Original URL, name: original_url, widget: string, required: false }
+      - { label: Body HTML (rendered as-is via Fragment set:html), name: body_html, widget: text, hint: 'Quill-style HTML — be careful editing' }
+
+  - name: authors
+    label: Authors
+    folder: src/content/authors
+    create: true
+    delete: true
+    extension: json
+    format: json
+    slug: '{{slug}}'
+    identifier_field: slug
+    fields:
+      - { label: Numeric id, name: id, widget: number, value_type: int, hint: 'Stable across renames; preserves /author/<id> URLs' }
+      - { label: Slug, name: slug, widget: string }
+      - { label: Name, name: name, widget: string }
+      - { label: Position, name: position, widget: string, required: false }
+      - { label: Bio HTML, name: bio_html, widget: text, required: false }
+      - { label: Photo, name: photo, widget: image, required: false, allow_multiple: false }
+      - { label: Photo alt text, name: photo_alt, widget: string, required: false, default: '' }
+
+  - name: categories
+    label: Categories
+    folder: src/content/categories
+    create: true
+    delete: true
+    extension: json
+    format: json
+    slug: '{{slug}}'
+    identifier_field: slug
+    fields:
+      - { label: Slug, name: slug, widget: string }
+      - { label: Title, name: title, widget: string }

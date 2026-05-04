@@ -36,5 +36,9 @@
     "typescript": "^5.7.0",
     "typescript-eslint": "^8.18.0",
     "vitest": "^2.1.8"
+  },
+  "dependencies": {
+    "@cloudflare/workers-types": "^4.20260504.1",
+    "worker-mailer": "^1.2.1"
   }
 }

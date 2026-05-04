@@ -1,5 +1,8 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist", "node_modules", "test-results", "playwright-report"]
+  "exclude": ["dist", "node_modules", "test-results", "playwright-report"],
+  "compilerOptions": {
+    "types": ["@cloudflare/workers-types/2023-07-01"]
+  }
 }

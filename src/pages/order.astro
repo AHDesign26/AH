@@ -1,11 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x00000000000000000000AA';
 ---
 
 <BaseLayout
   title="Order — AH-design"
   htmlClass="no-js vlt-is--contact-02 vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
 >
+  <Fragment slot="head">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>
+  </Fragment>
 <!--Site overlay-->
 	<div class="vlt-site-overlay"></div>
 	<!--Main-->
@@ -43,7 +48,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						<div class="col-lg-9 order-form">
 							<!--Animated block-->
 							<div class="vlt-animated-block" data-aos="fade" data-aos-delay="100">
-								<form class="vlt-contact-form vlt-contact-form--style-2" novalidate="novalidate" id="ordersubmit">
+								<form class="vlt-contact-form vlt-contact-form--style-2" novalidate="novalidate" id="ordersubmit" method="post" action="/api/order">
 									<div class="vlt-form-row two-col">
 										<div class="vlt-form-group">
 											<input class="vlt-form-control" type="text" name="name" required="required" placeholder=" ">
@@ -76,13 +81,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 									<div class="vlt-form-group">
 										<textarea class="vlt-form-control" name="message" rows="5" placeholder=" "></textarea>
 										<label class="vlt-form-label">Message*</label>
+										<input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;" />
+										<div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-size="invisible"></div>
 									</div>
 									<div class="vlt-gap-40"></div>
 									<!--Button-->
 									<button class="vlt-btn vlt-btn--secondary vlt-btn--lg">Submit
 									</button>
 								</form>
-								<p id="output"></p>
+								<p id="output" style="display: none;"></p>
 							</div>
 							<div class="vlt-gap-60--md"></div>
 						</div>
@@ -132,4 +139,37 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			</section>
 		</div>
 	</main>
+
+	<Fragment slot="js">
+		<script is:inline define:vars={{ formId: 'ordersubmit', endpoint: '/api/order' }}>
+			const form = document.getElementById(formId);
+			const output = document.getElementById('output');
+			if (form) {
+				form.addEventListener('submit', async (e) => {
+					e.preventDefault();
+					output.style.display = 'block';
+					output.style.color = '#333';
+					output.innerHTML = ' Sending...';
+
+					const data = new FormData(form);
+					try {
+						const res = await fetch(endpoint, { method: 'POST', body: data });
+						const json = await res.json().catch(() => ({}));
+						if (res.ok && json.success) {
+							output.style.color = 'green';
+							output.innerHTML = ' Your message has been sent';
+							form.reset();
+							if (window.turnstile) window.turnstile.reset();
+						} else {
+							output.style.color = 'red';
+							output.innerHTML = ' Something went wrong, please try again';
+						}
+					} catch (_err) {
+						output.style.color = 'red';
+						output.innerHTML = ' Something went wrong, please try again';
+					}
+				});
+			}
+		</script>
+	</Fragment>
 </BaseLayout>
