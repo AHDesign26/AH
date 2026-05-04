@@ -7,3 +7,23 @@ Pipfile*
 .venv
 .env
 .idea
+node_modules/
+
+# Astro
+dist/
+.astro/
+
+# Playwright
+test-results/
+playwright-report/
+
+# CMS / deploy
+.deploy_state/
+
+# Migration artefacts (local-only patches)
+local-changes.patch
+
+# public/static is a directory junction created locally; the real files live
+# in static/ (the Flask side). One-time setup is documented in
+# astro-cloudflare-migration-plan.md and scripts/setup-public-static.*.
+public/static/

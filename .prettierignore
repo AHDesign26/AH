@@ -1,0 +1,12 @@
+dist
+.astro
+node_modules
+test-results
+playwright-report
+public/static
+static
+templates
+*.min.css
+*.min.js
+package-lock.json
+tests/visual/__screenshots__
