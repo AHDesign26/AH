@@ -624,8 +624,8 @@ const recentPosts = (await getCollection('blog'))
 										<div class="vlt-post__content">
 											<div class="vlt-post-date"><span>{post.published_date_day}</span><span>{post.published_date_month}</span></div>
 											<h3 class="vlt-post-title has-cursor"
-												data-tooltip-image="{post.thumbnail}"><a
-													href="/post/{post.slug}">{post.title}</a>
+												data-tooltip-image={post.thumbnail}><a
+													href={`/post/${post.slug}`}>{post.title}</a>
 											</h3>
 											<div class="vlt-post-category">{post.category_title}
 											</div>
