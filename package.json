@@ -20,7 +20,9 @@
     "test:visual:ui": "playwright test --ui",
     "test:visual:report": "playwright show-report",
     "test:unit": "vitest run",
-    "test:unit:watch": "vitest"
+    "test:unit:watch": "vitest",
+    "cf:deploy": "node scripts/cf-deploy.mjs",
+    "cf:upload": "npm run build && wrangler pages deploy ./dist --project-name=ah"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
@@ -35,7 +37,8 @@
     "prettier-plugin-astro": "^0.14.1",
     "typescript": "^5.7.0",
     "typescript-eslint": "^8.18.0",
-    "vitest": "^2.1.8"
+    "vitest": "^2.1.8",
+    "wrangler": "^4.87.0"
   },
   "dependencies": {
     "@cloudflare/workers-types": "^4.20260504.1",

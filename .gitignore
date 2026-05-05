@@ -13,6 +13,8 @@ playwright-report/
 
 # Env / secrets
 .env
+.env.deploy.local
+.env.local
 
 # OS
 *.log
