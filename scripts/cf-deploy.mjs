@@ -79,14 +79,32 @@ async function ensurePagesProject() {
   // GET — does it exist?
   const r = await fetch(`${API}/pages/projects/${PROJECT}`, { headers });
   if (r.status === 200) {
-    console.log(`  exists`);
+    const j = await r.json();
+    const src = j.result?.source?.type ?? 'direct-upload';
+    console.log(`  exists (source: ${src})`);
     return;
   }
   if (r.status !== 404) throw new Error(`unexpected status ${r.status}: ${await r.text()}`);
 
+  // Create with GitHub source so push-to-main auto-deploys. The owner/repo
+  // are pulled from env (or defaulted) so this script stays generic.
+  const owner = env.GITHUB_OWNER || 'AHDesign26';
+  const repo = env.GITHUB_REPO || 'AH';
   const body = {
     name: PROJECT,
     production_branch: 'main',
+    source: {
+      type: 'github',
+      config: {
+        owner,
+        repo_name: repo,
+        production_branch: 'main',
+        deployments_enabled: true,
+        production_deployment_enabled: true,
+        preview_deployment_setting: 'all',
+        pr_comments_enabled: true,
+      },
+    },
     build_config: {
       build_command: 'npm run build',
       destination_dir: 'dist',
@@ -98,8 +116,15 @@ async function ensurePagesProject() {
     headers,
     body: JSON.stringify(body),
   });
-  if (!c.ok) throw new Error(`create project failed: ${c.status} ${await c.text()}`);
-  console.log(`  created`);
+  if (!c.ok) {
+    const txt = await c.text();
+    throw new Error(
+      `create project failed: ${c.status} ${txt}\n` +
+        `  hint: if this says no GitHub install, the CF GitHub App needs ` +
+        `to be authorised once in the dashboard. After that, re-run.`,
+    );
+  }
+  console.log(`  created (github → ${owner}/${repo})`);
 }
 
 async function createTurnstileSite() {
@@ -121,25 +146,29 @@ async function createTurnstileSite() {
   };
 }
 
-const PAGES_ENV = (env) => ({
-  // plaintext — visible in dashboard
-  vars: {
-    NODE_VERSION: '20',
-    PUBLIC_TURNSTILE_SITE_KEY: env.TURNSTILE_SITE_KEY,
-    GMAIL_USER: env.GMAIL_USER ?? '',
-    TELEGRAM_CHAT_ID: env.TELEGRAM_CHAT_ID ?? '',
-    GITHUB_OAUTH_CLIENT_ID: env.GITHUB_OAUTH_CLIENT_ID ?? '',
-    CONTACT_TO_EMAIL: env.CONTACT_TO_EMAIL || env.GMAIL_USER || '',
-    ORIGIN: `https://${env.DOMAIN}`,
-  },
-  // encrypted — type "secret_text"
-  secrets: {
-    TURNSTILE_SECRET_KEY: env.TURNSTILE_SECRET_KEY ?? '',
-    TELEGRAM_BOT_TOKEN: env.TELEGRAM_BOT_TOKEN ?? '',
-    GMAIL_APP_PASSWORD: env.GMAIL_APP_PASSWORD ?? '',
-    GITHUB_OAUTH_CLIENT_SECRET: env.GITHUB_OAUTH_CLIENT_SECRET ?? '',
-  },
-});
+// Function declaration so it hoists above the top-level `await main()` call
+// — a const arrow function would be in the TDZ at that point and fail.
+function PAGES_ENV(env) {
+  return {
+    // plaintext — visible in dashboard
+    vars: {
+      NODE_VERSION: '20',
+      PUBLIC_TURNSTILE_SITE_KEY: env.TURNSTILE_SITE_KEY,
+      GMAIL_USER: env.GMAIL_USER ?? '',
+      TELEGRAM_CHAT_ID: env.TELEGRAM_CHAT_ID ?? '',
+      GITHUB_OAUTH_CLIENT_ID: env.GITHUB_OAUTH_CLIENT_ID ?? '',
+      CONTACT_TO_EMAIL: env.CONTACT_TO_EMAIL || env.GMAIL_USER || '',
+      ORIGIN: `https://${env.DOMAIN}`,
+    },
+    // encrypted — type "secret_text"
+    secrets: {
+      TURNSTILE_SECRET_KEY: env.TURNSTILE_SECRET_KEY ?? '',
+      TELEGRAM_BOT_TOKEN: env.TELEGRAM_BOT_TOKEN ?? '',
+      GMAIL_APP_PASSWORD: env.GMAIL_APP_PASSWORD ?? '',
+      GITHUB_OAUTH_CLIENT_SECRET: env.GITHUB_OAUTH_CLIENT_SECRET ?? '',
+    },
+  };
+}
 
 async function setPagesEnv() {
   const { vars, secrets } = PAGES_ENV(env);
