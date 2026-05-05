@@ -1,0 +1,9 @@
+**/__pycache__/
+*.log
+*.sock
+Pipfile*
+.vscode
+**/.redis/
+.venv
+.env
+.idea

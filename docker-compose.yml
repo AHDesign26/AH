@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bash -c "pypy3 bjoern_server.py"
+    network_mode: "host"
+    env_file:
+      - ./.env
+    volumes:
+      - .:/app
+      - /var/run/ah_backed:/var/run
+    restart: unless-stopped
+    healthcheck:
+      test: curl --fail http://localhost/ || exit 1
+      interval: 60s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
+    depends_on:
+      redis:
+        condition: service_healthy
+
+  redis:
+    image: redis:7.0.4-alpine
+    restart: always
+    ports:
+     - "6380:6379"
+    healthcheck:
+        test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+        interval: 1s
+        timeout: 3s
+        retries: 8
+
+ 

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html class="no-js vlt-is--contact-02 vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed" lang="en">
+	{% extends 'base.html' %}
+
+
+	{% block body %}
+
+	<!--Site overlay-->
+	<div class="vlt-site-overlay"></div>
+	<!--Main-->
+	<main class="vlt-main">
+		<!--Page content-->
+		<div class="vlt-page-content">
+			<!--Page title-->
+			<div class="vlt-page-title vlt-page-title--style-4">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-11  offset-md-1">
+							<h1 class="vlt-page-title__title">Great design is born of simplicity and clarity
+							</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="content"></div>
+
+
+			<!--Section-->
+			<section>
+				<div class="vlt-gap-120"></div>
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<!--Animated block-->
+							<div class="vlt-animated-block" data-aos="fade" data-aos-delay="0">
+								<h2>Let's work together</h2>
+							</div>
+							<div class="vlt-gap-60"></div>
+						</div>
+
+						<!--=========== Contact form ============-->
+						<div class="col-lg-9 order-form">
+							<!--Animated block-->
+							<div class="vlt-animated-block" data-aos="fade" data-aos-delay="100">
+								<form class="vlt-contact-form vlt-contact-form--style-2" novalidate="novalidate" id="ordersubmit">
+									<div class="vlt-form-row two-col">
+										<div class="vlt-form-group">
+											<input class="vlt-form-control" type="text" name="name" required="required" placeholder=" ">
+											<label class="vlt-form-label">Your name*</label>
+										</div>
+										<div class="vlt-form-group">
+											<input class="vlt-form-control" type="email" name="email" required="required" placeholder=" ">
+											<label class="vlt-form-label">Email address*</label>
+										</div>
+									</div>
+									<div class="vlt-form-row two-col">
+										<div class="vlt-form-group">
+											<input class="vlt-form-control" type="tel" name="phone" placeholder=" ">
+											<label class="vlt-form-label">Phone number</label>
+										</div>
+										<div class="vlt-form-group">
+											<input class="vlt-form-control" type="text" name="company" placeholder=" ">
+											<label class="vlt-form-label">Company</label>
+										</div>
+									</div>
+									<div class="vlt-form-group ">
+										<select class="form-select" aria-label="Default select example" name="plan">
+											<option selected>Select one of the plan</option>
+											<option value="basic">Basic plan</option>
+											<option value="standard">Standard plan</option>
+											<option value="advanced">Advanced plan</option>
+											<option value="allinclusive">All-inclusive plan</option>
+										  </select>
+									</div>
+									<div class="vlt-form-group">
+										<textarea class="vlt-form-control" name="message" rows="5" placeholder=" "></textarea>
+										<label class="vlt-form-label">Message*</label>
+									</div>
+									<div class="vlt-gap-40"></div>
+									<!--Button-->
+									<button class="vlt-btn vlt-btn--secondary vlt-btn--lg">Submit
+									</button>
+								</form>
+								<p id="output"></p>
+							</div>
+							<div class="vlt-gap-60--md"></div>
+						</div>
+
+						<!--=========== Contact info ============-->
+						<div class="col-lg-3">
+							<div class="vlt-pl-70 vlt-pl-0--md">
+								<div class="row">
+									<div class="col-lg-12 col-md-6">
+										<!--Animated block-->
+										<div class="vlt-gap-20"></div>
+										<div class="vlt-animated-block" data-aos="fade" data-aos-delay="200">
+											<h5 style="color: #e82e31;">contact info:</h5>
+											<div class="vlt-gap-20"></div>
+											<a href="mailto:info@ahdesign.website">info@ahdesign.website</a>
+											<div class="vlt-gap-20"></div>
+											<a href="tell:+359886660034">(+359)- 88 666 0034</a>
+										</div>
+										<div class="vlt-gap-60"></div>
+									</div>
+									<div class="col-lg-12 col-md-6">
+										<!--Animated block-->
+										<div class="vlt-animated-block" data-aos="fade" data-aos-delay="300">
+											<h5 style="color: #e82e31;">Address:</h5>
+											<div class="vlt-gap-20"></div>
+											<p class="lh-2">Bulgaria, Sofia. <br/>AHdesign Co.</p>
+										</div>
+										<div class="vlt-gap-40"></div>
+										<!--Animated block-->
+										<div class="vlt-animated-block" data-aos="fade" data-aos-delay="400">
+											<h5 style="color: #e82e31;">Social media:</h5>
+											<div class="vlt-gap-20"></div>
+											<div class="has-black-color">
+												<a class="vlt-social-icon vlt-social-icon--style-1" href="https://www.facebook.com/ahwebsitesdesign">Fb.</a>
+												<a class="vlt-social-icon vlt-social-icon--style-1" href="https://www.instagram.com/ah_websitedesign/">IG.</a>
+												<a class="vlt-social-icon vlt-social-icon--style-1" href="https://www.linkedin.com/in/ahdesignco/">In.</a>
+												<a class="vlt-social-icon vlt-social-icon--style-1" href="#">YT.</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="vlt-gap-120"></div>
+			</section>
+		</div>
+	</main>
+
+
+	{% endblock body %}
+
+{% block js %}
+<script src="https://www.google.com/recaptcha/api.js?render={{ site_key }}"></script>
+	<script>
+		const order = document.getElementById('ordersubmit')
+		const output = document.getElementById('output')
+		
+		order.addEventListener('submit', (e) => {
+			e.preventDefault()
+			const orderData = new FormData(order)
+			grecaptcha.ready(function () {
+				grecaptcha.execute('{{ site_key }}', { action: 'submit' }).then(function (token) {
+					// Add your logic to submit to your backend server here.
+					orderData.append("g-recaptcha-response", token)
+					fetch('', {
+						method: 'POST',
+						body:  orderData
+					})
+					.then (res => res.json())
+					.then((orderData) => {
+						if (orderData.seccess){
+							output.style.display='block'
+							output.style.color='green'
+							output.innerHTML = " Your message has been sent"
+						}
+						if (orderData.error){
+							output.style.display='block'
+							output.style.color='red'
+							output.innerHTML = " Something went wrong please try again"
+						}
+					}).catch((err) => {
+							output.style.display='block'
+							output.style.color='red'
+							output.innerHTML = " Something went wrong please try again"
+							console.log(err)
+					})
+				})
+			})
+		})
+	</script>
+
+	{% endblock js %}

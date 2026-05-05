@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html class="no-js vlt-is--page-404 vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed" lang="en">
+	{% extends 'base.html' %}
+
+	
+
+	{% block body %}
+	<!--Site overlay-->
+	<div class="vlt-site-overlay"></div>
+	<!--Main-->
+	<main class="vlt-main">
+		<!--Page content-->
+		<div class="vlt-page-content">
+			<!--Section page 404-->
+			<section>
+				<!--Particle image--><img class="vlt-particle" src="/static/img/root/404-red-shape.png" data-animation-name="fadeInRight" alt="" style="position: absolute; bottom: 0; right: 0; max-width: 214px;" loading="lazy">
+				<div class="vlt-gap-120"></div>
+				<article class="vlt-page vlt-page--404">
+					<div class="container">
+						<div class="row d-flex align-items-center">
+							<div class="col-md-6">
+								<!--Particle image-->
+								<!-- <img class="vlt-particle" src="static/img/root/404-plus-pattern.png" data-animation-name="fadeInLeft" alt="" style="position: absolute; bottom: -120px; right: -50px; max-width: 413px; --animate-delay: .5s;" loading="lazy"> -->
+								<!--Animated block-->
+								<div class="vlt-animated-block" data-aos="fade" data-aos-delay="0">
+									<!--Simple image-->
+									<div class="vlt-simple-image">
+										<div class="vlt-simple-image__mask" data-aos="image-mask-animation" data-aos-delay="0">
+											<div class="inside"></div>
+										</div><img src="/static/img/root/404.png" alt="" loading="lazy">
+									</div>
+								</div>
+							</div>
+							<div class="col-md-5">
+								<div class="vlt-gap-60--sm"></div>
+								<!--Animated block-->
+								<div class="vlt-animated-block" data-aos="fade" data-aos-delay="100">
+									<div class="text-center">
+										<div class="has-black-color">
+											<!--Stroke text-->
+											<div class="vlt-stroke-text vlt-stroke-text--lg">404
+											</div>
+										</div>
+										<div class="vlt-gap-10"></div>
+										<h2>Page not found.</h2>
+										<div class="vlt-gap-10"></div>
+										<p class="fz-3">The page you were looking for could not be found.</p>
+										<div class="vlt-gap-60"></div>
+										<!--Button--><a class="vlt-btn vlt-btn--secondary vlt-btn--md" href="/" target="_self">Back to Home</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</article>
+				<div class="vlt-gap-120"></div>
+			</section>
+		</div>
+	</main>
+
+	{% endblock body %}

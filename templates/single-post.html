@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html class="no-js vlt-is--contact-01 vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed" lang="en">
+
+{% extends 'base.html' %}
+
+
+{% block body %}
+
+
+	<!--Site overlay-->
+	<div class="vlt-site-overlay"></div>
+	<!--Main-->
+	<main class="vlt-main">
+<!--================= banner ==============-->
+		<section style="padding-top: 150px;">
+			<div class="container">
+				<div class="vlt-post-media-title vlt-post-media-title--style-1 jarallax">
+					<img class="jarallax-img" src="{{ post.pic }}" alt="" loading="lazy">
+				</div>
+			</div>
+		</section>
+
+<!--========================= Article ===========================-->
+		<div class="vlt-page-content vlt-page-content--padding">
+			<!--Section-->
+			<section>
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-8">
+							<article class="vlt-single-post vlt-single-post--style-4">
+								<header class="vlt-single-post__header">
+									<h2 class="vlt-post-title">{{ post.title }}</h2>
+									<h3 style="padding-top: 20px;">{{ post.subtitle }}</h3>
+									<div class="vlt-post-meta"><span>{{ post.published_date }}</span><span>{{ post.category.title }}</span></div>
+								</header>
+								<div class="vlt-single-post__content">
+									{{ post.body|safe }}
+									
+									<div class="vlt-gap-70"></div>
+								</div>
+								
+								<!--About author-->
+								<div class="vlt-about-author">
+									<div class="vlt-about-author__avatar">
+										<a href="/author/{{ post.author.id }}">
+											<img src="{{ post.author.pic }}" alt="" loading="lazy">
+										</a>
+									</div>
+									<div class="vlt-about-author__content">
+										<h5 class="vlt-about-author__title">{{ post.author.name }}</h5>
+										<p class="vlt-about-author__text">{{ post.author.description|safe }}</p>
+										<!--Button--><a class="vlt-btn vlt-btn--secondary vlt-btn--sm" href="/author/{{ post.author.id }}" target="_self">Author posts</a>
+									</div>
+								</div>
+							</article>
+						</div>
+
+
+						<!-- ===================== Side bar ==================== -->
+						<div class="col-lg-4">
+							<!--Sidebar-->
+							<div class="vlt-sidebar vlt-sidebar--right">
+								<!--search-->
+								<div class="vlt-widget vlt-widget--search">
+									<form class="vlt-search-form">
+										<input type="text" placeholder="Search">
+										<button>
+											<i class="icon-search-2"></i>
+										</button>
+									</form>
+								</div>
+							
+								<!--categories-->
+								<div class="vlt-widget vlt-widget--categories">
+									<h5 class="vlt-widget__title">Categories</h5>
+									<ul>
+										<li><a href="/blog">All Categories <span>({{ all_categories_count }})</span></a></li>
+										{% for category in categories %}
+											<li><a href="/category/{{ category.slug }}">{{ category.title }} <span>( {{ category.count }} )</span></a></li>
+										
+										{% endfor %}
+									</ul>
+								</div>
+
+								<!--recent post-->
+								<div class="vlt-widget vlt-widget--recent-posts">
+									<h5 class="vlt-widget__title">Recent Posts</h5>
+									<!--Post-->
+									{% for post in posts[:4] %}
+										<div class="vlt-widget-post">
+											<div class="vlt-widget-post__thumbnail"><a href="/post/{{ post.slug }}"><img
+														src="{{ post.thumbnail }}" alt="" loading="lazy"></a>
+											</div>
+											<div class="vlt-widget-post__content"><span>{{ post.published_date }} / {{ post.category.title }}</span>
+												<h5><a href="/post/{{ post.slug }}">{{ post.title }}</a></h5>
+											</div>
+										</div>
+									
+									{% endfor %}
+
+								</div>
+								
+								
+								<!--Instagram post-->
+								<!-- <div class="vlt-widget vlt-widget--instagram">
+									<h5 class="vlt-widget__title">Instagram</h5>
+									<div class="vlt-instagram-feed" data-columns="3">
+										<div>
+											
+											<div class="vlt-instagram-item"><img src="/static/img/instagram/image-01.png"
+													alt="" loading="lazy"><a class="vlt-instagram-item__content"
+													href="#"><span class="vlt-instagram-item__meta"><span><i
+																class="icon-heart"></i> 147</span></span></a></div>
+										</div>
+										<div>
+											
+											<div class="vlt-instagram-item"><img src="/static/img/instagram/image-02.png"
+													alt="" loading="lazy"><a class="vlt-instagram-item__content"
+													href="#"><span class="vlt-instagram-item__meta"><span><i
+																class="icon-heart"></i> 65</span></span></a></div>
+										</div>
+										<div>
+											
+											<div class="vlt-instagram-item"><img src="/static/img/instagram/image-03.png"
+													alt="" loading="lazy"><a class="vlt-instagram-item__content"
+													href="#"><span class="vlt-instagram-item__meta"><span><i
+																class="icon-heart"></i> 24</span></span></a></div>
+										</div>
+										<div>
+											
+											<div class="vlt-instagram-item"><img src="/static/img/instagram/image-04.png"
+													alt="" loading="lazy"><a class="vlt-instagram-item__content"
+													href="#"><span class="vlt-instagram-item__meta"><span><i
+																class="icon-heart"></i> 38</span></span></a></div>
+										</div>
+										<div>
+										
+											<div class="vlt-instagram-item"><img src="/static/img/instagram/image-05.png"
+													alt="" loading="lazy"><a class="vlt-instagram-item__content"
+													href="#"><span class="vlt-instagram-item__meta"><span><i
+																class="icon-heart"></i> 44</span></span></a></div>
+										</div>
+										<div>
+											
+											<div class="vlt-instagram-item"><img src="/static/img/instagram/image-06.png"
+													alt="" loading="lazy"><a class="vlt-instagram-item__content"
+													href="#"><span class="vlt-instagram-item__meta"><span><i
+																class="icon-heart"></i> 65</span></span></a></div>
+										</div>
+									</div>
+								</div> -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+		
+	</main>
+
+	{% endblock body%}
