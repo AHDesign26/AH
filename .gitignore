@@ -1,29 +1,19 @@
-**/__pycache__/
-*.log
-*.sock
-Pipfile*
+# Editors
 .vscode
-**/.redis/
-.venv
-.env
 .idea
-node_modules/
 
-# Astro
+# Node / Astro
+node_modules/
 dist/
 .astro/
 
-# Playwright
+# Tests
 test-results/
 playwright-report/
 
-# CMS / deploy
-.deploy_state/
+# Env / secrets
+.env
 
-# Migration artefacts (local-only patches)
-local-changes.patch
-
-# public/static is a directory junction created locally; the real files live
-# in static/ (the Flask side). One-time setup is documented in
-# astro-cloudflare-migration-plan.md and scripts/setup-public-static.*.
-public/static/
+# OS
+*.log
+*.sock

@@ -1,8 +1,0 @@
-flask
-Flask-Mail
-uwsgi
-pyTelegramBotAPI
-# orjson
-redis
-bjoern
-requests
