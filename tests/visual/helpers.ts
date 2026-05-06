@@ -5,7 +5,10 @@ import type { Page } from '@playwright/test';
  * before any toHaveScreenshot.
  */
 export async function settle(page: Page): Promise<void> {
-  await page.waitForLoadState('networkidle');
+  // Use 'load' rather than 'networkidle': Turnstile keeps a long-lived
+  // connection open which prevents networkidle from ever firing on contact
+  // / order. 'load' + the in-page document.fonts.ready below is enough.
+  await page.waitForLoadState('load');
   await page.evaluate(async () => {
     // Wait for fonts so text metrics are final.
     if (document.fonts && document.fonts.ready) {
@@ -36,7 +39,10 @@ export async function settle(page: Page): Promise<void> {
  * tests that need to assert the follower's appearance.
  */
 export async function settleKeepCursor(page: Page): Promise<void> {
-  await page.waitForLoadState('networkidle');
+  // Use 'load' rather than 'networkidle': Turnstile keeps a long-lived
+  // connection open which prevents networkidle from ever firing on contact
+  // / order. 'load' + the in-page document.fonts.ready below is enough.
+  await page.waitForLoadState('load');
   await page.evaluate(async () => {
     if (document.fonts && document.fonts.ready) {
       await document.fonts.ready;
