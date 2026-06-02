@@ -109,21 +109,28 @@ async function finishOAuth(ctx: { env: Env; request: Request }, requestUrl: URL)
     provider: 'github',
   }).replace(/</g, '\\u003c');
 
+  // Decap's OAuth handshake is two-way and order-sensitive:
+  //   1. popup  -> opener:  'authorizing:github'         (we kick this off)
+  //   2. opener -> popup:   'authorizing:github'         (Decap echoes it back)
+  //   3. popup  -> opener:  'authorization:github:success:{token}'
+  // Sending the token before step 2 is ignored, because Decap only starts
+  // listening for `authorization:...` after it has echoed the handshake.
   const html = `<!doctype html>
 <html><head><meta charset="utf-8"><title>Authorising...</title></head>
 <body><script>
   (function(){
-    function send(status){
-      window.opener && window.opener.postMessage(
-        'authorization:github:' + status + ':' + ${JSON.stringify(payload)},
-        '*'
-      );
+    var message = 'authorization:github:success:' + ${JSON.stringify(payload)};
+    function receive(e){
+      // Decap echoes 'authorizing:github' back to us; reply with the token,
+      // targeting the opener's exact origin (e.origin) rather than '*'.
+      if (e.data !== 'authorizing:github') return;
+      window.removeEventListener('message', receive, false);
+      window.opener && window.opener.postMessage(message, e.origin);
+      setTimeout(function(){ window.close(); }, 300);
     }
-    window.addEventListener('message', function(e){
-      if (e.data === 'authorizing:github') send('success');
-    }, false);
-    send('success');
-    setTimeout(function(){ window.close(); }, 1500);
+    window.addEventListener('message', receive, false);
+    // Step 1 — start the handshake. Decap is listening for this.
+    window.opener && window.opener.postMessage('authorizing:github', '*');
   })();
 </script>
 <p>Authorisation complete. You can close this window.</p>
