@@ -40,10 +40,10 @@ const recentPosts = (await getCollection('blog'))
 						<div class="swiper-slide">
 							<div class="vlt-project-showcase__item bg-main">
 								<div class="row banner-main">
-									<div class="col-lg-6 offset-lg-1">
+									<div class="col-lg-6">
 										<span class="vlt-project-showcase__number">We are</span>
 										<div class="position-relative">
-											<h1 class="vlt-project-showcase__title original has-cursor"><a
+											<h1 id="hero-floating-title" class="vlt-project-showcase__title original has-cursor"><a
 													href="#">Expanding <br>Possibilities</a></h1>
 										</div>
 										<!--Simple link--><a class="vlt-simple-link vlt-simple-link--md"
@@ -88,12 +88,13 @@ const recentPosts = (await getCollection('blog'))
 				<div class="row">
 					<div class="col-lg-6 p-0">
 						<div class="vlt-stretch-block to-left h-100">
-							<div class="jarallax h-100 mh-550" style="background-color: black;">
-								<video  class="video-show" autoplay muted loop>
-									<source src="/static/img/video/about.mp4" type="video/mp4">
-									<!-- <source src="movie.ogg" type="video/ogg"> -->
-									Your browser does not support the video tag.
-								</video>
+							<div class="jarallax h-100 mh-550">
+								<img
+									src="/static/img/about.png"
+									alt="About AH-design"
+									loading="lazy"
+									style="width: 100%; height: 100%; object-fit: cover; display: block;"
+								/>
 							</div>
 						</div>
 					</div>
@@ -128,7 +129,9 @@ const recentPosts = (await getCollection('blog'))
 
 
 		<!--================ services ================-->
-		<section>
+		<section
+			style="background-image: url('/static/img/fricta/bg-service.png'); background-size: cover; background-position: center; background-repeat: no-repeat;"
+		>
 			<div class="vlt-gap-100 bg-gap"></div>
 			<div class="vlt-gap-100"></div>
 			<div class="container">
@@ -146,7 +149,7 @@ const recentPosts = (await getCollection('blog'))
 				<div class="row">
 					<div class="col-md-6">
 						<!--==== webdesign ====-->
-						<div class="vlt-animated-block" data-aos="fade" data-aos-delay="100">
+						<div class="vlt-animated-block">
 							<!--Service-->
 							<div class="vlt-service vlt-service--style-3"><a class="vlt-service__link"
 									href="web_development"></a>
@@ -167,7 +170,7 @@ const recentPosts = (await getCollection('blog'))
 						</div>
 						<div class="vlt-gap-30"></div>
 						<!--====advertisement ====-->
-						<div class="vlt-animated-block" data-aos="fade" data-aos-delay="200">
+						<div class="vlt-animated-block">
 							<!--Service-->
 							<div class="vlt-service vlt-service--style-3"><a class="vlt-service__link"
 									href="ads-service"></a>
@@ -188,12 +191,12 @@ const recentPosts = (await getCollection('blog'))
 						</div>
 						<div class="vlt-gap-30"></div>
 
-						<div class="vlt-gap-30--sm"></div>
+						
 					</div>
 					<div class="col-md-6 position-relative">
 
 						<!--==== web development ====-->
-						<div class="vlt-animated-block" data-aos="fade" data-aos-delay="100">
+						<div class="vlt-animated-block">
 							<!--Service-->
 							<div class="vlt-service vlt-service--style-3"><a class="vlt-service__link"
 									href="web_development"></a>
@@ -221,7 +224,7 @@ const recentPosts = (await getCollection('blog'))
 						</div>
 						<div class="vlt-gap-30"></div>
 						<!--==== business development ====-->
-						<div class="vlt-animated-block" data-aos="fade" data-aos-delay="200">
+						<div class="vlt-animated-block">
 							<!--Service-->
 							<div class="vlt-service vlt-service--style-3"><a class="vlt-service__link"
 									href="services"></a>
@@ -276,22 +279,24 @@ const recentPosts = (await getCollection('blog'))
 							<!--Pricing table-->
 							<div class="vlt-pricing-table box-shodow-p">
 								<div class="vlt-pricing-table__header">
-									<h4 class="vlt-pricing-table__title">Basic
+									<h4 class="vlt-pricing-table__title">THE ONE
 									</h4>
 								</div>
 								<div class="vlt-pricing-table__price">
 									<span class="period">From: </span>
 									<span class="currency">€</span>
-									<span class="price">300</span>
+									<span class="price">500</span>
 
 								</div>
 								<div class="vlt-pricing-table__content">
 									<ul>
-										<li class="active"><i class="icon-check"></i>Up to 5 pages
+										<li class="active"><i class="icon-check"></i>Single-Page Landing Design
 										</li>
-										<li><i class="icon-check"></i>Simple but elegant style
+										<li class="active"><i class="icon-check"></i>Mobile & Speed Optimization
 										</li>
-										<li><i class="icon-check"></i>Suitable for startups and small businesses
+										<li class="active"><i class="icon-check"></i>Basic SEO & Google Indexing
+										</li>
+										<li class="active"><i class="icon-check"></i>Contact & Lead Capture Form
 										</li>
 									</ul>
 								</div>
@@ -310,21 +315,25 @@ const recentPosts = (await getCollection('blog'))
 							<div class="vlt-pricing-table vlt-pricing-table--featured"
 								style="background-image: url(/static/img/root/pricing-table.png);">
 								<div class="vlt-pricing-table__header">
-									<h4 class="vlt-pricing-table__title">Standard
+									<h4 class="vlt-pricing-table__title">THE CORE
 									</h4>
 								</div>
 								<div class="vlt-pricing-table__price">
 									<span class="period">From: </span>
 									<span class="currency">€</span>
-									<span class="price">600</span>
+									<span class="price">1200</span>
 								</div>
 								<div class="vlt-pricing-table__content">
 									<ul>
-										<li class="active"><i class="icon-check"></i>Up to 10 pages
+										<li class="active"><i class="icon-check"></i>Up to 5 Custom Pages
 										</li>
-										<li class="active"><i class="icon-check"></i>Performance-driven style
+										<li class="active"><i class="icon-check"></i>Full CMS Client Handover
 										</li>
-										<li><i class="icon-check"></i>Ideal for mid-to-large businesses
+										<li class="active"><i class="icon-check"></i>On-Page SEO Optimization
+										</li>
+										<li class="active"><i class="icon-check"></i>Interactive Maps & Contact Forms
+										</li>
+										<li class="active"><i class="icon-check"></i>30 Days Post-Launch Support
 										</li>
 									</ul>
 								</div>
@@ -343,21 +352,25 @@ const recentPosts = (await getCollection('blog'))
 							<!--Pricing table-->
 							<div class="vlt-pricing-table">
 								<div class="vlt-pricing-table__header">
-									<h4 class="vlt-pricing-table__title">Advanced
+									<h4 class="vlt-pricing-table__title">THE GROWTH
 									</h4>
 								</div>
 								<div class="vlt-pricing-table__price">
 									<span class="period">From: </span>
 									<span class="currency">€</span>
-									<span class="price">1200</span>
+									<span class="price">2500</span>
 								</div>
 								<div class="vlt-pricing-table__content">
 									<ul>
-										<li class="active"><i class="icon-check"></i>From 10-20 pages
+										<li class="active"><i class="icon-check"></i>Everything in Standard + 3 Revisions
 										</li>
-										<li class="active"><i class="icon-check"></i>Customized
+										<li class="active"><i class="icon-check"></i>Dynamic CMS Filtering
 										</li>
-										<li class="active"><i class="icon-check"></i>Suitable for small organization
+										<li class="active"><i class="icon-check"></i>Technical SEO
+										</li>
+										<li class="active"><i class="icon-check"></i>CRM, Email & Booking Integration
+										</li>
+										<li class="active"><i class="icon-check"></i>Advanced Security & Speed Hardening
 										</li>
 									</ul>
 								</div>
@@ -370,8 +383,8 @@ const recentPosts = (await getCollection('blog'))
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-10 offset-md-1 text-center pt-80">
-						<p>ALL-INCLUSIVE web design packages will be build-based, as per your requirements. Most of our price packages are set and non-negotiable, we are however always open to hearing from you. To learn more about our packages, and our other services packages, <a href="price">Click here.</a></p>
+					<div class="col-md-10 offset-md-1 text-center pt-80 pricing-footnote">
+						<p><strong>The infinite web-app package</strong> will be custom-built to your specifications. Most of our price packages are set and non-negotiable, we are however always open to hearing from you. To learn more about our packages, and our other services packages, <a href="price">Click here.</a></p>
 					</div>
 				</div>
 			</div>
@@ -704,4 +717,133 @@ const recentPosts = (await getCollection('blog'))
 
 
 	</main>
+
+	<style>
+		#hero-floating-title {
+			will-change: transform;
+			transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+			animation: hero-float 6s ease-in-out infinite;
+		}
+
+		@keyframes hero-float {
+			0%, 100% { transform: translate3d(var(--mx, 0px), 0px, 0); }
+			50%      { transform: translate3d(var(--mx, 0px), -8px, 0); }
+		}
+
+		@media (prefers-reduced-motion: reduce) {
+			#hero-floating-title {
+				animation: none;
+				transition: none;
+			}
+		}
+
+		/* Equalize the height of the three pricing cards regardless of how
+		   many bullet points each has. Bootstrap's .row already stretches
+		   its cols, but the animated-block + pricing-table inside don't
+		   inherit that height unless we set it explicitly. We also flex the
+		   table column-wise so the action button stays pinned to the bottom
+		   while the content area grows. */
+		.vlt-animated-block:has(> .vlt-pricing-table) {
+			height: 100%;
+		}
+		.vlt-pricing-table {
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+		}
+		.vlt-pricing-table .vlt-pricing-table__content {
+			flex-grow: 1;
+		}
+
+		/* Glassmorphism for all three pricing cards. The pricing section has
+		   a black bg, so we swap the vendor's solid white (Basic/Advanced) /
+		   solid #101010 (Standard featured) for a translucent white glass
+		   panel and flip the text/list items to light tones. */
+		.vlt-pricing-table {
+			background-color: rgba(255, 255, 255, 0.08) !important;
+			-webkit-backdrop-filter: blur(16px) saturate(160%);
+			backdrop-filter: blur(16px) saturate(160%);
+			border: 1px solid rgba(255, 255, 255, 0.18);
+			border-radius: 14px;
+			box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35) !important;
+			color: #e2e8f0;
+		}
+		.vlt-pricing-table .vlt-pricing-table__title,
+		.vlt-pricing-table .vlt-pricing-table__price {
+			color: #ffffff !important;
+		}
+		.vlt-pricing-table .vlt-pricing-table__content ul li {
+			color: #e2e8f0;
+		}
+
+		/* Glassmorphism for the four Services cards. The vendor rule sets a
+		   solid white bg + 1px gray inset border + dark hover. We swap the
+		   base for a translucent frosted panel and keep the dark hover but
+		   as a translucent dark glass so the lift effect stays on-brand. */
+		.vlt-service--style-3 {
+			background-color: rgb(162 162 162 / 18%) !important;
+			-webkit-backdrop-filter: blur(14px) saturate(160%);
+			backdrop-filter: blur(14px) saturate(160%);
+			box-shadow:
+				inset 0 0 0 1px rgba(255, 255, 255, 0.65),
+				0 10px 20px -8px rgba(15, 23, 42, 0.08) !important;
+			border-radius: 12px;
+			transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+			position: relative;
+		}
+		.vlt-service--style-3:hover {
+			background-color: rgb(220 217 217 / 25%) !important;
+			box-shadow:
+				inset 0 0 0 1px rgba(255, 255, 255, 0.8),
+				0 18px 24px -10px rgba(15, 23, 42, 0.22) !important;
+			transform: translateY(-2px);
+			z-index: 2;
+		}
+		/* Vendor CSS flips title + media SVG to white on hover (designed for
+		   the original solid-dark hover bg). We keep both glass states light,
+		   so override to keep them dark/readable. Same for the arrow icon
+		   which is white by default. */
+		.vlt-service--style-3:hover .vlt-service__title,
+		.vlt-service--style-3:hover .vlt-service__media {
+			color: #101010;
+		}
+		.vlt-service--style-3 .vlt-service__icon,
+		.vlt-service--style-3:hover .vlt-service__icon {
+			color: #101010;
+		}
+	</style>
+
+	<script>
+		(() => {
+			const title = document.getElementById('hero-floating-title');
+			if (!title) return;
+			if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+			const maxShift = 24;
+			let targetX = 0;
+			let currentX = 0;
+			let rafId = null;
+
+			const tick = () => {
+				currentX += (targetX - currentX) * 0.08;
+				title.style.setProperty('--mx', currentX.toFixed(2) + 'px');
+				if (Math.abs(targetX - currentX) > 0.1) {
+					rafId = requestAnimationFrame(tick);
+				} else {
+					rafId = null;
+				}
+			};
+
+			window.addEventListener('mousemove', (e) => {
+				const ratio = (e.clientX / window.innerWidth) * 2 - 1;
+				targetX = ratio * maxShift;
+				if (rafId === null) rafId = requestAnimationFrame(tick);
+			}, { passive: true });
+
+			window.addEventListener('mouseleave', () => {
+				targetX = 0;
+				if (rafId === null) rafId = requestAnimationFrame(tick);
+			});
+		})();
+	</script>
 </BaseLayout>

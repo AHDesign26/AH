@@ -107,6 +107,21 @@
   background-color: black !important;
 }
 
+/* On mobile the three pricing cards stack vertically, but the section's
+   white ::after slab (bottom 30%) overlaps the third card and washes its
+   text out. Collapse the white slab so the black bg-price covers the
+   full section on small screens. The pricing-footnote paragraph below
+   the cards was also dark text on the now-black bg — flip it to white. */
+@media only screen and (max-width: 767px) {
+  .vlt-custom--5156::after {
+    height: 0 !important;
+  }
+  .pricing-footnote,
+  .pricing-footnote p {
+    color: #fff !important;
+  }
+}
+
 .price-title {
   color: white;
 }
@@ -330,6 +345,446 @@
   box-shadow: 3px 3px 15px 6px;
 }
 
-.vlt-service--style-3:hover .vlt-service__media--invert-on-hover svg {
-  filter: invert(1) hue-rotate(180deg);
+
+/* ============================================================
+   Fricta landing page styles
+   All selectors scoped under .fricta-page to avoid colliding
+   with the rest of the site (which already defines .hero,
+   .card, .btn, .grid, .section, .timeline, .footer, etc.).
+   ============================================================ */
+.fricta-page {
+  font-family: Arial, sans-serif;
+  background: #0f1115;
+  color: #f5f5f5;
+  line-height: 1.6;
+}
+
+.fricta-page * {
+  box-sizing: border-box;
+}
+
+.fricta-page h1,
+.fricta-page h2,
+.fricta-page h3,
+.fricta-page h4,
+.fricta-page h5,
+.fricta-page h6 {
+  color: #ffffff;
+}
+
+.fricta-page .fricta-header {
+  padding: 24px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  position: sticky;
+  top: 0;
+  background: rgba(15, 17, 21, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10;
+}
+
+.fricta-page .fricta-logo {
+  font-size: 1.6rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.fricta-page .fricta-nav a {
+  margin-left: 24px;
+  color: #d0d0d0;
+  text-decoration: none;
+}
+
+.fricta-page .fricta-hero {
+  padding: 120px 8%;
+  margin: auto;
+  max-width: 1200px;
+  position: relative;
+  overflow: hidden;
+  background-color: #000;
+  background-image: url('/static/img/fricta/hero-bg.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.fricta-page .fricta-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 17, 21, 0.55) 0%,
+    rgba(15, 17, 21, 0.25) 45%,
+    rgba(15, 17, 21, 0.85) 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.fricta-page .fricta-hero > * {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+}
+
+.fricta-page .fricta-hero h1 {
+  font-size: 4rem;
+  line-height: 1.1;
+  margin-top: 36px;
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+  max-width: 800px;
+}
+
+.fricta-page .fricta-hero p {
+  font-size: 1.25rem;
+  color: #b5b5b5;
+  max-width: 700px;
+  margin-bottom: 48px;
+}
+
+.fricta-page .fricta-buttons {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  max-width: 700px;
+}
+
+.fricta-page .fricta-btn {
+  padding: 14px 28px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.2s ease;
+  display: inline-block;
+}
+
+.fricta-page .fricta-btn.fricta-primary {
+  background: rgb(255 255 255 / 95%);
+  color: #3f3d3d;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.fricta-page .fricta-btn.fricta-primary:hover {
+  background: rgba(255, 255, 255, 0.26);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fff;
+}
+
+.fricta-page .fricta-btn.fricta-secondary {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.fricta-page .fricta-btn.fricta-secondary:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.28);
+}
+
+.fricta-page .fricta-section {
+  padding: 90px 8%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.fricta-page .fricta-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 24px;
+}
+
+.fricta-page .fricta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+  margin-top: 40px;
+}
+
+.fricta-page .fricta-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 0.5px solid rgba(255, 255, 255, 0.18);
+  padding: 28px;
+  border-radius: 20px;
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  box-shadow:
+    0 2px 24px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+.fricta-page .fricta-card h3 {
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+}
+
+.fricta-page .fricta-card p {
+  color: #b5b5b5;
+}
+
+.fricta-page .problem-section-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.fricta-page .ah-spt {
+  background-image: url('/static/img/fricta/bg-frica.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.fricta-page .problem-section-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  height: 700px;
+  background: none;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(40px);
+}
+
+.fricta-page .problem-list {
+  margin-top: 56px;
+  position: relative;
+  z-index: 1;
+}
+
+.fricta-page .problem-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 32px;
+  align-items: start;
+  padding: 36px 40px;
+  margin-bottom: 12px;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 4px 32px rgba(255, 255, 255, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+}
+
+.fricta-page .problem-number {
+  font-size: 0.8rem;
+  font-weight: bold;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.25);
+  padding-top: 4px;
+}
+
+.fricta-page .problem-body h3 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #f5f5f5;
+  margin-bottom: 10px;
+}
+
+.fricta-page .problem-body p {
+  color: #c6c6c6;
+  font-size: 1rem;
+  max-width: 560px;
+}
+
+.fricta-page .fricta-grid.grid-4 {
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+  z-index: 1;
+}
+
+.fricta-page .timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 60px;
+  position: relative;
+}
+
+.fricta-page .timeline::before {
+  content: '';
+  position: absolute;
+  top: 28px;
+  left: calc(12.5% + 8px);
+  right: calc(12.5% + 8px);
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    rgb(255 255 255),
+    rgb(255 255 255 / 54%),
+    rgb(255 255 255 / 31%)
+  );
+}
+
+.fricta-page .timeline-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 16px;
+  position: relative;
+}
+
+.fricta-page .timeline-dot {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+  border: 0.5px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: rgb(255, 255, 255);
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+
+.fricta-page .timeline-step h3 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #f5f5f5;
+  margin-bottom: 10px;
+}
+
+.fricta-page .timeline-step p {
+  font-size: 0.9rem;
+  color: #8a8a8a;
+  line-height: 1.6;
+}
+
+.fricta-page .fricta-highlight {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.fricta-page .fricta-cta {
+  text-align: center;
+  padding: 100px 8%;
+}
+
+.fricta-page .fricta-cta h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.fricta-page .fricta-footer {
+  text-align: center;
+  padding: 40px;
+  color: #888;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 768px) {
+  .fricta-page .fricta-header {
+    padding: 18px 6%;
+  }
+  .fricta-page .fricta-logo {
+    font-size: 1.3rem;
+  }
+  .fricta-page .fricta-nav {
+    display: none;
+  }
+  .fricta-page .fricta-hero {
+    padding: 80px 6%;
+  }
+  .fricta-page .fricta-hero h1 {
+    font-size: 2.4rem;
+  }
+  .fricta-page .fricta-hero p {
+    font-size: 1.05rem;
+    margin-bottom: 28px;
+  }
+  .fricta-page .fricta-buttons {
+    gap: 12px;
+  }
+  .fricta-page .fricta-btn {
+    padding: 12px 22px;
+    font-size: 0.95rem;
+  }
+  .fricta-page .fricta-section {
+    padding: 60px 6%;
+  }
+  .fricta-page .fricta-section h2 {
+    font-size: 1.9rem;
+    margin-bottom: 18px;
+  }
+  .fricta-page .problem-list {
+    margin-top: 36px;
+  }
+  .fricta-page .problem-item {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 24px 22px;
+  }
+  .fricta-page .problem-body h3 {
+    font-size: 1.2rem;
+  }
+  .fricta-page .fricta-grid.grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .fricta-page .fricta-card {
+    padding: 22px;
+  }
+  .fricta-page .timeline {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .fricta-page .timeline::before {
+    display: none;
+  }
+  .fricta-page .fricta-cta {
+    padding: 70px 6%;
+  }
+  .fricta-page .fricta-cta h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .fricta-page .fricta-hero {
+    padding: 64px 6%;
+  }
+  .fricta-page .fricta-hero h1 {
+    font-size: 1.9rem;
+  }
+  .fricta-page .fricta-hero p {
+    font-size: 1rem;
+  }
+  .fricta-page .fricta-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .fricta-page .fricta-btn {
+    text-align: center;
+    width: 100%;
+  }
+  .fricta-page .fricta-section h2 {
+    font-size: 1.6rem;
+  }
+  .fricta-page .fricta-grid.grid-4 {
+    grid-template-columns: 1fr;
+  }
+  .fricta-page .fricta-cta h2 {
+    font-size: 1.7rem;
+  }
 }

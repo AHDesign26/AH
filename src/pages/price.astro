@@ -6,6 +6,35 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   title="Prices — AH-design"
   htmlClass="no-js vlt-is--careers-single vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
 >
+<style>
+  /* Glassmorphism for the pricing cards. They sit on the black webdesign
+     section, so we override `bgc-black` (which custom.css remaps to a light
+     #f5f5f5) with a translucent white + backdrop-blur frost. All in-card
+     text classes (text-dark-l1 etc.) are dark by default and would disappear
+     on the new frosted bg, so we flip them to light tones too. */
+  .vlt-pricing-card {
+    background-color: rgb(255 255 255 / 24%) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    border-radius: 14px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+    color: #f1f5f9;
+    transition: transform 250ms ease, box-shadow 250ms ease,
+      background-color 250ms ease;
+  }
+  .vlt-pricing-card:hover {
+    background-color: rgb(255 255 255 / 32%) !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+    transform: translateY(-3px);
+  }
+  .vlt-pricing-card h4 { color: #ffffff; }
+  .vlt-pricing-card .text-secondary-d1,
+  .vlt-pricing-card .text-secondary-d2 { color: #e2e8f0 !important; }
+  .vlt-pricing-card .text-dark-l1 { color: #f1f5f9 !important; }
+  /* Override low-contrast inline gray on the price amount spans. */
+  .vlt-pricing-card span[style*="#918f8f"] { color: #ffffff !important; }
+</style>
 <!--Site overlay-->
 	<div class="vlt-site-overlay"></div>
 	<!--Main-->
@@ -75,7 +104,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 
 			<!--================ webdesign package ================== -->
-			<section class="jarallax has-gray-color" style="background-color: black;">
+			<section
+				class="jarallax has-gray-color"
+				style="background-color: black; background-image: url('/static/img/fricta/bg-frica.png'); background-size: cover; background-position: center; background-repeat: no-repeat;"
+			>
 				<div class="container">
 					<div class="row">
 						<div class="col-md-10 offset-md-1">
@@ -89,7 +121,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						<div class="col-md-10 offset-md-1">
 							<!--Animated block-->
 							<div class="vlt-animated-block" data-aos="fade" data-aos-delay="0">
-								<h5 class="has-white-color">WEBDESIGN PACKAGES:</h5>
+								<h5 class="has-white-color">TO BE EFFICIENT: Digital Presence & Visibility:</h5>
 							</div>
 							<div class="vlt-gap-35"></div>
 							<!--Animated block-->
@@ -114,46 +146,46 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				<div class="container">
 					<div class="mt-5">
 						<!-- Basic plan -->
-						<div class="d-style btn btn-brc-tp border-2 bgc-black  w-100 my-2 py-3 shadow-sm">
+						<div class="vlt-pricing-card d-style btn btn-brc-tp border-2 bgc-black  w-100 my-2 py-3 shadow-sm">
 							<!-- Basic Plan -->
 							<div class="row align-items-center">
 								<div class="col-12 col-md-4">
 									<h4 class="pt-3 text-170 text-600  letter-spacing">
-										Basic Plan
+									The One
 									</h4>
 
 									<div class="text-secondary-d1 text-120">
 										<span class="ml-n15 align-text-bottom">From </span> <span class="text-180"
-											style="color: #918f8f;"> 300 €</span>
+											style="color: #918f8f;"> 499 €</span>
 									</div>
 								</div>
 
 								<ul
-									class="list-unstyled mb-0 col-12 col-md-4 text-dark-l1 text-90 text-left my-4 my-md-0">
+									class="list-unstyled mb-0 col-12 col-md-4 text-dark-l1 text-90 text-center text-md-left my-4 my-md-0">
 									<li>
-										<i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>
-										<span>
-											<span class="text-110">Up to 5 pages
-											</span>
-									</li>
-
-									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>
+										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
 										<span class="text-110">
-											Simple but elegant style
-										</span>
-									</li>
-									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>
-										<span class="text-110">
-											Effective functionality
+											Single-Page Landing Design
 										</span>
 									</li>
 
 									<li class="mt-25">
-										<i class="fa fa-times text-danger-m3 text-110 mr-2 mt-1"></i>
+										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
 										<span class="text-110">
-											Suitable for <b>startups </b>and small businesses
+											Mobile & Speed Optimization
+										</span>
+									</li>
+									<li class="mt-25">
+										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
+										<span class="text-110">
+											Basic SEO & Google Indexing
+										</span>
+									</li>
+
+									<li class="mt-25">
+										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
+										<span class="text-110">
+											Contact & Lead Capture Form
 										</span>
 									</li>
 								</ul>
@@ -168,45 +200,51 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						</div>
 
 						<!-- standard plan -->
-						<div class="d-style bgc-black btn btn-brc-tp w-100 my-2 py-3 shadow-sm border-2">
+						<div class="vlt-pricing-card d-style bgc-black btn btn-brc-tp w-100 my-2 py-3 shadow-sm border-2">
 							<!-- Pro Plan -->
 							<div class="row align-items-center">
 								<div class="col-12 col-md-4">
 									<h4 class="pt-3 text-170 text-600 letter-spacing">
-										Standard Plan
+										The Core
 									</h4>
 
 									<div class="text-secondary-d2 text-120">
 										<span class="align-text-bottom">From </span><span class="text-180"
-											style="color: #918f8f;"> 600 €</span>
+											style="color: #918f8f;"> 1200 €</span>
 									</div>
 								</div>
 
 								<ul
-									class="list-unstyled mb-0 col-12 col-md-4 text-dark-l1 text-90 text-left my-4 my-md-0">
+									class="list-unstyled mb-0 col-12 col-md-4 text-dark-l1 text-90 text-center text-md-left my-4 my-md-0">
 									<li>
-										<i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>
-										<span>
-											<span class="text-110">Up to 10 pages</span>
+										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
+										<span class="text-110">
+											Up to 5 Custom Pages
 										</span>
 									</li>
 
 									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>
+										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
 										<span class="text-110">
-											Performance-driven style
+											Full CMS Client Handover
 										</span>
 									</li>
 									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>
+										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
 										<span class="text-110">
-											Effective functionality
+											On-Page SEO Optimization
 										</span>
 									</li>
 									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>
+										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
 										<span class="text-110">
-											Ideal for midsize to large businesses
+											Interactive Maps & Contact Forms
+										</span>
+									</li>
+									<li class="mt-25">
+										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
+										<span class="text-110">
+											30 Days Post-Launch Support
 										</span>
 									</li>
 								</ul>
@@ -221,53 +259,53 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						</div>
 
 						<!-- advanced plan -->
-						<div class="d-style btn btn-brc-tp border-2 bgc-black w-100 my-2 py-3 shadow-sm">
+						<div class="vlt-pricing-card d-style btn btn-brc-tp border-2 bgc-black w-100 my-2 py-3 shadow-sm">
 							<!-- Premium Plan -->
 							<div class="row align-items-center">
 								<div class="col-12 col-md-4">
 									<h4 class="pt-3 text-170 text-600 letter-spacing">
-										Premium Plan
+										The Growth
 									</h4>
 
 									<div class="text-secondary-d1 text-120">
 										<span class="ml-n15 align-text-bottom">From </span><span class="text-180"
-											style="color: #918f8f;">1200 €</span>
+											style="color: #918f8f;">2500 €</span>
 
 									</div>
 								</div>
 
 								<ul
-									class="list-unstyled mb-0 col-12 col-md-4 text-dark-l1 text-90 text-left my-4 my-md-0">
+									class="list-unstyled mb-0 col-12 col-md-4 text-dark-l1 text-90 text-center text-md-left my-4 my-md-0">
 									<li>
-										<i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>
-										<span>
-											<span class="text-110">Up to 20 pages</span>
+										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
+										<span class="text-110">
+											Everything in Standard + 3 Revisions
 										</span>
 									</li>
 
 									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>
+										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
 										<span class="text-110">
-											Customizes
+											Dynamic CMS Filtering (Blogs/Portfolios)
 										</span>
 									</li>
 
 									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>
+										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
 										<span class="text-110">
-											Well-functionality
+											Technical SEO (Schema & Sitemaps)
 										</span>
 									</li>
 									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>
+										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
 										<span class="text-110">
-											Database/Integration
+											CRM, Email & Booking Integration
 										</span>
 									</li>
 									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>
+										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
 										<span class="text-110">
-											Suitable for small organization
+											Advanced Security & Speed Hardening
 										</span>
 									</li>
 								</ul>
@@ -282,12 +320,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						</div>
 
 						<!-- all inclusive plan -->
-						<div class="d-style btn btn-brc-tp border-2 bgc-black w-100 my-2 py-3 shadow-sm">
+						<div class="vlt-pricing-card d-style btn btn-brc-tp border-2 bgc-black w-100 my-2 py-3 shadow-sm">
 							<!-- Premium Plan -->
 							<div class="row align-items-center">
 								<div class="col-12 col-md-4">
 									<h4 class="pt-3 text-170 text-600 letter-spacing">
-										All-inclusive Plan
+										The Infinite
 									</h4>
 
 									<div class="text-secondary-d1 text-120">
@@ -296,37 +334,37 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 								</div>
 
 								<ul
-									class="list-unstyled mb-0 col-12 col-md-4 text-dark-l1 text-90 text-left my-4 my-md-0">
+									class="list-unstyled mb-0 col-12 col-md-4 text-dark-l1 text-90 text-center text-md-left my-4 my-md-0">
 									<li>
-										<i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>
-										<span>
-											<span class="text-110">minimum 20 pages</span>
+										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
+										<span class="text-110">
+											Everything in Premium + Unlimited Pages
 										</span>
 									</li>
 
 									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>
+										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
 										<span class="text-110">
-											Tailor-made style
+											Full E-Commerce & Member Portals
 										</span>
 									</li>
 
 									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>
+										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
 										<span class="text-110">
-											high functionality
+											Professional Copywriting & Strategy
 										</span>
 									</li>
 									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>
+										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
 										<span class="text-110">
-											Database/Integration
+											Custom Animations & Advanced UI/UX
 										</span>
 									</li>
 									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mr-2 mt-1"></i>
+										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
 										<span class="text-110">
-											Suitable for big organization
+											6 Months Free Website Maintenance
 										</span>
 									</li>
 								</ul>
