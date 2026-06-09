@@ -6,35 +6,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   title="Prices — AH-design"
   htmlClass="no-js vlt-is--careers-single vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
 >
-<style>
-  /* Glassmorphism for the pricing cards. They sit on the black webdesign
-     section, so we override `bgc-black` (which custom.css remaps to a light
-     #f5f5f5) with a translucent white + backdrop-blur frost. All in-card
-     text classes (text-dark-l1 etc.) are dark by default and would disappear
-     on the new frosted bg, so we flip them to light tones too. */
-  .vlt-pricing-card {
-    background-color: rgb(255 255 255 / 24%) !important;
-    -webkit-backdrop-filter: blur(16px) saturate(160%);
-    backdrop-filter: blur(16px) saturate(160%);
-    border: 1px solid rgba(255, 255, 255, 0.25) !important;
-    border-radius: 14px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
-    color: #f1f5f9;
-    transition: transform 250ms ease, box-shadow 250ms ease,
-      background-color 250ms ease;
-  }
-  .vlt-pricing-card:hover {
-    background-color: rgb(255 255 255 / 32%) !important;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
-    transform: translateY(-3px);
-  }
-  .vlt-pricing-card h4 { color: #ffffff; }
-  .vlt-pricing-card .text-secondary-d1,
-  .vlt-pricing-card .text-secondary-d2 { color: #e2e8f0 !important; }
-  .vlt-pricing-card .text-dark-l1 { color: #f1f5f9 !important; }
-  /* Override low-contrast inline gray on the price amount spans. */
-  .vlt-pricing-card span[style*="#918f8f"] { color: #ffffff !important; }
-</style>
 <!--Site overlay-->
 	<div class="vlt-site-overlay"></div>
 	<!--Main-->
@@ -69,9 +40,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<!--Animated block-->
 							<div class="vlt-animated-block" data-aos="fade" data-aos-delay="100">
 								<p class="fz-3 text-justify">
-									We offer different price packages depending on our customers' needs. 
-									Several factors such as size, style, and functionality features influence the price of the web desiign, advertisement, and business development packages.
-
+									We offer different price packages depending on our customers' needs. Several factors such as the size and number of pages of your website, design style, functionality features, scope of automation, and business strategy requirements influence the price across our web design, operational efficiency, and strategic growth packages. No matter what you choose, every solution is tailored to your unique needs — representing your brand, streamlining your operations, and supporting your long-term growth.
 								</p>
 							</div>
 
@@ -105,8 +74,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 			<!--================ webdesign package ================== -->
 			<section
-				class="jarallax has-gray-color"
-				style="background-color: black; background-image: url('/static/img/fricta/bg-frica.png'); background-size: cover; background-position: center; background-repeat: no-repeat;"
+				class="jarallax has-gray-color price-section-bg"
 			>
 				<div class="container">
 					<div class="row">
@@ -118,276 +86,219 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							</div>
 							<div class="vlt-gap-120"></div>
 						</div>
-						<div class="col-md-10 offset-md-1">
-							<!--Animated block-->
-							<div class="vlt-animated-block" data-aos="fade" data-aos-delay="0">
-								<h5 class="has-white-color">TO BE EFFICIENT: Digital Presence & Visibility:</h5>
-							</div>
-							<div class="vlt-gap-35"></div>
-							<!--Animated block-->
-							<div class="vlt-animated-block text-justify" data-aos="fade" data-aos-delay="100">
-								<p style="font-size: 20px;">
-								The price is largely determined by the<b style="color:#e82e31"> size </b>of the website.
-								The <b style="color:#e82e31">number of pages </b>of the website, which can range from 1
-								to 200 or more, determines its size. The<b style="color:#e82e31"> style </b>and the
-								desired <b style="color:#e82e31">features </b>have an impact on the price as well.
-								No matter the style and features you choose, from simple to high-end, the
-								most important thing is that the design of the website or web application should
-								represent your
-								brand while providing an intuitive feel and an excellent user interface.
-							</p>
-							</div>
-							<div class="vlt-gap-60--sm"></div>
 						</div>
 					</div>
-				</div>
-				<div class="vlt-gap-50"></div>
+					<div class="vlt-gap-50"></div>
 
-				<div class="container">
-					<div class="mt-5">
-						<!-- Basic plan -->
-						<div class="vlt-pricing-card d-style btn btn-brc-tp border-2 bgc-black  w-100 my-2 py-3 shadow-sm">
-							<!-- Basic Plan -->
-							<div class="row align-items-center">
-								<div class="col-12 col-md-4">
-									<h4 class="pt-3 text-170 text-600  letter-spacing">
-									The One
-									</h4>
+					<div class="container">
+						<div class="price-tabs">
+							<input type="radio" name="price-track" id="price-track-efficient" class="price-track-input" checked />
+							<input type="radio" name="price-track" id="price-track-grow" class="price-track-input" />
+							<div class="price-tabs-nav">
+								<label for="price-track-efficient" class="price-tab-btn">To Be Efficient</label>
+								<label for="price-track-grow" class="price-tab-btn">To Grow</label>
+							</div>
 
-									<div class="text-secondary-d1 text-120">
-										<span class="ml-n15 align-text-bottom">From </span> <span class="text-180"
-											style="color: #918f8f;"> 499 €</span>
+							<!-- ===== Panel: To Be Efficient ===== -->
+							<div class="price-tab-panel" data-track="efficient">
+								<div class="row">
+									<div class="col-12">
+										<h5 class="has-white-color">TO BE SEEN: Digital Presence &amp; Visibility</h5>
+										<div class="vlt-gap-35"></div>
+										<p class="price-lead text-justify">The price is largely determined by the<b class="price-highlight"> size </b>of your website — the<b class="price-highlight"> number of pages</b>, the<b class="price-highlight"> style</b>, and the desired<b class="price-highlight"> features </b>you choose. No matter the scope, the most important thing is a design that represents your brand while providing an intuitive feel and an excellent user interface.</p>
+										<div class="vlt-gap-60--sm"></div>
 									</div>
 								</div>
+								<div class="row">
+									<div class="col-12">
+										<div class="price-pkg-grid mt-5">
 
-								<ul
-									class="list-unstyled mb-0 col-12 col-md-4 text-dark-l1 text-90 text-center text-md-left my-4 my-md-0">
-									<li>
-										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
-										<span class="text-110">
-											Single-Page Landing Design
-										</span>
-									</li>
+								<!-- The One -->
+								<div class="price-pkg-card">
+									<div class="price-pkg-num">01</div>
+									<div class="price-pkg-name">The One</div>
+									<div class="price-pkg-desc">A focused single-page presence to get you online fast.</div>
+									<div class="price-pkg-divider"></div>
+									<div class="price-pkg-from">Starting from</div>
+									<div class="price-pkg-amount">500 €</div>
+									<ul class="price-pkg-features">
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Single-Page Landing Design</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Mobile &amp; Speed Optimization</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Basic SEO &amp; Google Indexing</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Contact &amp; Lead Capture Form</li>
+									</ul>
+									<a href="/order" class="vlt-btn vlt-btn--secondary vlt-btn--lg price-pkg-cta">Get Started</a>
+								</div>
 
-									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
-										<span class="text-110">
-											Mobile & Speed Optimization
-										</span>
-									</li>
-									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
-										<span class="text-110">
-											Basic SEO & Google Indexing
-										</span>
-									</li>
+								<!-- The Core -->
+								<div class="price-pkg-card is-featured">
+									<div class="price-pkg-badge">Most Popular</div>
+									<div class="price-pkg-num">02</div>
+									<div class="price-pkg-name">The Core</div>
+									<div class="price-pkg-desc">A complete multi-page site with full CMS handover.</div>
+									<div class="price-pkg-divider"></div>
+									<div class="price-pkg-from">Starting from</div>
+									<div class="price-pkg-amount">1200 €</div>
+									<ul class="price-pkg-features">
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Up to 5 Custom Pages</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Full CMS Client Handover</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>On-Page SEO Optimization</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Interactive Maps &amp; Contact Forms</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>30 Days Post-Launch Support</li>
+									</ul>
+									<a href="/order" class="vlt-btn vlt-btn--tertiary vlt-btn--lg price-pkg-cta">Get Started</a>
+								</div>
 
-									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
-										<span class="text-110">
-											Contact & Lead Capture Form
-										</span>
-									</li>
-								</ul>
+								<!-- The Growth -->
+								<div class="price-pkg-card">
+									<div class="price-pkg-num">03</div>
+									<div class="price-pkg-name">The Growth</div>
+									<div class="price-pkg-desc">A scalable site with dynamic content and integrations.</div>
+									<div class="price-pkg-divider"></div>
+									<div class="price-pkg-from">Starting from</div>
+									<div class="price-pkg-amount">2500 €</div>
+									<ul class="price-pkg-features">
+										<li class="price-pkg-includes">Everything in The Core, plus:</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>3 Design Revisions</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Dynamic CMS Filtering (Blogs/Portfolios)</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Technical SEO (Schema &amp; Sitemaps)</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>CRM, Email &amp; Booking Integration</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Advanced Security &amp; Speed Hardening</li>
+									</ul>
+									<a href="/order" class="vlt-btn vlt-btn--secondary vlt-btn--lg price-pkg-cta">Get Started</a>
+								</div>
 
-								<div class="col-12 col-md-4 text-center">
-									<a href="/contact"
-										class="f-n-hover btn vlt-btn--tertiary btn-raised px-4 py-25 w-75 text-600">Get
-										Started</a>
+								<!-- The Infinite -->
+								<div class="price-pkg-card">
+									<div class="price-pkg-num">04</div>
+									<div class="price-pkg-name">The Infinite</div>
+									<div class="price-pkg-desc">A bespoke platform with e-commerce and ongoing support.</div>
+									<div class="price-pkg-divider"></div>
+									<div class="price-pkg-custom">Custom Pricing</div>
+									<ul class="price-pkg-features">
+										<li class="price-pkg-includes">Everything in The Growth, plus:</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Unlimited Pages</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Full E-Commerce &amp; Member Portals</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Professional Copywriting &amp; Strategy</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Custom Animations &amp; Advanced UI/UX</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>6 Months Free Website Maintenance</li>
+									</ul>
+									<a href="/order" class="vlt-btn vlt-btn--secondary vlt-btn--lg price-pkg-cta">Let's Talk</a>
+								</div>
+
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-12">
+										<div class="vlt-gap-50"></div>
+										<p class="text-justify price-lead">The products that we deliver have a responsive design supporting all devices and stand out with their user-centered aspects, interactivity and user-friendly features. <b>Individual quotes can be provided to accommodate to your unique needs and requirements.</b></p>
+										<div class="vlt-gap-100"></div>
+									</div>
 								</div>
 							</div>
 
-						</div>
-
-						<!-- standard plan -->
-						<div class="vlt-pricing-card d-style bgc-black btn btn-brc-tp w-100 my-2 py-3 shadow-sm border-2">
-							<!-- Pro Plan -->
-							<div class="row align-items-center">
-								<div class="col-12 col-md-4">
-									<h4 class="pt-3 text-170 text-600 letter-spacing">
-										The Core
-									</h4>
-
-									<div class="text-secondary-d2 text-120">
-										<span class="align-text-bottom">From </span><span class="text-180"
-											style="color: #918f8f;"> 1200 €</span>
+							<!-- ===== Panel: To Grow ===== -->
+							<div class="price-tab-panel" data-track="grow">
+								<div class="row">
+									<div class="col-12">
+										<h5 class="has-white-color">TO GROW: Business scaling</h5>
+										<div class="vlt-gap-35"></div>
+										<p class="price-lead text-justify">For established businesses seeking high-level consulting, infrastructure planning, and long-term market expansion. The investment scales with the depth of strategy and the systems we build together. <b>Individual quotes can be provided to accommodate to your unique needs and requirements.</b></p>
+										<div class="vlt-gap-60--sm"></div>
 									</div>
 								</div>
+								<div class="row">
+									<div class="col-12">
+										<div class="price-pkg-grid mt-5">
 
-								<ul
-									class="list-unstyled mb-0 col-12 col-md-4 text-dark-l1 text-90 text-center text-md-left my-4 my-md-0">
-									<li>
-										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
-										<span class="text-110">
-											Up to 5 Custom Pages
-										</span>
-									</li>
-
-									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
-										<span class="text-110">
-											Full CMS Client Handover
-										</span>
-									</li>
-									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
-										<span class="text-110">
-											On-Page SEO Optimization
-										</span>
-									</li>
-									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
-										<span class="text-110">
-											Interactive Maps & Contact Forms
-										</span>
-									</li>
-									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
-										<span class="text-110">
-											30 Days Post-Launch Support
-										</span>
-									</li>
-								</ul>
-
-								<div class="col-12 col-md-4 text-center">
-									<a href="/contact"
-										class="f-n-hover btn vlt-btn--tertiary btn-raised px-4 py-25 w-75 text-600">Get
-										Started</a>
+								<!-- Growth Foundation -->
+								<div class="price-pkg-card">
+									<div class="price-pkg-num">01</div>
+									<div class="price-pkg-name">Starter Visibility</div>
+									<div class="price-pkg-desc">Get found, get noticed, and start winning.</div>
+									<div class="price-pkg-divider"></div>
+									<div class="price-pkg-from">Starting from</div>
+									<div class="price-pkg-amount">150 €/month</div>
+									<ul class="price-pkg-features">
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Single page website design</li>
+											<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Google Business Profile optimization</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Review growth system setup</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Social media setup</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Basic SEO improvements</li>
+											<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Monthly performance report</li>
+									</ul>
+									<a href="/order" class="vlt-btn vlt-btn--secondary vlt-btn--lg price-pkg-cta">Get Started</a>
 								</div>
-							</div>
 
-						</div>
+								<!-- Growth Infrastructure -->
+								<div class="price-pkg-card is-featured">
+									<div class="price-pkg-badge">Most Popular</div>
+									<div class="price-pkg-num">02</div>
+									<div class="price-pkg-name">Digital Authority</div>
+									<div class="price-pkg-desc">Establish credibility and convert visitors into loyal clients.</div>
+									<div class="price-pkg-divider"></div>
+									<div class="price-pkg-from">Starting from</div>
+									<div class="price-pkg-amount">300 €/month</div>
+									<ul class="price-pkg-features">
+										<li class="price-pkg-includes">Everything in "Starter Visibility" plus:</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Professional website design</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Integrated online booking system</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Mobile optimization</li>
+											<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Custom contact forms</li>
+											<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Analytics dashboard</li>
+									</ul>
+									<a href="/order" class="vlt-btn vlt-btn--tertiary vlt-btn--lg price-pkg-cta">Get Started</a>
+								</div>
 
-						<!-- advanced plan -->
-						<div class="vlt-pricing-card d-style btn btn-brc-tp border-2 bgc-black w-100 my-2 py-3 shadow-sm">
-							<!-- Premium Plan -->
-							<div class="row align-items-center">
-								<div class="col-12 col-md-4">
-									<h4 class="pt-3 text-170 text-600 letter-spacing">
-										The Growth
-									</h4>
+								<!-- Strategic Expansion -->
+								<div class="price-pkg-card">
+									<div class="price-pkg-num">03</div>
+									<div class="price-pkg-name">Scale &amp; Automate</div>
+									<div class="price-pkg-desc">Eliminate manual tasks and fuel rapid expansion.</div>
+									<div class="price-pkg-divider"></div>
+									<div class="price-pkg-from">Starting from</div>
+									<div class="price-pkg-amount">500 €/month</div>
+									<ul class="price-pkg-features">
+										<li class="price-pkg-includes">Everything in "Digital Authority" plus:</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>AI assistant integration</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Smart follow-ups</li>
+											<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Centralized customer database</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Marketing automation &amp; lead tracking</li>
+											<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Monthly strategy session</li>
+									</ul>
+									<a href="/order" class="vlt-btn vlt-btn--secondary vlt-btn--lg price-pkg-cta">Get Started</a>
+								</div>
 
-									<div class="text-secondary-d1 text-120">
-										<span class="ml-n15 align-text-bottom">From </span><span class="text-180"
-											style="color: #918f8f;">2500 €</span>
+								<!-- Strategic Partnership -->
+								<div class="price-pkg-card">
+									<div class="price-pkg-num">04</div>
+									<div class="price-pkg-name">The Growth Engine</div>
+									<div class="price-pkg-desc">Your dedicated partner for end-to-end success.</div>
+									<div class="price-pkg-divider"></div>
+									<div class="price-pkg-custom">Custom Pricing</div>
+									<ul class="price-pkg-features">
+										<li class="price-pkg-includes">Everything included, plus:</li>
+											<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Custom development &amp; advanced automations</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Strategic growth consulting</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Dedicated priority support</li>
+										<li class="price-pkg-feature"><span class="price-pkg-check"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4.5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Continuous custom system development</li>
+									</ul>
+									<a href="/order" class="vlt-btn vlt-btn--secondary vlt-btn--lg price-pkg-cta">Let's Talk</a>
+								</div>
 
+										</div>
 									</div>
 								</div>
-
-								<ul
-									class="list-unstyled mb-0 col-12 col-md-4 text-dark-l1 text-90 text-center text-md-left my-4 my-md-0">
-									<li>
-										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
-										<span class="text-110">
-											Everything in Standard + 3 Revisions
-										</span>
-									</li>
-
-									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
-										<span class="text-110">
-											Dynamic CMS Filtering (Blogs/Portfolios)
-										</span>
-									</li>
-
-									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
-										<span class="text-110">
-											Technical SEO (Schema & Sitemaps)
-										</span>
-									</li>
-									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
-										<span class="text-110">
-											CRM, Email & Booking Integration
-										</span>
-									</li>
-									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
-										<span class="text-110">
-											Advanced Security & Speed Hardening
-										</span>
-									</li>
-								</ul>
-
-								<div class="col-12 col-md-4 text-center">
-									<a href="/contact"
-										class="f-n-hover btn vlt-btn--tertiary btn-raised px-4 py-25 w-75 text-600">Get
-										Started</a>
-								</div>
-							</div>
-
-						</div>
-
-						<!-- all inclusive plan -->
-						<div class="vlt-pricing-card d-style btn btn-brc-tp border-2 bgc-black w-100 my-2 py-3 shadow-sm">
-							<!-- Premium Plan -->
-							<div class="row align-items-center">
-								<div class="col-12 col-md-4">
-									<h4 class="pt-3 text-170 text-600 letter-spacing">
-										The Infinite
-									</h4>
-
-									<div class="text-secondary-d1 text-120">
-										<span class="ml-n15 align-text-bottom">Based on requirement </span>
+								<div class="row">
+									<div class="col-12">
+										<div class="vlt-gap-100"></div>
 									</div>
-								</div>
-
-								<ul
-									class="list-unstyled mb-0 col-12 col-md-4 text-dark-l1 text-90 text-center text-md-left my-4 my-md-0">
-									<li>
-										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
-										<span class="text-110">
-											Everything in Premium + Unlimited Pages
-										</span>
-									</li>
-
-									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
-										<span class="text-110">
-											Full E-Commerce & Member Portals
-										</span>
-									</li>
-
-									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
-										<span class="text-110">
-											Professional Copywriting & Strategy
-										</span>
-									</li>
-									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
-										<span class="text-110">
-											Custom Animations & Advanced UI/UX
-										</span>
-									</li>
-									<li class="mt-25">
-										<i class="fa fa-check text-success-m2 text-110 mt-1"></i>
-										<span class="text-110">
-											6 Months Free Website Maintenance
-										</span>
-									</li>
-								</ul>
-
-								<div class="col-12 col-md-4 text-center">
-									<a href="/contact"
-										class="f-n-hover btn vlt-btn--tertiary btn-raised px-4 py-25 w-75 text-600">Get
-										Started</a>
 								</div>
 							</div>
 
 						</div>
 					</div>
-					<div class="col-md-10 offset-md-1">
-
-						<br /><br />
-						<p class="text-justify" style="font-size: 20px;">The products that we deliver have a responsive design supporting all devices and stand out
-							with their user-centered aspects, interactivity and user-friendly features. <b>Individual
-								quotes can be provided to accommodate to your unique needs and requirements.</b></p>
-
-						<div class="vlt-gap-100"></div>
-					</div>
-				</div>
 				<div class="vlt-gap-120"></div>
 			</section>
 
@@ -407,41 +318,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 										<span class="vlt-section-title__subtitle">Online</span>
 										<h2 class="vlt-section-title__title">ADVERTISEMENT SOLUTIONS:</h2>
 										<div class="vlt-gap-70"></div>
-										<p class="text-justify">Flat rate of<b style="color:#e82e31"> 10% </b> of your
+										<p class="text-justify">Flat rate of <b class="has-primary-color">10%</b> of your
 											total monthly advertising
-											investment.</p>
-										<p class="text-justify">Individual quotes can be provided to accommodate to your
+											investment. Individual quotes can be provided to accommodate to your
 											unique needs and requirements.</p>
+											<div class="vlt-gap-40"></div>
+											<!--Simple link--><a class="vlt-simple-link vlt-simple-link--md"
+												href="/order" target="_self">Let's start now<i
+													class="icon-arrow-top-right"></i></a>
 									</div>
 								</div>
 							</div>
 							<div class="vlt-gap-70"></div>
-						</div>
-
-						<!--================== Business development ==================-->
-						<div class="col-md-10 offset-md-1">
-							<div class="text-center">
-								<!--Animated block-->
-								<div class="vlt-animated-block" data-aos="fade" data-aos-delay="0">
-									<!--Section title-->
-									<div class="vlt-section-title vlt-section-title--style-1">
-										<!-- <span class="vlt-section-title__subtitle">Send profile</span> -->
-										<h2 class="vlt-section-title__title">BUSINESS DEVELOPMENT:</h2>
-										<div class="vlt-gap-70"></div>
-										<p class="text-justify" style="text-indent: 25px;">The price for this package is
-											non fixed and negotiable.
-											A few factors, such as the individual customers` needs and requirements and
-											the stage that the business is currently in should be considered when
-											calculating the price offer. Individual quotes can be provided to
-											accommodate to your
-											unique needs and requirements.</p>
-
-									</div>
-								</div>
-							</div>
-							<div class="vlt-gap-70"></div>
-							<!--Animated block-->
-
 						</div>
 					</div>
 				</div>

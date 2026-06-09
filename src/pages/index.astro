@@ -88,13 +88,16 @@ const recentPosts = (await getCollection('blog'))
 				<div class="row">
 					<div class="col-lg-6 p-0">
 						<div class="vlt-stretch-block to-left h-100">
-							<div class="jarallax h-100 mh-550">
-								<img
-									src="/static/img/about.png"
-									alt="About AH-design"
-									loading="lazy"
-									style="width: 100%; height: 100%; object-fit: cover; display: block;"
-								/>
+							<div class="jarallax h-100 mh-550" style="background: black;">
+								<video
+									src="/static/img/video/about.mp4"
+									autoplay
+									muted
+									loop
+									playsinline
+									aria-label="About AH-design"
+									style="width: 100%; height: 100%; object-fit: contain; display: block;"
+								></video>
 							</div>
 						</div>
 					</div>
