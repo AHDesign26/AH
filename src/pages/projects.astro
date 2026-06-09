@@ -344,4 +344,118 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 			</section>
 		</div>
 	</main>
+
+	<!-- Lightbox -->
+	<div class="vlt-lightbox" id="vlt-lightbox" aria-hidden="true">
+		<button class="vlt-lightbox__close" type="button" aria-label="Close">&times;</button>
+		<img class="vlt-lightbox__img" src="" alt="" />
+	</div>
 </BaseLayout>
+
+<style is:global>
+	/* Uniform rectangular thumbnails — full image revealed in the lightbox */
+	.vlt-work__media {
+		aspect-ratio: 4 / 3;
+		overflow: hidden;
+	}
+	.vlt-work__media img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: top center;
+		cursor: zoom-in;
+	}
+
+	.vlt-lightbox {
+		position: fixed;
+		inset: 0;
+		z-index: 9999;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 40px;
+		background: rgba(0, 0, 0, 0.9);
+		opacity: 0;
+		visibility: hidden;
+		transition: opacity 0.25s ease, visibility 0.25s ease;
+	}
+	.vlt-lightbox.is-open {
+		opacity: 1;
+		visibility: visible;
+	}
+	.vlt-lightbox__img {
+		max-width: 92vw;
+		max-height: 88vh;
+		width: auto;
+		height: auto;
+		border-radius: 6px;
+		box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+		transform: scale(0.96);
+		transition: transform 0.25s ease;
+	}
+	.vlt-lightbox.is-open .vlt-lightbox__img {
+		transform: scale(1);
+	}
+	.vlt-lightbox__close {
+		position: absolute;
+		top: 24px;
+		right: 32px;
+		width: 48px;
+		height: 48px;
+		border: none;
+		background: transparent;
+		color: #fff;
+		font-size: 40px;
+		line-height: 1;
+		cursor: pointer;
+		opacity: 0.8;
+		transition: opacity 0.2s ease;
+	}
+	.vlt-lightbox__close:hover { opacity: 1; }
+</style>
+
+<script>
+	function initLightbox() {
+		const lightbox = document.getElementById('vlt-lightbox');
+		if (!lightbox) return;
+		const lightboxImg = lightbox.querySelector('.vlt-lightbox__img');
+		const closeBtn = lightbox.querySelector('.vlt-lightbox__close');
+
+		function open(src, alt) {
+			lightboxImg.setAttribute('src', src);
+			lightboxImg.setAttribute('alt', alt || '');
+			lightbox.classList.add('is-open');
+			lightbox.setAttribute('aria-hidden', 'false');
+			document.body.style.overflow = 'hidden';
+		}
+
+		function close() {
+			lightbox.classList.remove('is-open');
+			lightbox.setAttribute('aria-hidden', 'true');
+			document.body.style.overflow = '';
+		}
+
+		document.querySelectorAll('.vlt-work__media').forEach((media) => {
+			media.addEventListener('click', (e) => {
+				const img = media.querySelector('img');
+				if (!img) return;
+				e.preventDefault();
+				open(img.getAttribute('src'), img.getAttribute('alt'));
+			});
+		});
+
+		closeBtn.addEventListener('click', close);
+		lightbox.addEventListener('click', (e) => {
+			if (e.target === lightbox) close();
+		});
+		document.addEventListener('keydown', (e) => {
+			if (e.key === 'Escape' && lightbox.classList.contains('is-open')) close();
+		});
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initLightbox);
+	} else {
+		initLightbox();
+	}
+</script>
