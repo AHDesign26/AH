@@ -72,10 +72,18 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
 									<div class="vlt-form-group ">
 										<select class="form-select" aria-label="Default select example" name="plan">
 											<option selected>Select one of the plan</option>
-											<option value="basic">Basic plan</option>
-											<option value="standard">Standard plan</option>
-											<option value="advanced">Advanced plan</option>
-											<option value="allinclusive">All-inclusive plan</option>
+											<optgroup label="To Be Efficient">
+												<option value="the-one">The One</option>
+												<option value="the-core">The Core</option>
+												<option value="the-growth">The Growth</option>
+												<option value="the-infinite">The Infinite</option>
+											</optgroup>
+											<optgroup label="To Grow">
+												<option value="starter-visibility">Starter Visibility</option>
+												<option value="digital-authority">Digital Authority</option>
+												<option value="scale-and-automate">Scale &amp; Automate</option>
+												<option value="the-growth-engine">The Growth Engine</option>
+											</optgroup>
 										  </select>
 									</div>
 									<div class="vlt-form-group">
