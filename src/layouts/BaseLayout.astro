@@ -11,34 +11,103 @@
  * custom.css overrides depend on coming after vlt-main.min.css.
  */
 
+import { SITE, absoluteUrl, organizationSchema, websiteSchema, webPageSchema } from '../lib/seo';
+
 interface Props {
   title?: string;
   description?: string;
   htmlClass?: string;
+  /** Social share image, site-relative or absolute. */
+  image?: string;
+  /** og:type: 'article' on blog posts, 'website' elsewhere. */
+  ogType?: 'website' | 'article';
+  /** Keep the page out of search indexes (thank-you pages, 404). */
+  noindex?: boolean;
+  /**
+   * Point the canonical at a different path. Used where two URLs serve the
+   * same content, so search engines consolidate on one of them.
+   */
+  canonicalPath?: string;
+  /** Extra JSON-LD entities merged into the page's @graph. */
+  schema?: Record<string, unknown>[];
 }
 
 const {
-  title = 'AH-design',
-  description = 'Creative & Modern Agency HTML5 Template',
+  title = SITE.name,
+  description = SITE.description,
   htmlClass = 'no-js vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed',
+  image = SITE.ogImage,
+  ogType = 'website',
+  noindex = false,
+  canonicalPath,
+  schema = [],
 } = Astro.props;
+
+// `site` is set in astro.config.mjs, so Astro.url is absolute at build time.
+// Strip any trailing slash so /about-us and /about-us/ share one canonical.
+const canonical = absoluteUrl(canonicalPath ?? Astro.url.pathname);
+const ogImage = image.startsWith('http') ? image : absoluteUrl(image);
+const imageAlt = image === SITE.ogImage ? `${SITE.name} logo` : title;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    organizationSchema(),
+    websiteSchema(),
+    webPageSchema({ url: canonical, title, description }),
+    ...schema,
+  ],
+};
 ---
 
 <!doctype html>
-<html class={htmlClass} lang="en">
+<html class={htmlClass} lang={SITE.lang}>
   <head>
     <meta charset="utf-8" />
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <link rel="icon" type="image/svg" href="/static/img/root/fivicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="canonical" href={canonical} />
+    {
+      noindex ? (
+        <meta name="robots" content="noindex, follow" />
+      ) : (
+        <meta
+          name="robots"
+          content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+        />
+      )
+    }
+
+    {/* Open Graph: Facebook, LinkedIn, WhatsApp, Slack */}
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content={SITE.locale} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={imageAlt} />
+
+    {/* Twitter/X card */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <meta name="theme-color" content="#000000" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="/static/img/root/logoAH-black.png" />
+    <link rel="apple-touch-icon" href="/static/img/root/logoAH-black.png" />
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
     <link rel="stylesheet" href="/static/css/framework/bootstrap.min.css" />
     <link rel="stylesheet" href="/static/fonts/Swansea/style.css" />
     <link rel="stylesheet" href="/static/fonts/Skape/style.css" />
     <link rel="stylesheet" href="/static/css/vlt-plugins.min.css" />
     <link rel="stylesheet" href="/static/css/vlt-main.min.css" />
     <link rel="stylesheet" href="/static/css/custom.css" />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
     <slot name="head" />
   </head>
   <body>
@@ -54,9 +123,9 @@ const {
                     <img
                       class="black"
                       src="/static/img/root/logoAH-black.png"
-                      alt=""
+                      alt="AH Design"
                       style="height: 100px;"
-                      loading="lazy"
+                      fetchpriority="high"
                     />
                   </a>
                 </div>
@@ -96,7 +165,7 @@ const {
                   <a class="vlt-navbar-logo" href="/">
                     <img
                       src="/static/img/root/logoAH-black.png"
-                      alt=""
+                      alt="AH Design"
                       style="height:100px;"
                       loading="lazy"
                     />
@@ -186,9 +255,9 @@ const {
                     <img
                       class="black"
                       src="/static/img/root/logoAH-black.png"
-                      alt=""
+                      alt="AH Design"
                       style="height: 60px;"
-                      loading="lazy"
+                      fetchpriority="high"
                     />
                   </a>
                 </div>
@@ -216,7 +285,7 @@ const {
                   <a class="vlt-navbar-logo" href="/">
                     <img
                       src="/static/img/root/logoAH-black.png"
-                      alt=""
+                      alt="AH Design"
                       style="height: 60px;"
                       loading="lazy"
                     />
@@ -275,7 +344,7 @@ const {
               <a href="/">
                 <img
                   src="/static/img/root/logoAH.png"
-                  alt=""
+                  alt="AH Design"
                   style="height: 80px;"
                   loading="lazy"
                 />
@@ -300,6 +369,7 @@ const {
                 <li><a href="/about-us">About</a></li>
                 <li><a href="/blog">Blog</a></li>
                 <li><a href="/contact">Contact</a></li>
+                <li><a href="/privacy">Privacy</a></li>
               </ul>
             </div>
           </div>

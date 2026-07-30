@@ -17,7 +17,9 @@ const posts = (await getCollection('blog'))
 ---
 
 <BaseLayout
-  title={`${category.data.title} — Blog — AH-design`}
+  title={`${category.data.title} articles | AH Design blog`}
+  description={`AH Design blog posts filed under ${category.data.title}.`}
+  noindex
   htmlClass="no-js vlt-is--contact-01 vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
 >
   <div class="vlt-site-overlay"></div>

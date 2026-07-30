@@ -41,6 +41,7 @@
     "wrangler": "^4.87.0"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
     "@cloudflare/workers-types": "^4.20260504.1",
     "worker-mailer": "^1.2.1"
   }

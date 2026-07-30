@@ -16,7 +16,8 @@ thumbnail: "/uploads/blog/website-design-first-steps-to-consider/thumbnail.png"
 thumbnail_alt: ""
 brief: "When operating a business, a website is unquestionably one of the most essential tools, where potential consumers can get to know you and your commerce."
 meta_title: "Website Design: Part-1"
-meta_desc: "Website Design: Part-1"
+meta_desc: "When operating a business, a website is unquestionably one of the most essential tools, where potential consumers can get to know you and your commerce."
+canonical_slug: "website"
 original_url: "https://ahdesign.website/post/website-design:-first-steps-to-consider"
 body_html: |
   <p>

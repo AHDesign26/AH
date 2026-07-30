@@ -1,10 +1,26 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema, serviceSchema } from '../lib/seo';
+
+const description =
+  'Fricta helps businesses and institutions eliminate inefficiencies using AI systems, workflow optimization, automation, and operational intelligence.';
 ---
 
 <BaseLayout
-  title="Fricta — Operational Intelligence"
-  description="Fricta helps businesses and institutions eliminate inefficiencies using AI systems, workflow optimization, automation, and operational intelligence."
+  title="Fricta: Operational Intelligence & AI Workflows | AH Design"
+  description={description}
+  schema={[
+    serviceSchema({
+      name: 'Fricta operational intelligence',
+      description,
+      path: '/fricta',
+      serviceType: 'Business process automation',
+    }),
+    breadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Fricta', path: '/fricta' },
+    ]),
+  ]}
   htmlClass="no-js vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
 >
   <main class="vlt-main">

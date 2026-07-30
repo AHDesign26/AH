@@ -22,6 +22,11 @@ const blog = defineCollection({
     brief: z.string().default(''),
     meta_title: z.string(),
     meta_desc: z.string().default(''),
+    /**
+     * Slug of the post this one duplicates. Set it and search engines are told
+     * to credit that post instead, so the two URLs stop competing.
+     */
+    canonical_slug: z.string().nullable().optional(),
     original_url: z.string().nullable(),
     body_html: z.string(),
   }),

@@ -1,15 +1,42 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { serviceSchema } from '../lib/seo';
 
 const recentPosts = (await getCollection('blog'))
   .sort((a, b) => b.data.published_date.localeCompare(a.data.published_date))
   .slice(0, 3)
   .map((p) => p.data);
+
+const services = [
+  serviceSchema({
+    name: 'Website design and development',
+    description:
+      'Responsive websites, e-commerce stores and custom web applications built around user-centred design.',
+    path: '/web_development',
+    serviceType: 'Web design',
+  }),
+  serviceSchema({
+    name: 'Digital marketing and advertising',
+    description:
+      'SEO, paid advertising campaigns and audio, video and event production that put your business in front of buyers.',
+    path: '/ads-service',
+    serviceType: 'Digital marketing',
+  }),
+  serviceSchema({
+    name: 'Business development and automation',
+    description:
+      'Systemised growth plans, workflow automation and AI assistants that remove manual work from your operations.',
+    path: '/services',
+    serviceType: 'Business consulting',
+  }),
+];
 ---
 
 <BaseLayout
-  title="AH-design"
+  title="Website Design, SEO & Digital Marketing | AH Design"
+  description="AH Design builds fast, responsive websites and runs SEO, digital marketing and paid ad campaigns for businesses in Bulgaria and across Europe. Website packages start from 500 EUR."
+  schema={services}
   htmlClass="no-js vlt-is--homepage-03 vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
 >
 <!--============== Site overlay ================-->
@@ -29,7 +56,7 @@ const recentPosts = (await getCollection('blog'))
 					</div>
 				</div>
 				<div class="flex-grow-0 flex-shrink-0 text-center"><a class="vlt-site-fixed-bar__all-link"
-						href="projects"><i class="icon-grid"></i></a></div>
+						href="/projects"><i class="icon-grid"></i></a></div>
 			</div>
 
 			<!--================= main banner ===============-->
@@ -120,7 +147,7 @@ const recentPosts = (await getCollection('blog'))
 						<!--Animated block-->
 						<div class="vlt-animated-block" data-aos="fade" data-aos-delay="200">
 							<div class="has-black-color">
-								<!--Simple link--><a class="vlt-simple-link vlt-simple-link--md" href="about-us"
+								<!--Simple link--><a class="vlt-simple-link vlt-simple-link--md" href="/about-us"
 									target="_self">Read more<i class="icon-arrow-top-right"></i></a>
 							</div>
 						</div>
@@ -155,7 +182,7 @@ const recentPosts = (await getCollection('blog'))
 						<div class="vlt-animated-block">
 							<!--Service-->
 							<div class="vlt-service vlt-service--style-3"><a class="vlt-service__link"
-									href="web_development"></a>
+									href="/web_development"></a>
 								<div class="vlt-service__media">
 									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 										width="74" height="74" viewBox="0 0 512 512">
@@ -176,7 +203,7 @@ const recentPosts = (await getCollection('blog'))
 						<div class="vlt-animated-block">
 							<!--Service-->
 							<div class="vlt-service vlt-service--style-3"><a class="vlt-service__link"
-									href="ads-service"></a>
+									href="/ads-service"></a>
 								<div class="vlt-service__media vlt-service__media--invert-on-hover">
 									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 										width="74" height="74" viewBox="0 0 512 512">
@@ -202,7 +229,7 @@ const recentPosts = (await getCollection('blog'))
 						<div class="vlt-animated-block">
 							<!--Service-->
 							<div class="vlt-service vlt-service--style-3"><a class="vlt-service__link"
-									href="web_development"></a>
+									href="/web_development"></a>
 								<div class="vlt-service__media">
 									<svg xmlns="http://www.w3.org/2000/svg" width="68" height="67">
 										<g fill="none" fill-rule="nonzero">
@@ -230,7 +257,7 @@ const recentPosts = (await getCollection('blog'))
 						<div class="vlt-animated-block">
 							<!--Service-->
 							<div class="vlt-service vlt-service--style-3"><a class="vlt-service__link"
-									href="services"></a>
+									href="/services"></a>
 								<div class="vlt-service__media vlt-service__media--invert-on-hover">
 									<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 										width="74" height="74" viewBox="0 0 512 512">
@@ -305,7 +332,7 @@ const recentPosts = (await getCollection('blog'))
 								</div>
 								<div class="vlt-pricing-table__action">
 									<!--Button--><a class="vlt-btn vlt-btn--secondary vlt-btn--lg"
-										href="order" target="_self">Start now</a>
+										href="/order" target="_self">Start now</a>
 								</div>
 							</div>
 						</div>
@@ -341,7 +368,7 @@ const recentPosts = (await getCollection('blog'))
 									</ul>
 								</div>
 								<div class="vlt-pricing-table__action">
-									<!--Button--><a class="vlt-btn vlt-btn--tertiary vlt-btn--lg" href="order"
+									<!--Button--><a class="vlt-btn vlt-btn--tertiary vlt-btn--lg" href="/order"
 										target="_self">Start now</a>
 								</div>
 							</div>
@@ -379,7 +406,7 @@ const recentPosts = (await getCollection('blog'))
 								</div>
 								<div class="vlt-pricing-table__action">
 									<!--Button--><a class="vlt-btn vlt-btn--secondary vlt-btn--lg"
-										href="order" target="_self">Start now</a>
+										href="/order" target="_self">Start now</a>
 								</div>
 							</div>
 						</div>
@@ -387,7 +414,7 @@ const recentPosts = (await getCollection('blog'))
 				</div>
 				<div class="row">
 					<div class="col-md-10 offset-md-1 text-center pt-80 pricing-footnote">
-						<p><strong>The infinite web-app package</strong> will be custom-built to your specifications. Most of our price packages are set and non-negotiable, we are however always open to hearing from you. To learn more about our packages, and our other services packages, <a href="price">Click here.</a></p>
+						<p><strong>The infinite web-app package</strong> will be custom-built to your specifications. Most of our price packages are set and non-negotiable, we are however always open to hearing from you. To learn more about our packages, and our other services packages, <a href="/price">Click here.</a></p>
 					</div>
 				</div>
 			</div>
@@ -416,7 +443,7 @@ const recentPosts = (await getCollection('blog'))
 											<div class="vlt-testimonial vlt-testimonial--style-2">
 												<div class="vlt-testimonial__meta">
 													<div class="vlt-testimonial__avatar"><img
-															src="/static/img/kmedia.png" alt="" loading="lazy"></div>
+															src="/static/img/kmedia.png" alt="Кадърѣ Медия logo" loading="lazy"></div>
 													<div>
 														<h6 class="vlt-testimonial__title">Toni P. Lyubenova
 
@@ -442,7 +469,7 @@ const recentPosts = (await getCollection('blog'))
 											<div class="vlt-testimonial vlt-testimonial--style-2">
 												<div class="vlt-testimonial__meta">
 													<div class="vlt-testimonial__avatar"><img
-															src="/static/img/nurident.png" alt="" loading="lazy"></div>
+															src="/static/img/nurident.png" alt="Nurident logo" loading="lazy"></div>
 													<div>
 														<h6 class="vlt-testimonial__title">Dr. Nuri
 
@@ -463,7 +490,7 @@ const recentPosts = (await getCollection('blog'))
 											<div class="vlt-testimonial vlt-testimonial--style-2">
 												<div class="vlt-testimonial__meta">
 													<div class="vlt-testimonial__avatar"><img
-															src="static/img/OB.png" alt=""
+															src="static/img/OB.png" alt="Open Bulgaria logo"
 															loading="lazy"></div>
 													<div>
 														<h6 class="vlt-testimonial__title">Giuseppe Di Benedetto
@@ -487,7 +514,7 @@ const recentPosts = (await getCollection('blog'))
 											<div class="vlt-testimonial vlt-testimonial--style-2">
 												<div class="vlt-testimonial__meta">
 													<div class="vlt-testimonial__avatar"><img
-															src="/static/img/ana.png" alt=""
+															src="/static/img/ana.png" alt="Ana Dht logo"
 															loading="lazy"></div>
 													<div>
 														<h6 class="vlt-testimonial__title">Anastasia Dehtiarova
@@ -507,7 +534,7 @@ const recentPosts = (await getCollection('blog'))
 											<div class="vlt-testimonial vlt-testimonial--style-2">
 												<div class="vlt-testimonial__meta">
 													<div class="vlt-testimonial__avatar"><img
-															src="/static/img/nikkaran.png" alt=""
+															src="/static/img/nikkaran.png" alt="Nikkaran logo"
 															loading="lazy"></div>
 													<div>
 														<h6 class="vlt-testimonial__title">Mr. Qafari
@@ -529,7 +556,7 @@ const recentPosts = (await getCollection('blog'))
 											<div class="vlt-testimonial vlt-testimonial--style-2">
 												<div class="vlt-testimonial__meta">
 													<div class="vlt-testimonial__avatar"><img
-															src="/static/img/logo.png" alt=""
+															src="/static/img/logo.png" alt="BasalFix logo"
 															loading="lazy"></div>
 													<div>
 														<h6 class="vlt-testimonial__title">Dr. Nuri
@@ -598,7 +625,7 @@ const recentPosts = (await getCollection('blog'))
 						<div class="text-md-right has-black-color">
 							<!--Animated block-->
 							<div class="vlt-animated-block" data-aos="fade" data-aos-delay="100">
-								<a class="vlt-simple-link vlt-simple-link--md project-ref" href="projects"
+								<a class="vlt-simple-link vlt-simple-link--md project-ref" href="/projects"
 									target="_self">
 									See all projects
 									<i class="icon-arrow-top-right"></i></a>
@@ -658,7 +685,7 @@ const recentPosts = (await getCollection('blog'))
 						<div class="text-center has-black-color">
 							
 							<div class="vlt-animated-block" data-aos="fade" data-aos-delay="200">
-								<a class="vlt-simple-link vlt-simple-link--md" href="blog"
+								<a class="vlt-simple-link vlt-simple-link--md" href="/blog"
 									target="_self">See all Articles<i class="icon-arrow-top-right"></i></a>
 							</div>
 						</div>
@@ -708,7 +735,7 @@ const recentPosts = (await getCollection('blog'))
 						<div class="vlt-gap-40"></div>
 						<!--Animated block-->
 						<div class="vlt-animated-block" data-aos="fade" data-aos-delay="200">
-							<!--Button--><a class="vlt-btn vlt-btn--secondary vlt-btn--md" href="contact" target="_self">
+							<!--Button--><a class="vlt-btn vlt-btn--secondary vlt-btn--md" href="/contact" target="_self">
 								Get in touch</a>
 						</div>
 					</div>

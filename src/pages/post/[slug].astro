@@ -1,6 +1,7 @@
 ---
 import { getCollection, getEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE, absoluteUrl, articleSchema, breadcrumbSchema, isoDate } from '../../lib/seo';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -28,20 +29,62 @@ const author = post.data.author_slug
   : null;
 
 const recentPosts = allPosts.slice(0, 4);
+
+const canonicalPath = `/post/${post.data.canonical_slug ?? post.data.slug}`;
+const url = absoluteUrl(canonicalPath);
+const published = isoDate(post.data.published_date);
+// meta_desc is truncated at import for a few posts; brief is the fuller text.
+const description = (post.data.meta_desc || post.data.brief)
+  .replace(/\s+/g, ' ')
+  .trim()
+  .slice(0, 300);
+const shareImage = post.data.hero_image ?? post.data.thumbnail ?? SITE.ogImage;
 ---
 
 <BaseLayout
-  title={`${post.data.meta_title} — AH-design`}
-  description={post.data.meta_desc}
+  title={`${post.data.meta_title} | ${SITE.name}`}
+  description={description}
+  image={shareImage}
+  ogType="article"
+  canonicalPath={canonicalPath}
+  schema={[
+    articleSchema({
+      url,
+      headline: post.data.title,
+      description,
+      datePublished: published,
+      image: post.data.hero_image,
+      authorName: author?.data.name ?? null,
+      authorPath: author ? `/author/${author.data.slug}` : null,
+      section: post.data.category_title,
+    }),
+    breadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Blog', path: '/blog' },
+      { name: post.data.title, path: canonicalPath },
+    ]),
+  ]}
   htmlClass="no-js vlt-is--contact-01 vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
 >
+  <Fragment slot="head">
+    {published && <meta property="article:published_time" content={published} />}
+    {post.data.category_title && (
+      <meta property="article:section" content={post.data.category_title} />
+    )}
+    {author && <meta property="article:author" content={author.data.name} />}
+  </Fragment>
   <div class="vlt-site-overlay"></div>
   <main class="vlt-main">
     <section style="padding-top: 150px;">
       <div class="container">
         <div class="vlt-post-media-title vlt-post-media-title--style-1 jarallax">
           {post.data.hero_image && (
-            <img class="jarallax-img" src={post.data.hero_image} alt={post.data.hero_alt} loading="lazy" />
+            <img
+              class="jarallax-img"
+              src={post.data.hero_image}
+              alt={post.data.hero_alt || post.data.title}
+              fetchpriority="high"
+            />
           )}
         </div>
       </div>

@@ -1,9 +1,58 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { GROWTH_PACKAGES, WEBSITE_PACKAGES, type Package } from '../lib/llms';
+import { absoluteUrl, breadcrumbSchema } from '../lib/seo';
+
+/** Prices are "starting from", so they publish minPrice rather than price. */
+function offer(pkg: Package, monthly: boolean) {
+  return {
+    '@type': 'Offer',
+    name: pkg.name,
+    description: pkg.desc,
+    url: absoluteUrl('/price'),
+    category: monthly ? 'Business growth retainer' : 'Website design and development',
+    ...(pkg.amount === null
+      ? { availability: 'https://schema.org/InStock' }
+      : {
+          priceSpecification: {
+            '@type': 'PriceSpecification',
+            minPrice: pkg.amount,
+            priceCurrency: 'EUR',
+            ...(monthly ? { billingDuration: 1, billingIncrement: 1, unitText: 'MON' } : {}),
+          },
+        }),
+  };
+}
+
+const offerCatalog = {
+  '@type': 'OfferCatalog',
+  name: 'AH Design packages',
+  url: absoluteUrl('/price'),
+  itemListElement: [
+    {
+      '@type': 'OfferCatalog',
+      name: 'Digital presence and visibility (one-off website packages)',
+      itemListElement: WEBSITE_PACKAGES.map((pkg) => offer(pkg, false)),
+    },
+    {
+      '@type': 'OfferCatalog',
+      name: 'Business scaling (monthly growth packages)',
+      itemListElement: GROWTH_PACKAGES.map((pkg) => offer(pkg, true)),
+    },
+  ],
+};
 ---
 
 <BaseLayout
-  title="Prices — AH-design"
+  title="Website & Marketing Prices from 500 EUR | AH Design"
+  description="Transparent starting prices: one-off website packages from 500 EUR and monthly growth packages from 150 EUR/month. Individual quotes for bespoke requirements."
+  schema={[
+    offerCatalog,
+    breadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Prices', path: '/price' },
+    ]),
+  ]}
   htmlClass="no-js vlt-is--careers-single vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
 >
 <!--Site overlay-->
@@ -346,7 +395,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 						<!--Animated block-->
 						<div class="vlt-animated-block" data-aos="fade" data-aos-delay="0">
 							<!--Stroke text-->
-							<div class="vlt-stroke-text vlt-stroke-text--lg"><a href="order" target="_self">Let's start</a>
+							<div class="vlt-stroke-text vlt-stroke-text--lg"><a href="/order" target="_self">Let's start</a>
 							</div>
 						</div>
 					</div>

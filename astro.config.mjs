@@ -1,4 +1,5 @@
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 // Astro 5, pure SSG. Form endpoints will live in `functions/` as Cloudflare
 // Pages Functions; no SSR adapter is needed at this stage.
@@ -14,6 +15,27 @@ export default defineConfig({
   build: {
     format: 'directory',
   },
+  integrations: [
+    sitemap({
+      // 404 plus the author/category archives, which duplicate /blog and carry
+      // a noindex meta tag. The one post with a `canonical_slug` in its front
+      // matter is a scraped duplicate of /post/website and is listed there.
+      filter: (page) =>
+        !/\/(404|author|category)(\/|$)/.test(page) &&
+        !page.endsWith('/post/website-design-first-steps-to-consider'),
+      changefreq: 'weekly',
+      lastmod: new Date(),
+      serialize(item) {
+        // Marketing pages outrank blog archives for crawl priority.
+        if (item.url === 'https://ahdesign.website/') item.priority = 1.0;
+        else if (/\/(services|price|projects|web_development|ads-service)$/.test(item.url))
+          item.priority = 0.9;
+        else if (/\/(post|blog)/.test(item.url)) item.priority = 0.7;
+        else item.priority = 0.8;
+        return item;
+      },
+    }),
+  ],
   vite: {
     server: {
       fs: {

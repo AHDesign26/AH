@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE, breadcrumbSchema } from '../lib/seo';
+
+// Keep this date in step with any change to the text below.
+const lastUpdated = '30 July 2026';
+---
+
+<BaseLayout
+  title="Privacy Policy | AH Design"
+  description="How AH Design collects, uses and protects personal data submitted through this website, who we share it with, and the rights you have under the GDPR."
+  schema={[
+    breadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Privacy Policy', path: '/privacy' },
+    ]),
+  ]}
+  htmlClass="no-js vlt-is--careers-single vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
+>
+  <div class="vlt-site-overlay"></div>
+  <main class="vlt-main">
+    <div class="vlt-page-content">
+      <div class="vlt-page-title vlt-page-title--style-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-7 offset-md-1">
+              <h1 class="vlt-page-title__title">Privacy Policy</h1>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="vlt-page-title__phantom-title lax"
+                data-lax-translate-x="0 0, vw (vw*0.5)"
+                data-lax-opacity="1 1, 250 0"
+                data-lax-anchor=".vlt-page-title"
+              >
+                Privacy
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="content"></div>
+
+      <section>
+        <div class="vlt-gap-100"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <p class="fz-3 text-justify">
+                This policy explains what personal data AH Design (&ldquo;we&rdquo;) collects
+                through <a href="/">ahdesign.website</a>, why we collect it, who we share it with,
+                and what you can ask us to do with it. We are the data controller for that data.
+              </p>
+              <p class="fz-3 text-justify">Last updated: {lastUpdated}</p>
+
+              <div class="vlt-gap-60"></div>
+              <h2>What we collect</h2>
+              <div class="vlt-gap-30"></div>
+              <p class="text-justify">
+                We collect personal data in only one place on this site: the contact form and the
+                order form. When you submit one of them, we receive the details you typed into it.
+              </p>
+              <ul class="vlt-styled-list vlt-styled-list--style-3">
+                <li>Your name</li>
+                <li>Your email address</li>
+                <li>Your phone number, if you provide one</li>
+                <li>Your company name, if you provide one</li>
+                <li>The subject or the package you selected</li>
+                <li>The message you write</li>
+              </ul>
+              <div class="vlt-gap-30"></div>
+              <p class="text-justify">
+                We do not run advertising or analytics trackers on this site, and we do not build
+                profiles of visitors. We do not knowingly collect data from children. We never ask
+                for payment card details through this website.
+              </p>
+
+              <div class="vlt-gap-60"></div>
+              <h2>Why we use it, and on what legal basis</h2>
+              <div class="vlt-gap-30"></div>
+              <p class="text-justify">
+                We use what you send us to reply to your enquiry, to prepare a quote, and to carry
+                out any work you go on to order. Under the GDPR our legal basis is Article 6(1)(b),
+                steps taken at your request before entering into a contract, and Article 6(1)(f),
+                our legitimate interest in answering people who contact us and in keeping the forms
+                free of spam and abuse.
+              </p>
+
+              <div class="vlt-gap-60"></div>
+              <h2>Spam protection and server logs</h2>
+              <div class="vlt-gap-30"></div>
+              <p class="text-justify">
+                The forms are protected by Cloudflare Turnstile. To tell a person from a bot,
+                Turnstile receives your IP address and basic information about your browser, and it
+                stores a short-lived cookie in your browser for that check. This is strictly
+                necessary to keep the forms usable, so it does not rely on your consent. Our host,
+                Cloudflare, also keeps standard security and traffic logs that include IP addresses.
+              </p>
+
+              <div class="vlt-gap-60"></div>
+              <h2>Cookies</h2>
+              <div class="vlt-gap-30"></div>
+              <p class="text-justify">
+                This site sets only the strictly necessary cookies described above, placed by
+                Cloudflare for security and spam protection. There are no analytics, advertising or
+                profiling cookies, which is why you are not asked to accept a cookie banner. If we
+                add analytics or advertising tools in future, we will update this policy and ask for
+                your consent first where the law requires it.
+              </p>
+
+              <div class="vlt-gap-60"></div>
+              <h2>Who we share it with</h2>
+              <div class="vlt-gap-30"></div>
+              <p class="text-justify">
+                We do not sell your personal data and we do not share it for anyone else's
+                marketing. We do rely on a small number of service providers to run the site and
+                deliver your message to us:
+              </p>
+              <ul class="vlt-styled-list vlt-styled-list--style-3">
+                <li>
+                  Cloudflare, Inc. hosts this website and provides the Turnstile spam protection.
+                </li>
+                <li>
+                  Google (Gmail) delivers each form submission to our inbox, where it is stored.
+                </li>
+                <li>
+                  Telegram Messenger sends us an instant notification containing the contents of
+                  your submission, so we see new enquiries quickly.
+                </li>
+              </ul>
+              <div class="vlt-gap-30"></div>
+              <p class="text-justify">
+                These providers process data on servers that may sit outside the European Economic
+                Area, including in the United States. Such transfers are covered by the European
+                Commission's standard contractual clauses or by an adequacy decision, depending on
+                the provider. We may also disclose data where the law requires it.
+              </p>
+
+              <div class="vlt-gap-60"></div>
+              <h2>How long we keep it</h2>
+              <div class="vlt-gap-30"></div>
+              <p class="text-justify">
+                Enquiries that do not lead to work are kept for up to two years, so that we have
+                context if you come back to us. Where you become a client, we keep project
+                correspondence for as long as we work together and then for the period our
+                accounting and tax obligations require. You can ask us to delete your data sooner.
+              </p>
+
+              <div class="vlt-gap-60"></div>
+              <h2>Your rights</h2>
+              <div class="vlt-gap-30"></div>
+              <p class="text-justify">
+                Under the GDPR you can ask us for a copy of the personal data we hold about you, ask
+                us to correct it, ask us to delete it, ask us to restrict how we use it, object to
+                our use of it where we rely on legitimate interests, and ask us to send it to you or
+                another provider in a portable format.
+              </p>
+              <div class="vlt-gap-30"></div>
+              <p class="text-justify">
+                Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a> and we will respond within one
+                month. If you think we have handled your data badly, you can complain to the Bulgarian
+                Commission for Personal Data Protection at <a
+                  href="https://www.cpdp.bg"
+                  target="_blank"
+                  rel="noopener">cpdp.bg</a
+                >, or to the supervisory authority where you live.
+              </p>
+
+              <div class="vlt-gap-60"></div>
+              <h2>Changes to this policy</h2>
+              <div class="vlt-gap-30"></div>
+              <p class="text-justify">
+                If we change how we handle personal data, we will update this page and change the
+                date at the top. Material changes will be highlighted here.
+              </p>
+
+              <div class="vlt-gap-60"></div>
+              <h2>Contact us</h2>
+              <div class="vlt-gap-30"></div>
+              <p class="text-justify">
+                AH Design<br />
+                Email: <a href={`mailto:${SITE.email}`}>{SITE.email}</a><br />
+                Phone: <a href={`tel:${SITE.phone}`}>{SITE.phoneDisplay}</a>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="vlt-gap-120"></div>
+      </section>
+    </div>
+  </main>
+</BaseLayout>

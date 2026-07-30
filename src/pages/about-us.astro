@@ -1,9 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../lib/seo';
 ---
 
 <BaseLayout
-  title="About us — AH-design"
+  title="About AH Design | Web Design & Marketing Team"
+  description="Meet AH Design: a creative digital team building user-centred websites, running marketing campaigns and helping businesses in Bulgaria and Europe grow."
+  schema={[
+    breadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'About us', path: '/about-us' },
+    ]),
+  ]}
   htmlClass="no-js vlt-is--about-us vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
 >
 <!--Site overlay-->
@@ -3960,7 +3968,7 @@ We have a combined six years of experience in professional website development a
 						<!--Animated block-->
 						<div class="vlt-animated-block" data-aos="fade" data-aos-delay="0">
 							<!--Stroke text-->
-							<div class="vlt-stroke-text vlt-stroke-text--lg"><a href="order" target="_self">Let's start</a>
+							<div class="vlt-stroke-text vlt-stroke-text--lg"><a href="/order" target="_self">Let's start</a>
 							</div>
 						</div>
 					</div>

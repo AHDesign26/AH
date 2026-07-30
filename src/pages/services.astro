@@ -1,9 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../lib/seo';
 ---
 
 <BaseLayout
-  title="Services — AH-design"
+  title="Services: Web Design, Marketing & Growth | AH Design"
+  description="Website design and development, digital marketing and SEO, and systemised business development. Ready-to-launch sites or fully tailored solutions for your business."
+  schema={[
+    breadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Services', path: '/services' },
+    ]),
+  ]}
   htmlClass="no-js vlt-is--services-01 vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
 >
 <!-- ============= Site overlay ============== -->

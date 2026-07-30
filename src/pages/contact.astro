@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE, breadcrumbSchema } from '../lib/seo';
 
 // Public site key — exposed at build time. The "always pass" CF dummy key
 // (`1x00000000000000000000AA`) is the dev/test default; real key set via
@@ -8,7 +9,14 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
 ---
 
 <BaseLayout
-  title="Contact — AH-design"
+  title="Contact AH Design | Get a Website Quote"
+  description={`Talk to AH Design about your website, marketing or growth project. Email ${SITE.email} or call ${SITE.phoneDisplay}, or send the form and we will reply shortly.`}
+  schema={[
+    breadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Contact', path: '/contact' },
+    ]),
+  ]}
   htmlClass="no-js vlt-is--contact-01 vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
 >
   <Fragment slot="head">
