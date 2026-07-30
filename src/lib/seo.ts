@@ -31,10 +31,19 @@ export const SITE = {
   ],
 } as const;
 
-/** Absolute URL for a site-relative path, with no trailing slash. */
+/**
+ * Absolute URL for a site-relative path.
+ *
+ * Page URLs get a trailing slash because that is what Cloudflare Pages serves:
+ * the directory-format build makes /about-us 308-redirect to /about-us/. A
+ * canonical or sitemap entry that redirects gets ignored, so these have to
+ * match. Paths whose last segment has a file extension are left alone.
+ */
 export function absoluteUrl(path: string): string {
-  const clean = path.replace(/\/+$/, '') || '/';
-  return new URL(clean, SITE.url).href.replace(/\/$/, '') || SITE.url;
+  const url = new URL(path, SITE.url);
+  const isFile = /\.[a-z0-9]+$/i.test(url.pathname.split('/').pop() ?? '');
+  url.pathname = isFile ? url.pathname : `${url.pathname.replace(/\/+$/, '')}/`;
+  return url.href;
 }
 
 const ORG_ID = `${SITE.url}/#organization`;

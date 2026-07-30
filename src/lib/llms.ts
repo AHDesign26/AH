@@ -6,7 +6,7 @@
  * describes, prices especially, since assistants will quote them.
  */
 
-import { SITE } from './seo';
+import { SITE, absoluteUrl } from './seo';
 
 export interface PageEntry {
   path: string;
@@ -140,9 +140,7 @@ development, digital marketing and paid advertising, and business development
 and automation. Contact: ${SITE.email}, ${SITE.phoneDisplay}.`;
 
 function pageList(pages: PageEntry[]): string {
-  return pages
-    .map((p) => `- [${p.title}](${SITE.url}${p.path === '/' ? '' : p.path}): ${p.summary}`)
-    .join('\n');
+  return pages.map((p) => `- [${p.title}](${absoluteUrl(p.path)}): ${p.summary}`).join('\n');
 }
 
 function packageList(items: Package[], monthly: boolean): string {
@@ -168,11 +166,11 @@ ${packageList(WEBSITE_PACKAGES, false)}
 ${packageList(GROWTH_PACKAGES, true)}
 
 Prices are starting points; individual quotes are provided for specific
-requirements. Ordering and enquiries: ${SITE.url}/contact
+requirements. Ordering and enquiries: ${absoluteUrl('/contact')}
 
 ## Blog posts
 
-${posts.map((p) => `- [${p.title}](${SITE.url}/post/${p.slug}): ${truncate(p.brief, 160)}`).join('\n')}
+${posts.map((p) => `- [${p.title}](${absoluteUrl(`/post/${p.slug}`)}): ${truncate(p.brief, 160)}`).join('\n')}
 `;
 }
 
