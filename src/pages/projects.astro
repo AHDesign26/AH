@@ -1,9 +1,17 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema } from '../lib/seo';
 ---
 
 <BaseLayout
-  title="Projects — AH-design"
+  title="Projects & Portfolio | AH Design"
+  description="A selection of websites, online stores and brand work delivered by AH Design for clients across a range of industries."
+  schema={[
+    breadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Projects', path: '/projects' },
+    ]),
+  ]}
   htmlClass="no-js vlt-is--work-masonry-4-col vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
 >
 <!--Site overlay-->
@@ -47,7 +55,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<article class="vlt-work vlt-work--style-2">
 								<div class="vlt-work__media project-shdow">
 									<a class="vlt-work__link has-cursor" href="#"></a>
-									<img src="/static/img/works/nuris.png" alt="" loading="lazy">
+									<img src="/static/img/works/nuris.png" alt="Dentistry service website designed by AH Design" loading="lazy">
 								</div>
 								<div class="vlt-work__meta">
 									<h5 class="vlt-work__title">Dentistry
@@ -60,7 +68,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<article class="vlt-work vlt-work--style-2">
 								<div class="vlt-work__media project-shdow">
 									<a class="vlt-work__link has-cursor" href="#"></a>
-									<img src="/static/img/works/bfs.png" alt="" loading="lazy">
+									<img src="/static/img/works/bfs.png" alt="Factory product website designed by AH Design" loading="lazy">
 								</div>
 								<div class="vlt-work__meta">
 									<h5 class="vlt-work__title">Factory
@@ -73,7 +81,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<article class="vlt-work vlt-work--style-2">
 								<div class="vlt-work__media project-shdow">
 									<a class="vlt-work__link has-cursor" href="#"></a>
-									<img src="/static/img/works/obs.png" alt="" loading="lazy">
+									<img src="/static/img/works/obs.png" alt="Portal service website designed by AH Design" loading="lazy">
 								</div>
 								<div class="vlt-work__meta">
 									<h5 class="vlt-work__title">Portal
@@ -86,7 +94,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<article class="vlt-work vlt-work--style-2">
 								<div class="vlt-work__media project-shdow">
 									<a class="vlt-work__link has-cursor" href="#"></a>
-									<img src="/static/img/works/zvb.webp" alt="" loading="lazy">
+									<img src="/static/img/works/zvb.webp" alt="Business service website designed by AH Design" loading="lazy">
 								</div>
 								<div class="vlt-work__meta">
 									<h5 class="vlt-work__title">Business
@@ -99,7 +107,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<article class="vlt-work vlt-work--style-2">
 								<div class="vlt-work__media project-shdow">
 									<a class="vlt-work__link has-cursor" href="#"></a>
-									<img src="/static/img/works/pet.webp" alt="" loading="lazy">
+									<img src="/static/img/works/pet.webp" alt="Pet Care service website designed by AH Design" loading="lazy">
 								</div>
 								<div class="vlt-work__meta">
 									<h5 class="vlt-work__title">Pet Care
@@ -112,7 +120,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<article class="vlt-work vlt-work--style-2">
 								<div class="vlt-work__media project-shdow">
 									<a class="vlt-work__link has-cursor" href="#"></a>
-									<img src="/static/img/works/ecommerce.webp" alt="" loading="lazy">
+									<img src="/static/img/works/ecommerce.webp" alt="Ecommerce shop website designed by AH Design" loading="lazy">
 								</div>
 								<div class="vlt-work__meta">
 									<h5 class="vlt-work__title">Ecommerce
@@ -125,7 +133,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<article class="vlt-work vlt-work--style-2">
 								<div class="vlt-work__media project-shdow">
 									<a class="vlt-work__link has-cursor" href="#"></a>
-									<img src="/static/img/works/yoga.webp" alt="" loading="lazy">
+									<img src="/static/img/works/yoga.webp" alt="Yoga service website designed by AH Design" loading="lazy">
 								</div>
 								<div class="vlt-work__meta">
 									<h5 class="vlt-work__title">Yoga
@@ -138,7 +146,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<article class="vlt-work vlt-work--style-2">
 								<div class="vlt-work__media project-shdow">
 									<a class="vlt-work__link has-cursor" href="#"></a>
-									<img src="/static/img/works/learning.webp" alt="" loading="lazy">
+									<img src="/static/img/works/learning.webp" alt="Learning education website designed by AH Design" loading="lazy">
 								</div>
 								<div class="vlt-work__meta">
 									<h5 class="vlt-work__title">Learning
@@ -151,7 +159,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<article class="vlt-work vlt-work--style-2">
 								<div class="vlt-work__media project-shdow">
 									<a class="vlt-work__link has-cursor" href="#"></a>
-									<img src="/static/img/works/gulv.webp" alt="" loading="lazy">
+									<img src="/static/img/works/gulv.webp" alt="Flooring service website designed by AH Design" loading="lazy">
 								</div>
 								<div class="vlt-work__meta">
 									<h5 class="vlt-work__title">Flooring
@@ -164,7 +172,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<article class="vlt-work vlt-work--style-2">
 								<div class="vlt-work__media project-shdow">
 									<a class="vlt-work__link has-cursor" href="#"></a>
-									<img src="/static/img/works/tour.webp" alt="" loading="lazy">
+									<img src="/static/img/works/tour.webp" alt="Tour travel website designed by AH Design" loading="lazy">
 								</div>
 								<div class="vlt-work__meta">
 									<h5 class="vlt-work__title">Tour
@@ -177,7 +185,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<article class="vlt-work vlt-work--style-2">
 								<div class="vlt-work__media project-shdow">
 									<a class="vlt-work__link has-cursor" href="#"></a>
-									<img src="/static/img/works/psy.webp" alt="" loading="lazy">
+									<img src="/static/img/works/psy.webp" alt="Psychology service website designed by AH Design" loading="lazy">
 								</div>
 								<div class="vlt-work__meta">
 									<h5 class="vlt-work__title">Psychology
@@ -190,7 +198,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<article class="vlt-work vlt-work--style-2">
 								<div class="vlt-work__media project-shdow">
 									<a class="vlt-work__link has-cursor" href="#"></a>
-									<img src="/static/img/works/niks.png" alt="" loading="lazy">
+									<img src="/static/img/works/niks.png" alt="constructional service website designed by AH Design" loading="lazy">
 								</div>
 								<div class="vlt-work__meta">
 									<h5 class="vlt-work__title">constructional
@@ -203,7 +211,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<article class="vlt-work vlt-work--style-2">
 								<div class="vlt-work__media project-shdow">
 									<a class="vlt-work__link has-cursor" href="#"></a>
-									<img src="/static/img/works/chain.png" alt="" loading="lazy">
+									<img src="/static/img/works/chain.png" alt="Network security website designed by AH Design" loading="lazy">
 								</div>
 								<div class="vlt-work__meta">
 									<h5 class="vlt-work__title">Network
@@ -216,7 +224,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<article class="vlt-work vlt-work--style-2">
 								<div class="vlt-work__media project-shdow">
 									<a class="vlt-work__link has-cursor" href="#"></a>
-									<img src="/static/img/works/daymumet.png" alt="" loading="lazy">
+									<img src="/static/img/works/daymumet.png" alt="Flower shop website designed by AH Design" loading="lazy">
 								</div>
 								<div class="vlt-work__meta">
 									<h5 class="vlt-work__title">Flower
@@ -229,7 +237,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<article class="vlt-work vlt-work--style-2">
 								<div class="vlt-work__media project-shdow">
 									<a class="vlt-work__link has-cursor" href="#"></a>
-									<img src="/static/img/works/flhco.png" alt="" loading="lazy">
+									<img src="/static/img/works/flhco.png" alt="Business holding website designed by AH Design" loading="lazy">
 								</div>
 								<div class="vlt-work__meta">
 									<h5 class="vlt-work__title">Business
@@ -242,7 +250,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<article class="vlt-work vlt-work--style-2">
 								<div class="vlt-work__media project-shdow">
 									<a class="vlt-work__link has-cursor" href="#"></a>
-									<img src="/static/img/works/drnuris.png" alt="" loading="lazy">
+									<img src="/static/img/works/drnuris.png" alt="Dentistry service website designed by AH Design" loading="lazy">
 								</div>
 								<div class="vlt-work__meta">
 									<h5 class="vlt-work__title">Dentistry
@@ -255,7 +263,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<article class="vlt-work vlt-work--style-2">
 								<div class="vlt-work__media project-shdow">
 									<a class="vlt-work__link has-cursor" href="#"></a>
-									<img src="/static/img/works/ar.png" alt="" loading="lazy">
+									<img src="/static/img/works/ar.png" alt="Psycology service website designed by AH Design" loading="lazy">
 								</div>
 								<div class="vlt-work__meta">
 									<h5 class="vlt-work__title">Psycology
@@ -268,7 +276,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<article class="vlt-work vlt-work--style-2">
 								<div class="vlt-work__media project-shdow">
 									<a class="vlt-work__link has-cursor" href="#"></a>
-									<img src="/static/img/works/cake.png" alt="" loading="lazy">
+									<img src="/static/img/works/cake.png" alt="Bakery service website designed by AH Design" loading="lazy">
 								</div>
 								<div class="vlt-work__meta">
 									<h5 class="vlt-work__title">Bakery
@@ -281,7 +289,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<article class="vlt-work vlt-work--style-2">
 								<div class="vlt-work__media project-shdow">
 									<a class="vlt-work__link has-cursor" href="#"></a>
-									<img src="/static/img/works/ana.png" alt="" loading="lazy">
+									<img src="/static/img/works/ana.png" alt="Mentoring book website designed by AH Design" loading="lazy">
 								</div>
 								<div class="vlt-work__meta">
 									<h5 class="vlt-work__title">Mentoring
@@ -294,7 +302,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<article class="vlt-work vlt-work--style-2">
 								<div class="vlt-work__media project-shdow">
 									<a class="vlt-work__link has-cursor" href="#"></a>
-									<img src="/static/img/works/kms.png" alt="" loading="lazy">
+									<img src="/static/img/works/kms.png" alt="Film Producer photography website designed by AH Design" loading="lazy">
 								</div>
 								<div class="vlt-work__meta">
 									<h5 class="vlt-work__title">Film Producer
@@ -307,7 +315,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<article class="vlt-work vlt-work--style-2">
 								<div class="vlt-work__media project-shdow">
 									<a class="vlt-work__link has-cursor" href="#"></a>
-									<img src="/static/img/works/AH.png" alt="" loading="lazy">
+									<img src="/static/img/works/AH.png" alt="IT service website designed by AH Design" loading="lazy">
 								</div>
 								<div class="vlt-work__meta">
 									<h5 class="vlt-work__title">IT
@@ -320,7 +328,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 							<article class="vlt-work vlt-work--style-2">
 								<div class="vlt-work__media project-shdow">
 									<a class="vlt-work__link has-cursor" href="#"></a>
-									<img src="/static/img/works/sample.png" alt="" loading="lazy">
+									<img src="/static/img/works/sample.png" alt="VPN service website designed by AH Design" loading="lazy">
 								</div>
 								<div class="vlt-work__meta">
 									<h5 class="vlt-work__title">VPN

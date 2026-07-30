@@ -1,9 +1,27 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema, serviceSchema } from '../lib/seo';
+
+const description =
+  'Paid advertising and campaign production for businesses in Bulgaria and Europe: audio and video materials, digital campaigns and offline events.';
 ---
 
 <BaseLayout
-  title="Advertising Solutions — AH-design"
+  title="Advertising Solutions & Paid Campaigns | AH Design"
+  description={description}
+  schema={[
+    serviceSchema({
+      name: 'Advertising solutions',
+      description,
+      path: '/ads-service',
+      serviceType: 'Advertising',
+    }),
+    breadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Services', path: '/services' },
+      { name: 'Advertising Solutions', path: '/ads-service' },
+    ]),
+  ]}
   htmlClass="no-js vlt-is--service-single vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
 >
   <div class="vlt-site-overlay"></div>
@@ -76,7 +94,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 find which one suits your business more?
               </p>
               <div class="vlt-gap-30"></div>
-              <img src="/static/img/services/Marketing.png" />
+              <img
+                src="/static/img/services/Marketing.png"
+                alt="The main digital marketing channels: search engines, social media, websites, audio and video, and events"
+                loading="lazy"
+              />
               <div class="vlt-gap-50"></div>
               <p class="fz-3 text-justify">
                 You&rsquo;ll need to learn about the different types of digital marketing and how
@@ -85,7 +107,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 When it comes to digital marketing, you don&rsquo;t have to do it alone.
                 <br />
                 If you need help to get started with your strategy and implement that we are here
-                to help you, <a href="order">CONTACT US</a> now!
+                to help you, <a href="/order">CONTACT US</a> now!
               </p>
             </div>
           </div>
@@ -110,7 +132,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 </p>
                 <div class="vlt-gap-30"></div>
                 <h4 class="text-center">Advertising process:</h4>
-                <img src="/static/img/services/ad-workflow.png" />
+                <img
+                  src="/static/img/services/ad-workflow.png"
+                  alt="The AH Design advertising process, from brief to live campaign"
+                  loading="lazy"
+                />
                 <div class="vlt-gap-50"></div>
               </div>
             </div>
@@ -126,7 +152,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="container">
           <div class="text-center">
             <div class="vlt-stroke-text vlt-stroke-text--lg" style="color: white;">
-              <a href="order" target="_self">Let's start</a>
+              <a href="/order" target="_self">Let's start</a>
             </div>
           </div>
         </div>

@@ -1,9 +1,27 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema, serviceSchema } from '../lib/seo';
+
+const description =
+  'Responsive websites, e-commerce stores, custom web applications and CMS builds that attract the right visitors and turn them into paying clients.';
 ---
 
 <BaseLayout
-  title="Webdesign and Development — AH-design"
+  title="Website Design & Development | AH Design"
+  description={description}
+  schema={[
+    serviceSchema({
+      name: 'Website design and development',
+      description,
+      path: '/web_development',
+      serviceType: 'Web design',
+    }),
+    breadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Services', path: '/services' },
+      { name: 'Website Design & Development', path: '/web_development' },
+    ]),
+  ]}
   htmlClass="no-js vlt-is--service-single vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
 >
   <div class="vlt-site-overlay"></div>
@@ -78,7 +96,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 might already know that it would take you too much time and effort, if you
                 don&rsquo;t outsource it.
                 <br />
-                If you need help to get started with your website,<a href="order">
+                If you need help to get started with your website,<a href="/order">
                   CONTACT US
                 </a>now!
               </div>
@@ -107,11 +125,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 </p>
                 <div class="vlt-gap-30"></div>
                 <h4 class="text-center">website designing process:</h4>
-                <img src="/static/img/services/website-workflow.png" />
+                <img
+                  src="/static/img/services/website-workflow.png"
+                  alt="The five-step AH Design website process: strategy, design, development, testing and launch"
+                  loading="lazy"
+                />
                 <div class="vlt-gap-50"></div>
                 <h5>Client participation:</h5>
                 <div class="vlt-gap-20"></div>
-                <img src="/static/img/services/wf.png" />
+                <img
+                  src="/static/img/services/wf.png"
+                  alt="What the client contributes at each step of the website design process"
+                  loading="lazy"
+                />
               </div>
             </div>
           </div>
@@ -126,7 +152,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <div class="container">
           <div class="text-center">
             <div class="vlt-stroke-text vlt-stroke-text--lg" style="color: white;">
-              <a href="order" target="_self">Let's start</a>
+              <a href="/order" target="_self">Let's start</a>
             </div>
           </div>
         </div>

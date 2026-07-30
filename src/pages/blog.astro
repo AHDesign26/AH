@@ -1,14 +1,42 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE, absoluteUrl, breadcrumbSchema, isoDate } from '../lib/seo';
 
 const posts = (await getCollection('blog')).sort((a, b) =>
   b.data.published_date.localeCompare(a.data.published_date),
 );
+
+const blogSchema = {
+  '@type': 'Blog',
+  '@id': `${SITE.url}/blog#blog`,
+  name: `${SITE.name} blog`,
+  url: absoluteUrl('/blog'),
+  inLanguage: SITE.lang,
+  publisher: { '@id': `${SITE.url}/#organization` },
+  // Duplicates canonicalise elsewhere, so they get no entry of their own.
+  blogPost: posts
+    .filter((post) => !post.data.canonical_slug)
+    .map((post) => ({
+      '@type': 'BlogPosting',
+      '@id': `${absoluteUrl(`/post/${post.data.slug}`)}#article`,
+      headline: post.data.title.slice(0, 110),
+      url: absoluteUrl(`/post/${post.data.slug}`),
+      datePublished: isoDate(post.data.published_date),
+    })),
+};
 ---
 
 <BaseLayout
-  title="Blog — AH-design"
+  title="Blog: Web Design, SEO & Launch Guides | AH Design"
+  description="Practical articles on website design, SEO, web development terminology and what it really takes to plan, budget and launch a website."
+  schema={[
+    blogSchema,
+    breadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Blog', path: '/blog' },
+    ]),
+  ]}
   htmlClass="no-js vlt-is--contact-01 vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
 >
   <div class="vlt-site-overlay"></div>
