@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getCollection, getEntry } from 'astro:content';
 import { llmsIndex, stripHtml } from '../lib/llms';
-import { SITE } from '../lib/seo';
+import { absoluteUrl } from '../lib/seo';
 
 /**
  * llms.txt plus the full text of every blog post, so an assistant can answer
@@ -27,7 +27,7 @@ export const GET: APIRoute = async () => {
         ? await getEntry('authors', post.data.author_slug)
         : null;
       const meta = [
-        `URL: ${SITE.url}/post/${post.data.slug}`,
+        `URL: ${absoluteUrl(`/post/${post.data.slug}`)}`,
         `Published: ${post.data.published_date}`,
         author ? `Author: ${author.data.name}` : null,
         post.data.category_title ? `Category: ${post.data.category_title}` : null,

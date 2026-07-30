@@ -11,7 +11,10 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://ahdesign.website',
   output: 'static',
-  trailingSlash: 'never',
+  // Cloudflare Pages 308-redirects /about-us to /about-us/ for a directory
+  // build, so the canonical form of every page URL has the trailing slash.
+  // This makes the generated sitemap agree with what is actually served.
+  trailingSlash: 'always',
   build: {
     format: 'directory',
   },
@@ -22,13 +25,13 @@ export default defineConfig({
       // matter is a scraped duplicate of /post/website and is listed there.
       filter: (page) =>
         !/\/(404|author|category)(\/|$)/.test(page) &&
-        !page.endsWith('/post/website-design-first-steps-to-consider'),
+        !/\/post\/website-design-first-steps-to-consider\/?$/.test(page),
       changefreq: 'weekly',
       lastmod: new Date(),
       serialize(item) {
         // Marketing pages outrank blog archives for crawl priority.
         if (item.url === 'https://ahdesign.website/') item.priority = 1.0;
-        else if (/\/(services|price|projects|web_development|ads-service)$/.test(item.url))
+        else if (/\/(services|price|projects|web_development|ads-service)\/?$/.test(item.url))
           item.priority = 0.9;
         else if (/\/(post|blog)/.test(item.url)) item.priority = 0.7;
         else item.priority = 0.8;
