@@ -139,6 +139,8 @@ export function serviceSchema(opts: {
   description: string;
   path: string;
   serviceType?: string;
+  /** Fixed price in EUR, for services quoted at a single figure. */
+  price?: number;
 }) {
   return {
     '@type': 'Service',
@@ -151,6 +153,17 @@ export function serviceSchema(opts: {
       { '@type': 'Country', name: 'Bulgaria' },
       { '@type': 'Place', name: 'Europe' },
     ],
+    ...(opts.price === undefined
+      ? {}
+      : {
+          offers: {
+            '@type': 'Offer',
+            price: opts.price,
+            priceCurrency: 'EUR',
+            url: absoluteUrl(opts.path),
+            availability: 'https://schema.org/InStock',
+          },
+        }),
   };
 }
 
