@@ -75,6 +75,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
 											<option selected>Select one of the plan</option>
 											<optgroup label="To Be Efficient">
 												<option value="the-one">The One</option>
+												<option value="the-move">The Move (migration)</option>
 												<option value="the-core">The Core</option>
 												<option value="the-growth">The Growth</option>
 												<option value="the-infinite">The Infinite</option>
@@ -115,7 +116,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
 											<div class="vlt-gap-20"></div>
 											<a href="mailto:info@ahdesign.website">info@ahdesign.website</a>
 											<div class="vlt-gap-20"></div>
-											<a href="tell:+359886660034">(+359)- 88 666 0034</a>
+											<a href="tel:+359886660034">(+359)- 88 666 0034</a>
 										</div>
 										<div class="vlt-gap-60"></div>
 									</div>
@@ -135,7 +136,6 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
 												<a class="vlt-social-icon vlt-social-icon--style-1" href="https://www.facebook.com/ahwebsitesdesign">Fb.</a>
 												<a class="vlt-social-icon vlt-social-icon--style-1" href="https://www.instagram.com/ah_websitedesign/">IG.</a>
 												<a class="vlt-social-icon vlt-social-icon--style-1" href="https://www.linkedin.com/in/ahdesignco/">In.</a>
-												<a class="vlt-social-icon vlt-social-icon--style-1" href="#">YT.</a>
 											</div>
 										</div>
 									</div>
@@ -150,6 +150,19 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
 	</main>
 
 	<Fragment slot="js">
+		<script is:inline>
+			// Deep links such as /order/?plan=the-move arrive from the pricing cards
+			// and /migration. Preselect that option so the visitor does not have to
+			// find it again in the list.
+			(function () {
+				const wanted = new URLSearchParams(location.search).get('plan');
+				if (!wanted) return;
+				const select = document.querySelector('select[name="plan"]');
+				if (!select) return;
+				const match = Array.from(select.options).find((o) => o.value === wanted);
+				if (match) select.value = match.value;
+			})();
+		</script>
 		<script is:inline define:vars={{ formId: 'ordersubmit', endpoint: '/api/order' }}>
 			const form = document.getElementById(formId);
 			const output = document.getElementById('output');

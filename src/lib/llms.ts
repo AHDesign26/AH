@@ -40,6 +40,12 @@ export const KEY_PAGES: PageEntry[] = [
       'Paid advertising and campaign production: audio and video materials, digital and offline events.',
   },
   {
+    path: '/migration',
+    title: 'Migration: move off monthly fees',
+    summary:
+      'One-time EUR 700 service that rebuilds an existing Wix, Squarespace, GoDaddy or WordPress site on infrastructure the client owns, so the monthly bill goes to zero.',
+  },
+  {
     path: '/price',
     title: 'Prices',
     summary: 'Published starting prices for one-off website packages and monthly growth packages.',
@@ -90,7 +96,16 @@ export interface Package {
  * structured data on that page. Update these together with the markup.
  */
 export const WEBSITE_PACKAGES: Package[] = [
-  { name: 'The One', amount: 500, desc: 'A focused single-page presence to get you online fast.' },
+  {
+    name: 'The One',
+    amount: 500,
+    desc: 'A focused single-page presence to get you online fast. Statically built, no CMS; content changes are handled by us at EUR 50/hour.',
+  },
+  {
+    name: 'The Move',
+    amount: 700,
+    desc: 'You already have a site. We move it off the subscription: up to 8 pages rebuilt statically, form, email routing, redirects, domain and accounts transferred into your name.',
+  },
   {
     name: 'The Core',
     amount: 1200,

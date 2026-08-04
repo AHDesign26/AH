@@ -1,0 +1,404 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema, serviceSchema } from '../lib/seo';
+
+const description =
+  'Still paying Wix, Squarespace or GoDaddy every month? We rebuild your site on infrastructure you own. One payment of €700. Your monthly bill goes to zero.';
+
+// Rows for the no-JS version of the calculator. The script replaces this with
+// the live input, so both paths make the same argument.
+const EXAMPLES = [20, 30, 50];
+const MIGRATION_PRICE = 700;
+const DOMAIN_5Y = 75;
+---
+
+<BaseLayout
+  title="Move Your Website Off Monthly Fees | AH Design"
+  description={description}
+  schema={[
+    serviceSchema({
+      name: 'Website migration off subscription platforms',
+      description,
+      path: '/migration',
+      serviceType: 'Website migration',
+      price: MIGRATION_PRICE,
+    }),
+    breadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Migration', path: '/migration' },
+    ]),
+  ]}
+  htmlClass="no-js vlt-is--careers-single vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
+>
+  <div class="vlt-site-overlay"></div>
+  <main class="vlt-main">
+    <div class="vlt-page-content">
+      <div class="vlt-page-title vlt-page-title--style-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-7 offset-md-1">
+              <span class="vlt-section-title__subtitle">One-time service</span>
+              <h1 class="vlt-page-title__title">Stop renting your website.</h1>
+            </div>
+            <div class="col-md-3">
+              <div
+                class="vlt-page-title__phantom-title lax"
+                data-lax-translate-x="0 0, vw (vw*0.5)"
+                data-lax-opacity="1 1, 250 0"
+                data-lax-anchor=".vlt-page-title"
+              >
+                Migration
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="content"></div>
+
+      <section>
+        <div class="vlt-gap-100"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <p class="fz-3 text-justify">
+                You already have a site. It works. You just pay &euro;20 to &euro;50 every month to
+                keep it visible. We move it onto infrastructure you own, once, for &euro;{
+                  MIGRATION_PRICE
+                }, and that bill goes to zero.
+              </p>
+
+              <div class="vlt-gap-60"></div>
+
+              {
+                /* Static table first: this is what ships in the HTML and what a
+                  visitor without JavaScript sees. The script below swaps in the
+                  live input once it has run. */
+              }
+              <div class="ah-calc" data-ah-calc>
+                <div class="ah-calc-static" data-ah-calc-static>
+                  <div class="ah-cost">
+                    <table class="ah-cost-table">
+                      <caption class="sr-only">
+                        Five years of monthly platform fees compared with a one-time migration
+                      </caption>
+                      <thead>
+                        <tr>
+                          <th scope="col">If you pay</th>
+                          <th scope="col">Five years of that</th>
+                          <th scope="col">Moving to us, once</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {
+                          EXAMPLES.map((monthly) => (
+                            <tr>
+                              <td class="ah-cost-what">&euro;{monthly}/month</td>
+                              <td class="ah-cost-amount">
+                                &euro;{(monthly * 60).toLocaleString('en-GB')}
+                              </td>
+                              <td class="ah-cost-owns">
+                                &euro;{MIGRATION_PRICE} plus about &euro;{DOMAIN_5Y} of domain
+                                renewals
+                              </td>
+                            </tr>
+                          ))
+                        }
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <form class="ah-calc-live" data-ah-calc-live hidden>
+                  <div class="ah-calc-field">
+                    <label class="ah-calc-label" for="ah-calc-monthly">
+                      What do you pay now, per month?
+                    </label>
+                    <span class="ah-calc-label">&euro;</span>
+                    <input
+                      class="ah-calc-input"
+                      id="ah-calc-monthly"
+                      name="monthly"
+                      type="number"
+                      inputmode="numeric"
+                      min="1"
+                      max="2000"
+                      step="1"
+                      value="30"
+                    />
+                  </div>
+                  <div class="ah-calc-out">
+                    <div class="ah-calc-cell">
+                      <p class="ah-calc-cap">Five more years of that</p>
+                      <p class="ah-calc-figure" data-ah-calc-theirs>&euro;1,800</p>
+                      <p class="ah-calc-sub">And you still own nothing.</p>
+                    </div>
+                    <p class="ah-calc-vs">versus</p>
+                    <div class="ah-calc-cell ah-calc-cell--ours">
+                      <p class="ah-calc-cap">Moving to us, once</p>
+                      <p class="ah-calc-figure">&euro;{MIGRATION_PRICE}</p>
+                      <p class="ah-calc-sub">
+                        Plus about &euro;{DOMAIN_5Y} of domain renewals over the same five years. You
+                        own the code, the domain and the accounts.
+                      </p>
+                    </div>
+                  </div>
+                  <p class="ah-calc-saving" data-ah-calc-saving aria-live="polite"></p>
+                </form>
+              </div>
+
+              <div class="vlt-gap-50"></div>
+              <a class="vlt-btn vlt-btn--secondary vlt-btn--lg" href="/order/?plan=the-move">
+                Get a fixed quote
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="vlt-gap-120"></div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <div class="vlt-section-title vlt-section-title--style-1">
+                <h2 class="vlt-section-title__title">Is this you?</h2>
+              </div>
+              <div class="vlt-gap-40"></div>
+              <ul class="vlt-styled-list vlt-styled-list--style-3">
+                <li>
+                  Your Wix or Squarespace renewal went up again this year and you are not sure what
+                  you got for it.
+                </li>
+                <li>You want to redesign, but the platform's templates fight you.</li>
+                <li>
+                  Your WordPress host charges &euro;25 a month and you still get plugin update
+                  emails you ignore.
+                </li>
+                <li>You are not sure you could take your site with you if you left.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="vlt-gap-120"></div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <div class="vlt-section-title vlt-section-title--style-1">
+                <h2 class="vlt-section-title__title">What we move</h2>
+              </div>
+              <div class="vlt-gap-40"></div>
+              <ol class="ah-move-list">
+                <li>
+                  <strong>Every page, exactly as it reads now.</strong> Your text, your images, your structure.
+                  We are not rewriting your business.
+                </li>
+                <li>
+                  <strong>Your contact form,</strong> rebuilt as a Cloudflare Worker with spam filtering.
+                  Submissions go to your inbox.
+                </li>
+                <li>
+                  <strong>Your email,</strong> if you use a platform address. Custom-domain email routed
+                  to an inbox you control.
+                </li>
+                <li>
+                  <strong>Your domain,</strong> moved into your name, on your registrar account.
+                </li>
+                <li>
+                  <strong>Redirects,</strong> so the pages Google already ranks keep working.
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <div class="vlt-gap-120"></div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <div class="vlt-section-title vlt-section-title--style-1">
+                <h2 class="vlt-section-title__title">What it costs</h2>
+              </div>
+              <div class="vlt-gap-40"></div>
+              <div class="ah-cost">
+                <table class="ah-cost-table">
+                  <tbody>
+                    <tr class="ah-cost-row--ours">
+                      <th scope="row" class="ah-cost-what">Migration</th>
+                      <td class="ah-cost-amount">&euro;{MIGRATION_PRICE} one-time</td>
+                      <td class="ah-cost-owns">
+                        Up to 8 pages, form, email routing, redirects, handover pack. Typical
+                        turnaround five working days.
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="ah-cost-what">Ongoing</th>
+                      <td class="ah-cost-amount">~&euro;15/year</td>
+                      <td class="ah-cost-owns">Your domain renewal. Nothing else.</td>
+                    </tr>
+                    <tr>
+                      <th scope="row" class="ah-cost-what">Changes later</th>
+                      <td class="ah-cost-amount">&euro;50/hour</td>
+                      <td class="ah-cost-owns">No retainer, no minimum.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="vlt-gap-30"></div>
+              <p class="text-justify">
+                Every migration ends with a handover pack: a written document listing your domain,
+                your hosting account, your repository, where form submissions go, what is free and
+                what is not, the limits of the build, and what to hand another developer if you ever
+                want to leave us.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="vlt-gap-120"></div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <div class="vlt-section-title vlt-section-title--style-1">
+                <h2 class="vlt-section-title__title">What we will not pretend</h2>
+              </div>
+              <div class="vlt-gap-40"></div>
+              <dl class="ah-own-grid ah-own-grid--two">
+                <div class="ah-own-item">
+                  <dt class="ah-own-term">A real online shop needs a real platform</dt>
+                  <dd class="ah-own-desc">
+                    If you take payments, manage stock, or run accounting through your site, static
+                    hosting is the wrong tool. We will tell you that on the first call and not take
+                    the job.
+                  </dd>
+                </div>
+                <div class="ah-own-item">
+                  <dt class="ah-own-term">You will not edit this yourself in a dashboard</dt>
+                  <dd class="ah-own-desc">
+                    Not unless you buy THE CORE, which includes a CMS. On a migration, text changes
+                    come to us at &euro;50/hour.
+                  </dd>
+                </div>
+                <div class="ah-own-item">
+                  <dt class="ah-own-term">The hosting is free under a fair-use policy</dt>
+                  <dd class="ah-own-desc">
+                    Not a contract. It has been free for years and we expect it to stay free. If it
+                    ever changes, your code is standard and portable, we hand you the instructions
+                    to move it, and that is exactly why we build this way.
+                  </dd>
+                </div>
+                <div class="ah-own-item">
+                  <dt class="ah-own-term">The domain still costs money</dt>
+                  <dd class="ah-own-desc">
+                    Roughly &euro;15 a year, paid by you to your registrar. That is the only
+                    recurring cost.
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          </div>
+        </div>
+        <div class="vlt-gap-120"></div>
+      </section>
+
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <div class="vlt-section-title vlt-section-title--style-1">
+                <span class="vlt-section-title__subtitle">Case study</span>
+                <h2 class="vlt-section-title__title">ZVB, Sofia</h2>
+              </div>
+              <div class="vlt-gap-40"></div>
+              <p class="fz-3 text-justify">
+                ZVB are an electrical and smart-systems contractor in Sofia, 15 years in the trade
+                and more than 100 completed projects. Their site is static Astro: service pages for
+                electrical work, security and CCTV, solar and smart-home integration, a
+                quote-request form, and a project gallery.
+              </p>
+              <p class="text-justify">
+                It loads instantly on a phone at a job site, which is where their customers actually
+                look at it. It costs them nothing per month to keep online. The domain, the code and
+                the accounts are in their name.
+              </p>
+              <div class="vlt-gap-30"></div>
+              <a
+                class="vlt-simple-link vlt-simple-link--md"
+                href="https://zvb.bg"
+                target="_blank"
+                rel="noopener"
+              >
+                See the live site<i class="icon-arrow-top-right"></i>
+              </a>
+              <div class="vlt-gap-20"></div>
+              <a class="vlt-simple-link vlt-simple-link--md" href="/projects/">
+                More of our work<i class="icon-arrow-top-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="vlt-gap-120"></div>
+      </section>
+
+      <section
+        class="vlt-page-navigation vlt-page-navigation--style-1 has-black-color"
+        style="background-color: #e82e31;"
+      >
+        <div class="vlt-gap-130"></div>
+        <div class="container">
+          <div class="text-center">
+            <div class="vlt-stroke-text vlt-stroke-text--lg" style="color: white;">
+              <a href="/order/?plan=the-move" target="_self">Get a fixed quote</a>
+            </div>
+            <div class="vlt-gap-30"></div>
+            <p style="color: white;">
+              Or call <a href="tel:+359886660034" style="color: white; text-decoration: underline;"
+                >(+359) 88 666 0034</a
+              > and describe what you have. We will tell you on the call whether moving it makes sense.
+            </p>
+          </div>
+        </div>
+        <div class="vlt-gap-130"></div>
+      </section>
+    </div>
+  </main>
+
+  <script is:inline define:vars={{ price: MIGRATION_PRICE, domain5y: DOMAIN_5Y }}>
+    // Progressive enhancement: the static comparison table is in the HTML, so
+    // this only runs to replace it with the live input. If the script never
+    // runs, the page still makes its whole argument.
+    (function () {
+      const root = document.querySelector('[data-ah-calc]');
+      if (!root) return;
+      const staticTable = root.querySelector('[data-ah-calc-static]');
+      const live = root.querySelector('[data-ah-calc-live]');
+      const input = root.querySelector('#ah-calc-monthly');
+      const theirs = root.querySelector('[data-ah-calc-theirs]');
+      const saving = root.querySelector('[data-ah-calc-saving]');
+      if (!staticTable || !live || !input || !theirs || !saving) return;
+
+      const money = (n) => '€' + Math.round(n).toLocaleString('en-GB');
+
+      function update() {
+        const monthly = Math.min(2000, Math.max(0, Number(input.value) || 0));
+        const fiveYears = monthly * 60;
+        theirs.textContent = money(fiveYears);
+        const diff = fiveYears - (price + domain5y);
+        saving.textContent =
+          diff > 0 ? 'Moving now leaves you ' + money(diff) + ' better off over five years.' : '';
+      }
+
+      live.addEventListener('input', update);
+      live.addEventListener('submit', (e) => e.preventDefault());
+      staticTable.hidden = true;
+      live.hidden = false;
+      update();
+    })();
+  </script>
+</BaseLayout>
