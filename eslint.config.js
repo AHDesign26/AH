@@ -29,4 +29,26 @@ export default tseslint.config(
       'no-console': ['warn', { allow: ['warn', 'error'] }],
     },
   },
+  {
+    // Deploy/purge helpers run under Node, and printing is the point of a CLI.
+    files: ['scripts/**/*.{js,mjs}'],
+    languageOptions: {
+      globals: {
+        console: 'readonly',
+        fetch: 'readonly',
+        process: 'readonly',
+        URL: 'readonly',
+        URLSearchParams: 'readonly',
+        TextEncoder: 'readonly',
+        TextDecoder: 'readonly',
+        Buffer: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+        __dirname: 'readonly',
+      },
+    },
+    rules: {
+      'no-console': 'off',
+    },
+  },
 );
