@@ -107,16 +107,6 @@
   background-color: black !important;
 }
 
-/* The white slab behind the pricing footnote is sized as 30% of the section,
-   so it grew when a fourth package was added and washed out the card sitting
-   on the new row. Pin it to a height that backs the footnote text (which has
-   80px of its own top padding) without reaching the cards. */
-@media only screen and (min-width: 768px) {
-  .vlt-custom--5156::after {
-    height: 280px;
-  }
-}
-
 /* On mobile the three pricing cards stack vertically, but the section's
    white ::after slab (bottom 30%) overlaps the third card and washes its
    text out. Collapse the white slab so the black bg-price covers the
