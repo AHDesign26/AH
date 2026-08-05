@@ -107,6 +107,16 @@
   background-color: black !important;
 }
 
+/* The white slab behind the pricing footnote is sized as 30% of the section,
+   so it grew when a fourth package was added and washed out the card sitting
+   on the new row. Pin it to a height that backs the footnote text (which has
+   80px of its own top padding) without reaching the cards. */
+@media only screen and (min-width: 768px) {
+  .vlt-custom--5156::after {
+    height: 280px;
+  }
+}
+
 /* On mobile the three pricing cards stack vertically, but the section's
    white ::after slab (bottom 30%) overlaps the third card and washes its
    text out. Collapse the white slab so the black bg-price covers the
@@ -348,7 +358,6 @@
 .project-shdow {
   box-shadow: 3px 3px 15px 6px;
 }
-
 
 /* ============================================================
    Fricta landing page styles
@@ -1154,88 +1163,6 @@
   line-height: 1.6;
 }
 .ah-services-note a {
-  text-decoration: underline;
-}
-/* Links inside running text need more than colour to be distinguishable. */
-.ah-inline-link {
-  text-decoration: underline;
-}
-
-/* Hero. The ownership headline is a full sentence rather than two words. The
-   vendor title is sized for "Expanding Possibilities" at 130px, and its
-   selector carries two classes, so this has to match that specificity to win.
-   The hero background is a hard white/black split at the 50% mark, so the text
-   column is also capped to stay on the white side and stay legible. */
-.vlt-project-showcase__title.ah-hero-title {
-  max-width: 20ch;
-  font-size: clamp(1.7rem, 3vw, 2.7rem);
-  line-height: 1.12;
-  letter-spacing: -0.02em;
-}
-.ah-hero-sub {
-  max-width: 42ch;
-  margin: 24px 0 0;
-  font-size: 1.02rem;
-  line-height: 1.6;
-}
-.ah-hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 18px 28px;
-  margin-top: 30px;
-}
-
-@media only screen and (max-width: 766px) {
-  /* The slide is locked to the viewport height, and the longer hero copy now
-     runs under the social strip pinned at its foot. Let it grow instead. */
-  .vlt-project-showcase--style-6 .vlt-project-showcase__item {
-    height: auto;
-    min-height: auto;
-    padding-bottom: 40px;
-  }
-  .ah-hero-sub {
-    margin-top: 18px;
-    font-size: 0.95rem;
-  }
-  .ah-hero-actions {
-    margin-top: 24px;
-    margin-bottom: 48px;
-    gap: 14px 20px;
-  }
-  /* A 30vh top margin was set for a two-word headline; the longer copy needs
-     that space back so it clears the social strip at the foot of the slide. */
-  .banner-main {
-    margin-top: 90px;
-  }
-}
-
-@media only screen and (min-width: 767px) {
-  /* Pull the block left so the longer headline fits inside the white half. */
-  .banner-main {
-    margin-top: 20vh;
-    margin-left: 70px;
-  }
-  .banner-main > [class^='col-'] {
-    max-width: calc(50vw - 140px);
-    flex: 0 0 auto;
-  }
-}
-
-/* The "no CMS" line inside THE ONE. It is a scope boundary, not a feature, so
-   it reads as a caveat rather than another ticked item. */
-.ah-plan-limit {
-  margin-top: 14px;
-  padding-top: 12px;
-  border-top: 1px solid rgba(255, 255, 255, 0.14);
-  color: rgba(255, 255, 255, 0.62);
-  font-size: 0.88rem;
-  line-height: 1.5;
-}
-.ah-move-link {
-  margin-top: 18px;
-}
-.ah-move-link a {
   text-decoration: underline;
 }
 
