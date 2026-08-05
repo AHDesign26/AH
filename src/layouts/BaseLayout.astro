@@ -12,6 +12,7 @@
  */
 
 import { SITE, absoluteUrl, organizationSchema, websiteSchema, webPageSchema } from '../lib/seo';
+import { versioned } from '../lib/asset-version';
 
 interface Props {
   title?: string;
@@ -106,7 +107,7 @@ const jsonLd = {
     <link rel="stylesheet" href="/static/fonts/Skape/style.css" />
     <link rel="stylesheet" href="/static/css/vlt-plugins.min.css" />
     <link rel="stylesheet" href="/static/css/vlt-main.min.css" />
-    <link rel="stylesheet" href="/static/css/custom.css" />
+    <link rel="stylesheet" href={versioned('/static/css/custom.css')} />
     <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
     <slot name="head" />
   </head>
