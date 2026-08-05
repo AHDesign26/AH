@@ -1,0 +1,35 @@
+# Cache policy for Cloudflare Pages.
+#
+# Without this, HTML was going out with `Cache-Control: public, max-age=2678400`
+# and the edge served it as a HIT for days, so a deploy did not reach visitors
+# for up to a month. HTML must always be revalidated; only the fingerprinted or
+# rarely-changing assets are worth caching hard.
+
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# Fonts, images and vendor bundles change rarely and are safe to hold for a
+# week. custom.css carries a content hash in its URL, so it is safe either way.
+/static/*
+  Cache-Control: public, max-age=604800
+
+/favicon.ico
+  Cache-Control: public, max-age=604800
+
+# Crawler-facing files should reflect a deploy immediately.
+/robots.txt
+  Cache-Control: public, max-age=0, must-revalidate
+
+/sitemap-index.xml
+  Cache-Control: public, max-age=0, must-revalidate
+
+/sitemap-0.xml
+  Cache-Control: public, max-age=0, must-revalidate
+
+/llms.txt
+  Cache-Control: public, max-age=0, must-revalidate
+
+/llms-full.txt
+  Cache-Control: public, max-age=0, must-revalidate
