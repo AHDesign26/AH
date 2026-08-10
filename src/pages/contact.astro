@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE, breadcrumbSchema } from '../lib/seo';
+import { socials } from '../lib/socials';
 
 // Public site key — exposed at build time. The "always pass" CF dummy key
 // (`1x00000000000000000000AA`) is the dev/test default; real key set via
@@ -162,6 +163,21 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
                 <h5>Working hours:</h5>
                 <div class="vlt-gap-20"></div>
                 <p class="lh-2">Monday to Friday, 10am to 6pm</p>
+                <div class="vlt-gap-30"></div>
+                <h5>Follow us:</h5>
+                <div class="vlt-gap-20"></div>
+                <div class="has-black-color">
+                  {socials.map((s) => (
+                    <a
+                      class="vlt-social-icon vlt-social-icon--style-1"
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener"
+                      aria-label={`AH Design on ${s.name}`}>
+                      {s.short}.
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

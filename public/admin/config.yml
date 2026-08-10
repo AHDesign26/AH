@@ -32,7 +32,6 @@ collections:
           - { label: Facebook, name: facebook, widget: string, required: false, hint: 'Full URL, e.g. https://www.facebook.com/ahwebsitesdesign/' }
           - { label: Instagram, name: instagram, widget: string, required: false, hint: 'Full URL' }
           - { label: LinkedIn, name: linkedin, widget: string, required: false, hint: 'Full URL' }
-          - { label: YouTube, name: youtube, widget: string, required: false, hint: 'Leave empty until there is a channel' }
           - { label: WhatsApp, name: whatsapp, widget: string, required: false, hint: 'e.g. https://wa.me/359886660034 — shown in the footer next to the phone number' }
 
   - name: blog
