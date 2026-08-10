@@ -45,7 +45,13 @@ const services = [
 		<section class="position-relative">
 			<div class="vlt-site-fixed-bar vlt-site-fixed-bar--right has-black-color
 						has-white-background-color position-absolute">
-				<div class="flex-grow-0 flex-shrink-0"></div>
+				<div class="flex-grow-0 flex-shrink-0 text-center">
+					<div class="vlt-site-fixed-bar__socials">
+						{socials.map((s) => (
+							<a class="vlt-social-icon vlt-social-icon--style-1" href={s.url} target="_blank" rel="noopener" aria-label={`AH Design on ${s.name}`}>{s.short}.</a>
+						))}
+					</div>
+				</div>
 				<div class="d-flex flex-grow-1 flex-shrink-1 align-items-center
 							justify-content-center">
 					<div class="vlt-swiper-progress vlt-homepage-03-anchor" data-direction="vertical">

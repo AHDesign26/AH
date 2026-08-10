@@ -1157,6 +1157,15 @@
 }
 
 /* "Our Skills" on the About page: what we build, one card per service. */
+/* The theme's vertical socials slot at the top of the homepage side bar. It
+   starts level with the fixed header, so it needs clearance to sit below it,
+   and inline-block so the parent's text-center actually centres it in the bar
+   rather than leaving it against the black edge. */
+.vlt-site-fixed-bar__socials {
+  display: inline-block;
+  padding-top: 70px;
+}
+
 .ah-skills-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

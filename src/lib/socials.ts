@@ -23,7 +23,6 @@ const PROFILES: { key: keyof typeof data; name: string; short: string }[] = [
   { key: 'facebook', name: 'Facebook', short: 'FB' },
   { key: 'instagram', name: 'Instagram', short: 'IG' },
   { key: 'linkedin', name: 'LinkedIn', short: 'IN' },
-  { key: 'youtube', name: 'YouTube', short: 'YT' },
 ];
 
 /** Profiles that have a URL set, in display order. */
