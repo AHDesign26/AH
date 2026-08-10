@@ -1,3 +1,5 @@
+import { socialUrls } from './socials';
+
 /**
  * Single source of truth for site-level SEO data and the JSON-LD builders used
  * by BaseLayout and the content pages.
@@ -24,11 +26,6 @@ export const SITE = {
   logo: '/static/img/root/logoAH-black.png',
   /** Social preview image. Square; a 1200x630 version would render better. */
   ogImage: '/static/img/root/logoAH-black.png',
-  socials: [
-    'https://www.facebook.com/ahwebsitesdesign',
-    'https://www.instagram.com/ah_websitedesign/',
-    'https://www.linkedin.com/in/ahdesignco/',
-  ],
 } as const;
 
 /**
@@ -66,7 +63,7 @@ export function organizationSchema() {
       height: 762,
     },
     image: absoluteUrl(SITE.ogImage),
-    sameAs: [...SITE.socials],
+    sameAs: socialUrls,
     areaServed: [
       { '@type': 'Country', name: 'Bulgaria' },
       { '@type': 'Place', name: 'Europe' },

@@ -12,6 +12,7 @@
  */
 
 import { SITE, absoluteUrl, organizationSchema, websiteSchema, webPageSchema } from '../lib/seo';
+import { socials, whatsappUrl } from '../lib/socials';
 import { versioned } from '../lib/asset-version';
 
 interface Props {
@@ -213,15 +214,18 @@ const jsonLd = {
               <div class="container">
                 <div class="d-flex justify-content-between align-items-end">
                   <div class="vlt-widget vlt-widget--socials">
-                    <a
-                      class="vlt-social-icon vlt-social-icon--style-1"
-                      href="https://www.facebook.com/ahwebsitesdesign">FB.</a>
-                    <a
-                      class="vlt-social-icon vlt-social-icon--style-1"
-                      href="https://www.instagram.com/ah_websitedesign/">IG.</a>
-                    <a
-                      class="vlt-social-icon vlt-social-icon--style-1"
-                      href="https://www.linkedin.com/in/ahdesignco/">IN.</a>
+                    {
+                      socials.map((s) => (
+                        <a
+                          class="vlt-social-icon vlt-social-icon--style-1"
+                          href={s.url}
+                          target="_blank"
+                          rel="noopener"
+                          aria-label={`AH Design on ${s.name}`}>
+                          {s.short}.
+                        </a>
+                      ))
+                    }
                   </div>
                   <div class="vlt-widget vlt-widget--html">
                     <div class="text-right">
@@ -377,9 +381,15 @@ const jsonLd = {
             <div class="vlt-widget vlt-widget--text vlt-widget--white">
               <ul>
                 <li><b>Social Media:</b></li>
-                <li><a href="https://www.facebook.com/ahwebsitesdesign">Facebook</a></li>
-                <li><a href="https://www.instagram.com/ah_websitedesign/">Instagram</a></li>
-                <li><a href="https://www.linkedin.com/in/ahdesignco/">LinkedIn</a></li>
+                {
+                  socials.map((s) => (
+                    <li>
+                      <a href={s.url} target="_blank" rel="noopener">
+                        {s.name}
+                      </a>
+                    </li>
+                  ))
+                }
               </ul>
             </div>
           </div>
@@ -388,7 +398,11 @@ const jsonLd = {
               <b>Contact Info:</b><br /><br />
               <a href="mailto:info@ahdesign.website">info@ahdesign.website<br /></a>
               <a href="tel:+359886660034">(+359)- 88 666 0034</a>
-              <a href="https://wa.me/359886660034">WhatsApp</a>
+              {whatsappUrl && (
+                <a href={whatsappUrl} target="_blank" rel="noopener">
+                  WhatsApp
+                </a>
+              )}
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { socials } from '../lib/socials';
 import { serviceSchema } from '../lib/seo';
 
 const recentPosts = (await getCollection('blog'))
@@ -85,19 +86,18 @@ const services = [
 									<div class="vlt-slider-controls vlt-slider-controls--style-3
 												vlt-homepage-03-anchor has-white-background-color
 												has-black-color">
-										<div class="vlt-swiper-button-prev"><a
-												href="https://www.facebook.com/ahwebsitesdesign">FB</a>
-										</div>
-										<span class="sep">|</span>
-										<div class="vlt-swiper-button-next"><a
-												href="https://www.instagram.com/ah_websitedesign/">IG</a>
-										</div>
-										<span class="sep">|</span>
-										<div class="vlt-swiper-button-next"><a href="">IN</a>
-										</div>
-										<span class="sep">|</span>
-										<div class="vlt-swiper-button-next"><a href="">YT</a>
-										</div>
+										{
+											socials.map((s, i) => (
+												<>
+													{i > 0 && <span class="sep">|</span>}
+													<div class="vlt-swiper-button-next">
+														<a href={s.url} target="_blank" rel="noopener" aria-label={`AH Design on ${s.name}`}>
+															{s.short}
+														</a>
+													</div>
+												</>
+											))
+										}
 									</div>
 								</div>
 							</div>
