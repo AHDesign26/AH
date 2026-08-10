@@ -65,10 +65,30 @@ if (!token) {
 
 const zones = await cf(`/zones?name=${encodeURIComponent(ZONE_NAME)}`, token);
 if (!zones.length) throw new Error(`zone ${ZONE_NAME} not found for this token`);
+const zoneId = zones[0].id;
 
-await cf(`/zones/${zones[0].id}/purge_cache`, token, {
-  method: 'POST',
-  body: JSON.stringify({ purge_everything: true }),
-});
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+async function purge() {
+  await cf(`/zones/${zoneId}/purge_cache`, token, {
+    method: 'POST',
+    body: JSON.stringify({ purge_everything: true }),
+  });
+}
+
+/**
+ * Purge twice, with a gap.
+ *
+ * `wrangler pages deploy` returns once the upload is done, but the deployment
+ * takes a few more seconds to become the one the custom domain serves. Purging
+ * in that window clears the cache and the next request immediately refills it
+ * from the *old* deployment, which then sticks. That happened on a release:
+ * the deploy was live and the site kept serving the previous copy until a
+ * second purge. The gap covers the propagation window.
+ */
+await sleep(15_000);
+await purge();
+await sleep(12_000);
+await purge();
 
 console.log(`Purged the Cloudflare cache for ${ZONE_NAME}.`);
