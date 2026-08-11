@@ -75,17 +75,22 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
 										<select class="form-select" aria-label="Default select example" name="plan">
 											<option selected>Select one of the plan</option>
 											<optgroup label="To Be Efficient">
-												<option value="the-one">The One</option>
-												<option value="the-move">The Move (migration)</option>
-												<option value="the-core">The Core</option>
-												<option value="the-growth">The Growth</option>
-												<option value="the-infinite">The Infinite</option>
+												<option value="the-one">The One - Single-page landing design</option>
+												<option value="the-core">The Core - Multi-page CMS site</option>
+												<option value="the-growth">The Growth - Scalable site with dynamic content</option>
+												<option value="the-infinite">The Infinite - Bespoke e-commerce &amp; platform</option>
 											</optgroup>
 											<optgroup label="To Grow">
-												<option value="starter-visibility">Starter Visibility</option>
-												<option value="digital-authority">Digital Authority</option>
-												<option value="scale-and-automate">Scale &amp; Automate</option>
-												<option value="the-growth-engine">The Growth Engine</option>
+												<option value="starter-visibility">Starter Visibility - Local Presence &amp; Reviews</option>
+												<option value="digital-authority">Digital Authority - Web &amp; Booking Systems</option>
+												<option value="scale-and-automate">Scale &amp; Automate - AI &amp; Lead Automation</option>
+												<option value="the-growth-engine">The Growth Engine - Enterprise Custom Growth</option>
+											</optgroup>
+											<optgroup label="To Be Seen">
+												<option value="the-move">The Move - Site Migration</option>
+												<option value="the-reach">The Reach - Digital Marketing &amp; SEO</option>
+												<option value="the-dispatch">The Template - Responsive custom email templates</option>
+												<option value="outreach-campaign-platform">The Dispatch - Email Outreach Platform</option>
 											</optgroup>
 										  </select>
 									</div>
@@ -162,6 +167,22 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
 				if (!select) return;
 				const match = Array.from(select.options).find((o) => o.value === wanted);
 				if (match) select.value = match.value;
+			})();
+
+			// Bold the plan name in front of the dash. The markup has to be built
+			// here rather than written into the page: the HTML parser allows only
+			// text inside <option>, so a literal <b> collapses the whole list.
+			// Engines that still draw a native popup ignore it and show the text.
+			(function () {
+				document.querySelectorAll('select[name="plan"] optgroup option').forEach((option) => {
+					const text = option.textContent;
+					const dash = text.indexOf(' - ');
+					if (dash < 0) return;
+					const name = document.createElement('b');
+					name.textContent = text.slice(0, dash);
+					option.textContent = '';
+					option.append(name, document.createTextNode(text.slice(dash)));
+				});
 			})();
 		</script>
 		<script is:inline define:vars={{ formId: 'ordersubmit', endpoint: '/api/order' }}>

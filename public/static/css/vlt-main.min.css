@@ -4176,13 +4176,15 @@ dl dd {
 }
 @media only screen and (max-width: 850px) {
   .vlt-project-showcase--style-6 .vlt-project-showcase__title {
-    font-size: 90px;
+    font-size: 70px;
+     padding-top: 10px; 
     
   }
 }
 @media only screen and (max-width: 575px) {
   .vlt-project-showcase--style-6 .vlt-project-showcase__title {
-    font-size: 53px;
+    font-size: 45px;
+    padding-top: 10px; 
   }
 }
 
