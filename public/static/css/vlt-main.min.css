@@ -4170,7 +4170,7 @@ dl dd {
   }
 }
 .vlt-project-showcase--style-6 .vlt-project-showcase__title {
-  font-size: 130px;
+  font-size: 100px;
   position: relative;
   display: inline-block;
 }
@@ -4224,7 +4224,7 @@ dl dd {
   }
 }
 .vlt-project-showcase--style-6 .vlt-simple-link {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 .vlt-project-showcase--style-6 .vlt-simple-link:not(:hover) {
   color: #101010;
