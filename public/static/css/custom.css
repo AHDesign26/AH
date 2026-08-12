@@ -294,7 +294,10 @@
 }
 
 .testimonia-bg {
-  background-image: url("../img/testimonia.png");
+  background-image: url("../img/testimonial1.png");
+  background-size: contain;
+  background-position: center right;
+  background-repeat: no-repeat;
 }
 
 .service-img {
