@@ -513,71 +513,8 @@
 
 .order-form {
   background-color: #f5f5f5;
-  padding: 50px;
-}
-
-/* Brand-red group headings in the plan dropdown; the options under them
-   inherit optgroup colour, so put those back to the body colour. This
-   alone only reaches browsers that paint the popup themselves. */
-.order-form .form-select optgroup {
-  color: #e82e31;
-}
-
-.order-form .form-select option {
-  color: #101010;
-}
-
-/* A native popup is drawn by the OS, which ignores the rule above — on
-   macOS the headings stay grey in every browser. Opting into the
-   customizable select moves the popup into the page, where it is styled
-   like any other element. Chrome 135+ today; other engines keep the
-   native popup until they ship it. */
-@supports (appearance: base-select) {
-  .order-form .form-select,
-  .order-form .form-select::picker(select) {
-    appearance: base-select;
-  }
-
-  /* Keep the underlined-field look the form already had. */
-  .order-form .form-select {
-    border: 0;
-    border-bottom: 1px solid #d6d6d6;
-    border-radius: 0;
-    padding: 10px 0;
-    text-align: left;
-  }
-
-  /* The caret is already drawn as a background image on the field. */
-  .order-form .form-select::picker-icon {
-    display: none;
-  }
-
-  .order-form .form-select::picker(select) {
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 6px;
-    padding: 6px 0;
-    background: #fff;
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.14);
-  }
-
-  .order-form .form-select optgroup {
-    padding: 12px 18px 4px;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-  }
-
-  .order-form .form-select option {
-    padding: 8px 18px;
-  }
-
-  .order-form .form-select option:hover {
-    background: #f5f5f5;
-  }
-
-  .order-form .form-select option::checkmark {
-    display: none;
-  }
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .video-show {
@@ -1737,4 +1674,8 @@ textarea:focus-visible,
   .ah-skills-grid {
     grid-template-columns: 1fr;
   }
+}
+
+.text-accent {
+  color: #e82e31;
 }
