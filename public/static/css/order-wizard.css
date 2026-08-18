@@ -1,0 +1,475 @@
+/* Order page — three-step project inquiry wizard. Loaded only on /order/.
+   Font is inherited from body's own Swansea (set via --pf in
+   vlt-main.min.css) to match the rest of the site — no separate font
+   import here. */
+.ow-card {
+  color: #111;
+  background: #fff;
+  border: 1px solid #ececE6;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ow-progress {
+  height: 4px;
+  width: 100%;
+  background: #ececE6;
+}
+
+.ow-progress__fill {
+  height: 100%;
+  width: 33.3333%;
+  background: #e82e31;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ow-body {
+  padding: 38px 40px 40px;
+  background: #f5f5f5;
+}
+
+@media only screen and (max-width: 575px) {
+  .ow-body {
+    padding: 28px 20px 30px;
+  }
+}
+
+/* Step indicator */
+.ow-steps {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 30px;
+  padding: 0;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.ow-steps__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ow-steps__num {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  border: 1.5px solid #dcdcd6;
+  background: #fff;
+  color: #b6b6b0;
+}
+
+.ow-steps__label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #b6b6b0;
+}
+
+.ow-steps__item.is-active .ow-steps__num {
+  border-color: #e82e31;
+  color: #e82e31;
+}
+
+.ow-steps__item.is-active .ow-steps__label {
+  font-weight: 700;
+  color: #111;
+}
+
+.ow-steps__item.is-done .ow-steps__num {
+  border-color: #e82e31;
+  background: #e82e31;
+  color: #fff;
+}
+
+.ow-steps__item.is-done .ow-steps__label {
+  color: #111;
+}
+
+.ow-steps__sep {
+  width: 26px;
+  height: 1.5px;
+  background: #e0e0da;
+  margin: 0 4px;
+}
+
+/* Panels */
+.ow-panel {
+  animation: owFadeUp 0.3s ease both;
+}
+
+@keyframes owFadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes owPop {
+  from { opacity: 0; transform: scale(0.6); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.ow-field {
+  margin-bottom: 22px;
+}
+
+.ow-field--divider {
+  margin-top: 22px;
+  padding-top: 22px;
+  border-top: 1px solid #eeeee9;
+}
+
+.ow-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.ow-hint {
+  font-size: 14px;
+  color: #8a8a83;
+  margin: -6px 0 16px;
+}
+
+/* Option cards (need / goal) */
+.ow-cardgrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+@media only screen and (max-width: 575px) {
+  .ow-cardgrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ow-optioncard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 22px;
+  border: 1.5px solid #e6e6e2;
+  background: #fff;
+  color: #111;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, box-shadow 0.18s;
+  min-height: 118px;
+  position: relative;
+  text-align: left;
+}
+
+.ow-optioncard:hover {
+  border-color: #111;
+}
+
+.ow-optioncard.is-selected {
+  border-color: #111;
+  background: #111;
+  color: #fff;
+  box-shadow: 0 12px 30px -16px rgba(0, 0, 0, 0.4);
+}
+
+.ow-optioncard__sub {
+  font-size: 13px;
+  color: #8a8a83;
+  margin-top: 3px;
+}
+
+.ow-optioncard.is-selected .ow-optioncard__sub,
+.ow-optioncard__sub.is-on-dark {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.ow-optioncard__title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.ow-optioncard__badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #e82e31;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  animation: owPop 0.25s ease both;
+}
+
+.ow-optioncard--wide {
+  grid-column: 1 / -1;
+  min-height: auto;
+  gap: 0;
+}
+
+.ow-optioncard__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+}
+
+.ow-optioncard__textarea {
+  width: 100%;
+  margin-top: 14px;
+}
+
+.ow-cardgrid--sm {
+  grid-template-columns: 1fr 1fr;
+}
+
+.ow-optioncard--sm {
+  flex-direction: row;
+  align-items: center;
+  min-height: auto;
+  padding: 18px 20px;
+}
+
+.ow-optioncard--sm .ow-optioncard__title {
+  font-size: 15px;
+}
+
+/* Inputs */
+.ow-input,
+.ow-textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid #e6e6e2;
+  background: #fff;
+  font-size: 15px;
+  font-family: inherit;
+  color: #111;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.ow-textarea {
+  resize: vertical;
+}
+
+.ow-input:focus,
+.ow-textarea:focus {
+  border-color: #111;
+}
+
+.ow-input::placeholder,
+.ow-textarea::placeholder {
+  color: #b6b6b0;
+}
+
+.ow-optioncard__textarea {
+  padding: 12px 14px;
+  border: none;
+  background: #fff;
+  color: #111;
+  font-size: 15px;
+}
+
+/* Pills */
+.ow-pillrow {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ow-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ow-pill {
+  padding: 13px 20px;
+  border: 1.5px solid #e6e6e2;
+  background: #fff;
+  color: #111;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: inherit;
+  transition: all 0.15s;
+  text-align: left;
+}
+
+.ow-pill--block {
+  width: 100%;
+}
+
+.ow-pill.is-selected {
+  border-color: #e82e31;
+  background: #e82e31;
+  color: #fff;
+}
+
+.ow-conditional {
+  margin-top: 16px;
+  animation: owFadeUp 0.28s ease both;
+}
+
+.ow-grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 16px;
+  margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 575px) {
+  .ow-grid2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Nav */
+.ow-nav {
+  display: flex;
+  align-items: center;
+  margin-top: 34px;
+  padding-top: 26px;
+  border-top: 1px solid #eeeee9;
+}
+
+.ow-back {
+  background: none;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  color: #8a8a83;
+  cursor: pointer;
+  padding: 12px 4px;
+  font-family: inherit;
+}
+
+.ow-back:hover {
+  color: #111;
+}
+
+.ow-next {
+  margin-left: auto;
+  padding: 14px 30px;
+  border: none;
+  background: #e82e31;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.ow-next:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+.ow-next:not(:disabled):active {
+  transform: scale(0.97);
+}
+
+/* Success */
+.ow-success {
+  text-align: center;
+  padding: 24px 0 12px;
+  animation: owFadeUp 0.35s ease both;
+}
+
+.ow-success__icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #111;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 22px;
+  font-size: 30px;
+  animation: owPop 0.4s ease both;
+}
+
+.ow-success__title {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 10px;
+}
+
+.ow-success__text {
+  font-size: 16px;
+  color: #6c6c65;
+  margin: 0 auto 26px;
+  max-width: 44ch;
+  line-height: 1.55;
+}
+
+.ow-summary {
+  text-align: left;
+  max-width: 440px;
+  margin: 0 auto 28px;
+  background: #f4f4f2;
+  padding: 20px 22px;
+  font-size: 14px;
+  line-height: 1.9;
+}
+
+.ow-summary__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.ow-summary__row span:first-child {
+  color: #8a8a83;
+}
+
+.ow-summary__row span:last-child {
+  font-weight: 600;
+  text-align: right;
+}
+
+.ow-reset {
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  font-family: inherit;
+}
+
+/* Honeypot — off-screen, not display:none, so bots that skip hidden
+   fields still fill it in. */
+.ow-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+/* Submit-error message under the nav. */
+.ow-error {
+  display: none;
+  margin-top: 14px;
+  font-size: 14px;
+  color: #c0392b;
+}
+
+.ow-error.is-visible {
+  display: block;
+}
