@@ -66,80 +66,27 @@ const services = [
 					<div class="swiper-wrapper">
 						<div class="swiper-slide">
 							<div class="vlt-project-showcase__item bg-main">
+								<img src="/static/img/root/pattern.svg" alt="" aria-hidden="true" class="hero-pattern" />
+								<div class="hero-circle-wrap">
+									<img id="hero-circle" src="/static/img/hero-animation/circle.png" alt="" aria-hidden="true" class="hero-circle" />
+								</div>
 								<div class="row banner-main">
-									<div class="col-lg-6">
-										<span class="vlt-project-showcase__number">Digital Build</span>
+									<div class="col-lg-10">
+										<span class="vlt-project-showcase__number" style="display: inline-flex; align-items: center; gap: 8px; padding-bottom: 20px;"><img id="hero-eyebrow-icon" src="/static/img/icon/tools.png" alt="" width="36" height="36" loading="lazy" /><span id="hero-eyebrow-text">High-Performing Websites & Automated Workflows</span><noscript><style>#hero-eyebrow-text{opacity:1!important;}</style></noscript></span>
 										<div class="position-relative">
 											<h1 id="hero-floating-title" class="vlt-project-showcase__title original has-cursor"><a
-													href="#">Expanding <br>Possibilities</a></h1>
+													href="#">Most Agencies Build Pages. <br>We Build Machinery.</a></h1>
 										</div>
-										<span class="hero-tagline">High-performing websites & automated workflows built to scale your business.</span>
-										<!--Simple link--><a class="vlt-simple-link vlt-simple-link--md"
-											href="/order/" target="_self">Get Your Free Quote<i
-												class="icon-arrow-top-right"></i></a>
+										<span class="hero-tagline">We create a unique web experience engineered for growth. By combining smart branding with backend systems, we turn your site into a 24/7 employee so you can skip the manual work.</span>
+										<div class="hero-cta-group">
+											<!--Simple link--><a class="vlt-simple-link vlt-simple-link--md"
+												href="/order/" target="_self">Pitch Us Your Project<i
+													class="icon-arrow-top-right"></i></a>
+											<!--Simple link--><a class="vlt-simple-link vlt-simple-link--md hero-cta-secondary"
+												href="/order/" target="_self">Prefer to talk first? Book a call<i
+													class="icon-arrow-top-right"></i></a>
+										</div>
 									</div>
-								</div>
-								<!--=========== looping line animation, black half ===========-->
-								<div id="ah-loop-animation" aria-hidden="true">
-									<!-- viewBox x starts at 12.5 so the artwork, which spans 70-435,
-									 sits centred in the box instead of 12.5 units right of it. -->
-								<!-- matchMedia guard: touch devices synthesize mouseenter on tap with
-									 no matching mouseleave, which would pause the loop forever. -->
-								<svg viewBox="12.5 0 480 400" width="100%" height="100%" focusable="false"
-										onmouseenter="if(matchMedia('(hover: hover)').matches){this.querySelectorAll('g').forEach(function(el){el.style.animationPlayState='paused'})}"
-										onmouseleave="if(matchMedia('(hover: hover)').matches){this.querySelectorAll('g').forEach(function(el){el.style.animationPlayState='running'})}">
-										<g class="laptopFade">
-											<rect x="90" y="70" width="220" height="150" rx="10" fill="none" stroke="#ffffff" stroke-width="2"/>
-											<path d="M70 235 L330 235 L310 255 L90 255 Z" fill="none" stroke="#ffffff" stroke-width="2"/>
-											<rect x="345" y="65" width="90" height="185" rx="16" fill="none" stroke="#ffffff" stroke-width="2"/>
-											<line x1="378" y1="76" x2="402" y2="76" stroke="#ffffff" stroke-width="1.5"/>
-											<line x1="378" y1="239" x2="402" y2="239" stroke="#ffffff" stroke-width="1.5"/>
-										</g>
-										<g class="scene1">
-											<rect x="110" y="90" width="180" height="30" rx="3" fill="none" stroke="#ffffff" stroke-width="1.5"/>
-											<rect x="110" y="130" width="90" height="14" rx="2" fill="none" stroke="#ffffff" stroke-width="1.5"/>
-											<rect x="110" y="152" width="60" height="18" rx="9" fill="none" stroke="#ec4899" stroke-width="1.5"/>
-											<rect x="200" y="130" width="90" height="70" rx="3" fill="none" stroke="#ffffff" stroke-width="1" stroke-dasharray="4 3"/>
-											<rect x="360" y="88" width="55" height="12" rx="2" fill="none" stroke="#ffffff" stroke-width="1"/>
-											<line x1="360" y1="108" x2="422" y2="108" stroke="#ffffff" stroke-width="1"/>
-											<rect x="360" y="118" width="26" height="9" rx="4.5" fill="none" stroke="#ec4899" stroke-width="1"/>
-											<rect x="360" y="134" width="62" height="42" rx="2" fill="none" stroke="#ffffff" stroke-width="0.75" stroke-dasharray="3 2"/>
-										</g>
-										<g class="scene2" style="filter:drop-shadow(0 0 5px rgba(236,72,153,.45)) drop-shadow(0 0 5px rgba(56,189,248,.35));">
-											<line x1="110" y1="95" x2="230" y2="95" stroke="#38bdf8" stroke-width="2"/>
-											<line x1="120" y1="115" x2="270" y2="115" stroke="#ffffff" stroke-width="1.5"/>
-											<line x1="130" y1="135" x2="200" y2="135" stroke="#ec4899" stroke-width="2"/>
-											<line x1="120" y1="155" x2="260" y2="155" stroke="#ffffff" stroke-width="1.5"/>
-											<line x1="110" y1="175" x2="180" y2="175" stroke="#38bdf8" stroke-width="2"/>
-											<line x1="130" y1="195" x2="290" y2="195" stroke="#ffffff" stroke-width="1.5"/>
-											<line x1="360" y1="92" x2="410" y2="92" stroke="#38bdf8" stroke-width="1.5"/>
-											<line x1="365" y1="106" x2="425" y2="106" stroke="#ffffff" stroke-width="1"/>
-											<line x1="368" y1="120" x2="400" y2="120" stroke="#ec4899" stroke-width="1.5"/>
-											<line x1="360" y1="134" x2="415" y2="134" stroke="#ffffff" stroke-width="1"/>
-											<line x1="365" y1="148" x2="390" y2="148" stroke="#38bdf8" stroke-width="1.5"/>
-										</g>
-										<g class="scene3">
-											<line x1="105" y1="88" x2="290" y2="88" stroke="#ffffff" stroke-width="1"/>
-											<circle cx="112" cy="80" r="3" fill="none" stroke="#ffffff" stroke-width="1.5"/>
-											<line x1="235" y1="80" x2="290" y2="80" stroke="#ffffff" stroke-width="1"/>
-											<rect x="105" y="98" width="185" height="42" rx="3" fill="none" stroke="#38bdf8" stroke-width="1.5"/>
-											<line x1="118" y1="112" x2="180" y2="112" stroke="#38bdf8" stroke-width="1.5"/>
-											<rect x="118" y="122" width="42" height="12" rx="6" fill="none" stroke="#ec4899" stroke-width="1.5"/>
-											<rect x="105" y="150" width="55" height="48" rx="2" fill="none" stroke="#ffffff" stroke-width="1"/>
-											<line x1="112" y1="189" x2="150" y2="189" stroke="#ffffff" stroke-width="1"/>
-											<rect x="168" y="150" width="55" height="48" rx="2" fill="none" stroke="#ffffff" stroke-width="1"/>
-											<line x1="175" y1="189" x2="213" y2="189" stroke="#ffffff" stroke-width="1"/>
-											<rect x="231" y="150" width="59" height="48" rx="2" fill="none" stroke="#ffffff" stroke-width="1"/>
-											<line x1="238" y1="189" x2="278" y2="189" stroke="#ffffff" stroke-width="1"/>
-											<line x1="360" y1="82" x2="418" y2="82" stroke="#ffffff" stroke-width="1"/>
-											<rect x="358" y="92" width="66" height="30" rx="3" fill="none" stroke="#38bdf8" stroke-width="1.5"/>
-											<line x1="364" y1="102" x2="392" y2="102" stroke="#38bdf8" stroke-width="1"/>
-											<rect x="364" y="110" width="22" height="8" rx="4" fill="none" stroke="#ec4899" stroke-width="1"/>
-											<rect x="358" y="130" width="66" height="22" rx="2" fill="none" stroke="#ffffff" stroke-width="1"/>
-											<rect x="358" y="156" width="66" height="22" rx="2" fill="none" stroke="#ffffff" stroke-width="1"/>
-											<rect x="358" y="182" width="66" height="22" rx="2" fill="none" stroke="#ffffff" stroke-width="1"/>
-										</g>
-									</svg>
 								</div>
 							</div>
 							<div class="flex-grow-0 flex-shrink-0 socials">
@@ -924,9 +871,97 @@ const services = [
 		.vlt-service--style-3:hover .vlt-service__icon {
 			color: #101010;
 		}
+		/* Hidden until the script reveals it — either when typing starts
+		   (after the cube lands) or instantly under reduced motion/no-JS. */
+		#hero-eyebrow-text {
+			opacity: 0;
+		}
+		/* Blinking caret while the eyebrow line types itself out. */
+		#hero-eyebrow-text.is-typing::after {
+			content: '';
+			display: inline-block;
+			width: 2px;
+			height: 0.9em;
+			margin-left: 2px;
+			background: currentColor;
+			vertical-align: -0.15em;
+			animation: heroEyebrowBlink 0.8s step-end infinite;
+		}
+		@keyframes heroEyebrowBlink {
+			0%, 100% { opacity: 1; }
+			50% { opacity: 0; }
+		}
+		/* Pans in from off the left edge of the viewport on its own, no JS
+		   required — fill-mode "both" applies the 0% state (hidden, off
+		   page) before the animation starts, so there is nothing to flash
+		   before it plays, and holds the 100% state after. -100vw clears
+		   the viewport regardless of where the icon sits on the page. The
+		   typing script below only listens for this to end; it doesn't
+		   trigger it. */
+		#hero-eyebrow-icon {
+			animation: heroEyebrowPan 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+		}
+		@keyframes heroEyebrowPan {
+			0% { opacity: 0; transform: translateX(-100vw); }
+			60% { opacity: 1; }
+			100% { opacity: 1; transform: translateX(0); }
+		}
+		@media (prefers-reduced-motion: reduce) {
+			#hero-eyebrow-icon {
+				animation: none;
+			}
+		}
 	</style>
 
 	<script>
+		(() => {
+			const icon = document.getElementById('hero-eyebrow-icon');
+			const eyebrow = document.getElementById('hero-eyebrow-text');
+			if (!eyebrow) return;
+
+			const fullText = eyebrow.textContent;
+			const typeSpeed = 45;
+			const startTyping = () => {
+				eyebrow.textContent = '';
+				eyebrow.style.opacity = '1';
+				eyebrow.classList.add('is-typing');
+				let i = 0;
+				const tick = () => {
+					i += 1;
+					eyebrow.textContent = fullText.slice(0, i);
+					if (i < fullText.length) {
+						setTimeout(tick, typeSpeed);
+					} else {
+						eyebrow.classList.remove('is-typing');
+					}
+				};
+				setTimeout(tick, typeSpeed);
+			};
+
+			if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+				eyebrow.style.opacity = '1';
+				return;
+			}
+
+			if (!icon) { startTyping(); return; }
+
+			icon.addEventListener('animationend', startTyping, { once: true });
+		})();
+
+		(() => {
+			const circle = document.getElementById('hero-circle');
+			if (!circle) return;
+			if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+			if (!('IntersectionObserver' in window)) return;
+
+			const io = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					circle.style.animationPlayState = entry.isIntersecting ? 'running' : 'paused';
+				});
+			}, { threshold: 0 });
+			io.observe(circle);
+		})();
+
 		(() => {
 			const title = document.getElementById('hero-floating-title');
 			if (!title) return;

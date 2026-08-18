@@ -81,6 +81,146 @@
   }
 }
 
+/* Decorative arcs, bottom-right of the hero. The item's own
+   overflow:hidden clips whatever pokes past the edge, which is the
+   point — it should feel anchored to the corner. Its white strokes only
+   read against the black half of the split background, so it's hidden
+   below 767px where bg-main has no split (see the max-width:767 gate on
+   .bg-main below the query that puts the gradient there). */
+.hero-pattern {
+  display: none;
+  pointer-events: none;
+}
+
+@media only screen and (min-width: 767px) {
+  .vlt-project-showcase__item.bg-main {
+    /* Shared by .hero-pattern and .hero-circle so the circle's corner
+       can be pinned exactly to the pattern's corner below. Expressed in
+       vw rather than % of the item's own box: "right" resolves against
+       container width either way, but "bottom" resolves against height —
+       reusing a %-of-width value there would silently resolve as a
+       %-of-height instead and throw the alignment off. vw sidesteps that
+       (same physical length wherever it's used) since the item is
+       effectively full viewport width. */
+    --pattern-w: min(560px, 42vw);
+  }
+
+  .hero-pattern {
+    display: block;
+    position: absolute;
+    right: 0;
+    bottom: -174px;
+    z-index: 0;
+    width: var(--pattern-w);
+    height: auto;
+  }
+}
+
+/* Brand-red ring badge. Pattern is a 936x774 viewBox (height = width *
+   774/936), positioned right:0 / bottom:-174px, so "pattern width" in
+   from the right and "pattern height minus 174" up from the bottom is
+   its exact top-left corner. Pulled further right and down from that
+   point — by design, not just touching it — so the ring sits over the
+   pattern's body instead of spilling past it onto the white half and
+   the tagline text. */
+.hero-circle-wrap {
+  display: none;
+  pointer-events: none;
+}
+
+@media only screen and (min-width: 767px) {
+  .hero-circle-wrap {
+    display: block;
+    position: absolute;
+    right: calc(var(--pattern-w) - 140px);
+    bottom: calc(var(--pattern-w) * 0.827 - 174px - 140px);
+    z-index: 0;
+    width: min(180px, 15%);
+    aspect-ratio: 1 / 1;
+  }
+}
+
+.hero-circle {
+  display: block;
+  width: 100%;
+  height: 100%;
+  animation: heroCircleSpin 14s linear infinite;
+  /* Starts paused; the script below only ever sets running/paused to
+     match whether the ring is actually in the viewport, so it isn't
+     spending cycles spinning off-screen. Also the safe default if JS
+     never runs — it just sits still rather than spinning forever. */
+  animation-play-state: paused;
+}
+
+@keyframes heroCircleSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-circle {
+    animation: none;
+  }
+}
+
+/* Vendor default is 24px (vlt-main.min.css). */
+.banner-main .vlt-project-showcase__number {
+  font-size: 20px;
+}
+
+/* The vendor's 100px default (vlt-main.min.css) was sized for a two-word
+   headline like "Expanding Possibilities". The current copy runs each
+   line to a full sentence, so it needs to run much smaller to still fit
+   the hero column without wrapping past its two <br>-separated lines and
+   overflowing the section's fixed, overflow:hidden height. Sizes below
+   are fitted to the longest line ("Most Agencies Build Pages.") against
+   the column width at each breakpoint, with headroom for its bold
+   letter-spacing. An #id beats the vendor's two-class selector, so this
+   wins regardless of stylesheet order. */
+#hero-floating-title {
+  font-size: 46px;
+}
+
+@media only screen and (min-width: 992px) {
+  #hero-floating-title {
+    font-size: 60px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  #hero-floating-title {
+    font-size: 34px;
+  }
+}
+
+@media only screen and (max-width: 575px) {
+  #hero-floating-title {
+    font-size: 24px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  #hero-floating-title {
+    font-size: 18px;
+  }
+}
+
+/* Stacks the two hero CTAs with breathing room between them; each link
+   keeps its own vendor-set margin-top separating the group from the
+   tagline above. */
+.hero-cta-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+  /* Without this, the flex container's own block-level box fills the
+     whole (very wide) column — invisible past the visible buttons, but
+     still catching clicks meant for whatever sits under it, like the
+     circular CTA over in the black half. */
+  width: fit-content;
+}
+
 /* Hero CTA as a frosted-glass button: white glass with red text at rest,
    grey glass with black text on hover. The :not(:hover) half is needed to
    outweigh .vlt-project-showcase--style-6 .vlt-simple-link:not(:hover),
@@ -108,98 +248,23 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
-/* ---------------------------------------------------------------
-   Hero loop animation. Sits in the black half of the split hero
-   background, below the headline and clear of the fixed side bar
-   (115px) and the socials strip at the bottom.
-   --------------------------------------------------------------- */
-#ah-loop-animation {
-  --dur: 10s;
-  position: absolute;
-  top: 50%;
-  right: 115px;
-  bottom: 9%;
-  left: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0.8;
+/* Solid black variant for the second hero CTA — same shape, no glass.
+   Extra .vlt-simple-link + :not(:hover) repetition matches/beats the
+   specificity of the rules above so it wins regardless of source order. */
+.banner-main .vlt-simple-link.hero-cta-secondary,
+.banner-main .vlt-simple-link.hero-cta-secondary:not(:hover) {
+  color: #fff;
+  background: #101010;
+  border-color: #101010;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: 0 6px 26px rgba(0, 0, 0, 0.25);
 }
 
-/* Below the split-background breakpoint the hero is plain white and the
-   lower half sits empty, so the animation moves into the flow under the
-   CTA and the strokes flip to black. The accent strokes keep their
-   colour. 766px, not 767px, because .bg-main turns into the gradient at
-   min-width: 767px and both would otherwise match at exactly 767. */
-@media only screen and (max-width: 766px) {
-  #ah-loop-animation {
-    position: static;
-    flex: 1 1 auto;
-    min-height: 130px;
-    padding: 10px 20px 62px;
-  }
-
-  #ah-loop-animation [stroke="#ffffff"] {
-    stroke: #101010;
-  }
-}
-
-#ah-loop-animation .laptopFade {
-  animation: laptopFade var(--dur) ease-in-out infinite;
-  transform-box: fill-box;
-  transform-origin: center;
-}
-#ah-loop-animation .scene1 {
-  animation: scene1 var(--dur) ease-in-out infinite;
-}
-#ah-loop-animation .scene2 {
-  animation: scene2 var(--dur) ease-in-out infinite;
-}
-#ah-loop-animation .scene3 {
-  animation: scene3 var(--dur) ease-in-out infinite;
-}
-
-@keyframes laptopFade {
-  0% { opacity: 0; transform: scale(0.92); }
-  6% { opacity: 1; transform: scale(1); }
-  94% { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: scale(0.92); }
-}
-@keyframes scene1 {
-  0% { opacity: 0; }
-  6% { opacity: 1; }
-  28% { opacity: 1; }
-  32% { opacity: 0; }
-  100% { opacity: 0; }
-}
-@keyframes scene2 {
-  0% { opacity: 0; }
-  30% { opacity: 0; }
-  34% { opacity: 1; }
-  58% { opacity: 1; }
-  62% { opacity: 0; }
-  100% { opacity: 0; }
-}
-@keyframes scene3 {
-  0% { opacity: 0; }
-  60% { opacity: 0; }
-  64% { opacity: 1; }
-  88% { opacity: 1; }
-  92% { opacity: 0; }
-  100% { opacity: 0; }
-}
-
-/* Hold the first scene still for anyone who asked for less motion. */
-@media (prefers-reduced-motion: reduce) {
-  #ah-loop-animation .laptopFade,
-  #ah-loop-animation .scene1 {
-    animation: none;
-    opacity: 1;
-  }
-  #ah-loop-animation .scene2,
-  #ah-loop-animation .scene3 {
-    display: none;
-  }
+.banner-main .vlt-simple-link.hero-cta-secondary:hover {
+  color: #e82e31;
+  background: #a6a6a6;
+  border-color: #a6a6a6;
 }
 
 @media only screen and (max-width: 1200px) {
