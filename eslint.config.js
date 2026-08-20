@@ -7,6 +7,8 @@ export default tseslint.config(
     ignores: [
       'dist/**',
       '.astro/**',
+      // wrangler pages dev writes bundled workers here
+      '.wrangler/**',
       'node_modules/**',
       'test-results/**',
       'playwright-report/**',

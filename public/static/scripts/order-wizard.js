@@ -217,10 +217,7 @@
     lines.push('Needs: ' + needsList);
     if (state.needs.has('other') && state.customRequest.trim()) lines.push('Custom request: ' + state.customRequest.trim());
     if (state.businessNature.trim()) lines.push('Business: ' + state.businessNature.trim());
-    if (state.hasWebsite) {
-      var url = state.hasWebsite === 'yes' && state.websiteUrl.trim() ? ' (' + state.websiteUrl.trim() + ')' : '';
-      lines.push('Has website: ' + state.hasWebsite + url);
-    }
+    if (state.hasWebsite) lines.push('Has website: ' + state.hasWebsite);
     if ((state.needs.has('new') || state.needs.has('redesign')) && state.hasBranding) {
       lines.push('Branding ready: ' + state.hasBranding);
     }
@@ -255,6 +252,7 @@
     data.set('email', state.email.trim());
     data.set('company', state.company.trim());
     data.set('title', Array.from(state.needs).map(function (id) { return NEED_LABELS[id]; }).join(', '));
+    data.set('website_url', state.hasWebsite === 'yes' ? state.websiteUrl.trim() : '');
     data.set('message', buildSummary());
 
     fetch(ENDPOINT, { method: 'POST', body: data })
