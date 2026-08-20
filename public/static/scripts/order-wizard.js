@@ -255,7 +255,12 @@
     data.set('website_url', state.hasWebsite === 'yes' ? state.websiteUrl.trim() : '');
     data.set('message', buildSummary());
 
-    fetch(ENDPOINT, { method: 'POST', body: data })
+    // Abort rather than sit on a disabled "Sending..." button if the
+    // request stalls; the catch below restores the form either way.
+    var ctrl = typeof AbortController !== 'undefined' ? new AbortController() : null;
+    var bail = setTimeout(function () { if (ctrl) ctrl.abort(); }, 20000);
+
+    fetch(ENDPOINT, { method: 'POST', body: data, signal: ctrl ? ctrl.signal : undefined })
       .then(function (res) {
         return res.json().catch(function () { return {}; }).then(function (json) {
           if (!res.ok || !json.success) throw new Error('submit-failed');
@@ -274,11 +279,14 @@
           if (window.turnstile) window.turnstile.reset();
         });
       })
-      .catch(function () {
-        showError('Something went wrong, please try again.');
+      .catch(function (err) {
+        showError(err && err.name === 'AbortError'
+          ? 'That took too long. Your details may still have reached us, so please check with us before sending again.'
+          : 'Something went wrong, please try again.');
         els.next.disabled = false;
         els.next.textContent = 'Submit request';
-      });
+      })
+      .finally(function () { clearTimeout(bail); });
   }
 
   render();

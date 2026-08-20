@@ -8,10 +8,10 @@
 import { WorkerMailer } from 'worker-mailer';
 
 export interface SendEmailOptions {
-  user: string;          // GMAIL_USER, e.g. info@ahdesign.website
-  pass: string;          // GMAIL_APP_PASSWORD
-  to: string;            // recipient
-  from?: string;         // defaults to user
+  user: string; // GMAIL_USER, e.g. info@ahdesign.website
+  pass: string; // GMAIL_APP_PASSWORD
+  to: string; // recipient
+  from?: string; // defaults to user
   fromName?: string;
   subject: string;
   text: string;
@@ -27,11 +27,23 @@ export async function sendEmail(opts: SendEmailOptions): Promise<void> {
     secure: true,
   });
 
-  await mailer.send({
-    from: opts.fromName ? { name: opts.fromName, email: opts.from ?? opts.user } : (opts.from ?? opts.user),
-    to: opts.to,
-    subject: opts.subject,
-    text: opts.text,
-    ...(opts.replyTo ? { replyTo: opts.replyTo } : {}),
-  });
+  try {
+    await mailer.send({
+      from: opts.fromName
+        ? { name: opts.fromName, email: opts.from ?? opts.user }
+        : (opts.from ?? opts.user),
+      to: opts.to,
+      subject: opts.subject,
+      text: opts.text,
+      ...(opts.replyTo ? { replyTo: opts.replyTo } : {}),
+    });
+  } finally {
+    // The socket was previously left open on both the success and the failure
+    // path, so a stalled SMTP conversation kept the request alive with it.
+    try {
+      await mailer.close();
+    } catch {
+      // Closing is best-effort; a failure here must not mask a send error.
+    }
+  }
 }
