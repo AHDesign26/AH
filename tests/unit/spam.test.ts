@@ -5,7 +5,46 @@ import {
   findUrlsInString,
   hasUrl,
   honeypotTripped,
+  looksLikePhone,
 } from '../../src/lib/spam';
+
+describe('looksLikePhone', () => {
+  it('accepts the shapes people actually type', () => {
+    for (const phone of [
+      '+359 88 666 0034',
+      '00359886660034',
+      '359.88.666.0034',
+      '+1 (555) 010-9999',
+      '020 7946 0958',
+      '+49 30 / 123456',
+    ]) {
+      expect(looksLikePhone(phone)).toBe(true);
+    }
+  });
+
+  it('rejects anything carrying letters or a scheme', () => {
+    expect(looksLikePhone('call me at example.com')).toBe(false);
+    expect(looksLikePhone('https://spam.example')).toBe(false);
+    expect(looksLikePhone('0888 buy viagra')).toBe(false);
+  });
+});
+
+describe('phone is exempt from the URL check', () => {
+  it('keeps a dotted number that reads as an IPv4 address', () => {
+    // Regression: this shape matches the bare-IP branch of URL_REGEX, and
+    // screening it as a URL 403s the whole enquiry over its punctuation.
+    expect(hasUrl('359.88.666.0034')).toBe(true);
+    const form = new FormData();
+    form.set('phone', '359.88.666.0034');
+    expect(buildMessageBody(form).reject).toBe(false);
+  });
+
+  it('still rejects a link smuggled into the phone field', () => {
+    const form = new FormData();
+    form.set('phone', 'https://spam.example');
+    expect(buildMessageBody(form).reject).toBe(true);
+  });
+});
 
 describe('findUrlsInString', () => {
   it('returns empty for plain text', () => {

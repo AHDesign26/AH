@@ -1,0 +1,266 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { socials } from '../lib/socials';
+import { versioned } from '../lib/asset-version';
+import { BOOKING_CONFIG } from '../lib/booking';
+
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x00000000000000000000AA';
+---
+
+<BaseLayout
+  title="Book a Call | AH Design"
+  description="Pick a 30 minute slot and talk to the two people who would build your site. No sales script, no obligation."
+  htmlClass="no-js vlt-is--contact-02 vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
+>
+  <Fragment slot="head">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline
+    ></script>
+    <link rel="stylesheet" href={versioned('/static/css/call-booking.css')} />
+  </Fragment>
+  <!--Site overlay-->
+  <div class="vlt-site-overlay"></div>
+  <!--Main-->
+  <main class="vlt-main">
+    <!--Page content-->
+    <div class="vlt-page-content">
+      <!--Page title-->
+      <div class="vlt-page-title vlt-page-title--style-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-11 offset-md-1">
+              <h1 class="vlt-page-title__title">Talk to the people who would build it</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="content"></div>
+
+      <!--Section-->
+      <section>
+        <div class="vlt-gap-120"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <!--Animated block-->
+              <div class="vlt-animated-block" data-aos="fade" data-aos-delay="0">
+                <h2>Book a call</h2>
+              </div>
+              <div class="vlt-gap-30"></div>
+              <p class="cb-intro">
+                {BOOKING_CONFIG.durationMinutes} minutes, no sales script. Pick a time that suits you
+                and we will call you on the number you leave. If you would rather write it all down instead,
+                <a href="/order/">pitch us your project</a>.
+              </p>
+              <div class="vlt-gap-60"></div>
+            </div>
+
+            <!--=========== Booking ============-->
+            <div class="col-lg-9">
+              <!--Animated block-->
+              <div class="vlt-animated-block" data-aos="fade" data-aos-delay="100">
+                <div class="cb-card">
+                  <div class="cb-body">
+                    <form id="callbooking" novalidate>
+                      <!-- STEP 1 — pick a slot -->
+                      <div data-panel="slots">
+                        <h3 class="cb-heading">1. Pick a time</h3>
+                        <p class="cb-zone" id="cbZone"></p>
+
+                        <div class="cb-loading" id="cbLoading">Loading available times&hellip;</div>
+
+                        <div class="cb-empty" id="cbEmpty" hidden>
+                          <p>
+                            Nothing free in the next {BOOKING_CONFIG.horizonDays} days. Send us your project
+                            instead and we will come back with times by email.
+                          </p>
+                          <a class="vlt-btn vlt-btn--secondary" href="/order/"
+                            >Pitch us your project</a
+                          >
+                        </div>
+
+                        <div id="cbPicker" hidden>
+                          <div
+                            class="cb-days"
+                            id="cbDays"
+                            role="tablist"
+                            aria-label="Available days"
+                          >
+                          </div>
+                          <div
+                            class="cb-times"
+                            id="cbTimes"
+                            role="listbox"
+                            aria-label="Available times"
+                          >
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- STEP 2 — details -->
+                      <div data-panel="details" hidden>
+                        <h3 class="cb-heading">2. Your details</h3>
+                        <div class="cb-chosen" id="cbChosen">
+                          <span class="cb-chosen__time" id="cbChosenTime"></span>
+                          <button type="button" class="cb-change" id="cbChange">Change</button>
+                        </div>
+
+                        <div class="cb-grid">
+                          <div>
+                            <label class="cb-label" for="cbName">Your name *</label>
+                            <input
+                              class="cb-input"
+                              id="cbName"
+                              name="name"
+                              autocomplete="name"
+                              placeholder="Jane Doe"
+                            />
+                          </div>
+                          <div>
+                            <label class="cb-label" for="cbEmail">Email *</label>
+                            <input
+                              class="cb-input"
+                              type="email"
+                              id="cbEmail"
+                              name="email"
+                              autocomplete="email"
+                              placeholder="jane@company.com"
+                            />
+                          </div>
+                          <div>
+                            <label class="cb-label" for="cbPhone">Phone *</label>
+                            <input
+                              class="cb-input"
+                              type="tel"
+                              id="cbPhone"
+                              name="phone"
+                              autocomplete="tel"
+                              placeholder="+359 88 000 0000"
+                            />
+                          </div>
+                          <div>
+                            <label class="cb-label" for="cbCompany">Company</label>
+                            <input
+                              class="cb-input"
+                              id="cbCompany"
+                              name="company"
+                              autocomplete="organization"
+                              placeholder="Company name"
+                            />
+                          </div>
+                        </div>
+                        <div class="cb-field">
+                          <label class="cb-label" for="cbTopic">What would you like to cover?</label
+                          >
+                          <textarea
+                            class="cb-textarea"
+                            id="cbTopic"
+                            name="topic"
+                            rows="3"
+                            placeholder="A sentence is plenty."></textarea>
+                        </div>
+
+                        <input
+                          type="text"
+                          name="website"
+                          class="cb-honeypot"
+                          tabindex="-1"
+                          autocomplete="off"
+                          aria-hidden="true"
+                        />
+                        <input type="hidden" name="slot" id="cbSlot" />
+                        <input type="hidden" name="visitor_timezone" id="cbVisitorZone" />
+                        <div
+                          class="cf-turnstile"
+                          data-sitekey={turnstileSiteKey}
+                          data-size="invisible"
+                        >
+                        </div>
+
+                        <div class="cb-nav">
+                          <button type="submit" class="cb-submit" id="cbSubmit"
+                            >Confirm booking</button
+                          >
+                        </div>
+                        <p class="cb-fineprint">
+                          We use your details only to hold and make this call. See our
+                          <a href="/privacy/">privacy policy</a>.
+                        </p>
+                      </div>
+
+                      <!-- SUCCESS -->
+                      <div data-panel="success" hidden>
+                        <div class="cb-success__icon">&#10003;</div>
+                        <h3 class="cb-success__title">You&rsquo;re booked</h3>
+                        <p class="cb-success__text" id="cbSuccessText"></p>
+                        <p class="cb-success__note">
+                          A calendar invite is on its way to your inbox. If the time stops working,
+                          reply to that email and we will move it.
+                        </p>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <p id="cbError" class="cb-error"></p>
+              </div>
+              <div class="vlt-gap-60--md"></div>
+            </div>
+
+            <!--=========== Contact info ============-->
+            <div class="col-lg-3">
+              <div class="vlt-pl-70 vlt-pl-0--md">
+                <div class="row">
+                  <div class="col-lg-12 col-md-6">
+                    <!--Animated block-->
+                    <div class="vlt-gap-20"></div>
+                    <div class="vlt-animated-block" data-aos="fade" data-aos-delay="200">
+                      <h5 class="text-accent">Rather not wait?</h5>
+                      <div class="vlt-gap-20"></div>
+                      <a href="mailto:info@ahdesign.website">info@ahdesign.website</a>
+                      <div class="vlt-gap-20"></div>
+                      <a href="tel:+359886660034">(+359)- 88 666 0034</a>
+                    </div>
+                    <div class="vlt-gap-60"></div>
+                  </div>
+                  <div class="col-lg-12 col-md-6">
+                    <!--Animated block-->
+                    <div class="vlt-animated-block" data-aos="fade" data-aos-delay="300">
+                      <h5 class="text-accent">Where we are:</h5>
+                      <div class="vlt-gap-20"></div>
+                      <p class="lh-2">Bulgaria, Sofia. <br />AHdesign Co.</p>
+                    </div>
+                    <div class="vlt-gap-40"></div>
+                    <!--Animated block-->
+                    <div class="vlt-animated-block" data-aos="fade" data-aos-delay="400">
+                      <h5 class="text-accent">Social media:</h5>
+                      <div class="vlt-gap-20"></div>
+                      <div class="has-black-color">
+                        {
+                          socials.map((s) => (
+                            <a
+                              class="vlt-social-icon vlt-social-icon--style-1"
+                              href={s.url}
+                              target="_blank"
+                              rel="noopener"
+                              aria-label={`AH Design on ${s.name}`}
+                            >
+                              {s.short}.
+                            </a>
+                          ))
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="vlt-gap-120"></div>
+      </section>
+    </div>
+  </main>
+
+  <Fragment slot="js">
+    <script src="/static/scripts/call-booking.js" is:inline></script>
+  </Fragment>
+</BaseLayout>

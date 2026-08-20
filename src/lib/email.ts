@@ -16,6 +16,8 @@ export interface SendEmailOptions {
   subject: string;
   text: string;
   replyTo?: string;
+  /** `content` must already be base64; worker-mailer does no encoding. */
+  attachments?: { filename: string; content: string; mimeType?: string }[];
 }
 
 export async function sendEmail(opts: SendEmailOptions): Promise<void> {
@@ -36,6 +38,7 @@ export async function sendEmail(opts: SendEmailOptions): Promise<void> {
       subject: opts.subject,
       text: opts.text,
       ...(opts.replyTo ? { replyTo: opts.replyTo } : {}),
+      ...(opts.attachments?.length ? { attachments: opts.attachments } : {}),
     });
   } finally {
     // The socket was previously left open on both the success and the failure

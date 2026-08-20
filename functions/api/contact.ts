@@ -14,6 +14,7 @@ import { findUrlsInString, honeypotTripped, buildMessageBody } from '../../src/l
 import { verifyTurnstile } from '../../src/lib/turnstile';
 import { sendTelegram } from '../../src/lib/telegram';
 import { sendEmail } from '../../src/lib/email';
+import { withTimeout } from '../../src/lib/timeout';
 
 interface Env {
   TURNSTILE_SECRET_KEY: string;
@@ -130,15 +131,6 @@ export async function handle(ctx: Ctx, formName: 'Contact' | 'Order'): Promise<R
 // phase, so it gets longer. Both are well inside what a visitor will wait.
 const TELEGRAM_TIMEOUT_MS = 8_000;
 const EMAIL_TIMEOUT_MS = 12_000;
-
-/** Reject rather than hang, so one stalled channel cannot hold the request. */
-function withTimeout<T>(promise: Promise<T>, ms: number, label: string): Promise<T> {
-  let timer: ReturnType<typeof setTimeout>;
-  const timeout = new Promise<never>((_, reject) => {
-    timer = setTimeout(() => reject(new Error(`${label} timed out after ${ms}ms`)), ms);
-  });
-  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer)) as Promise<T>;
-}
 
 function json(body: unknown, status: number): Response {
   return new Response(JSON.stringify(body), {

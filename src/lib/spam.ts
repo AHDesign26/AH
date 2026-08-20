@@ -43,11 +43,26 @@ export const ALLOWED_FIELDS = [
  * migration enquiries almost always contain one. Rejecting those was dropping
  * exactly the leads the form exists to collect.
  *
- * The check still applies to name, phone, company and title, where a URL has
- * no legitimate use and is a reliable spam tell. Turnstile and the honeypot
- * remain the primary defence.
+ * The check still applies to name, company and title, where a URL has no
+ * legitimate use and is a reliable spam tell. Turnstile and the honeypot
+ * remain the primary defence. Phone is handled separately, see below.
  */
 const URL_ALLOWED_FIELDS: ReadonlySet<string> = new Set(['email', 'website_url', 'message']);
+
+/**
+ * Phone gets a positive check rather than the URL one.
+ *
+ * A number written with dots, like 359.88.666.0034, matches the bare-IPv4
+ * branch of URL_REGEX, so screening this field for URLs would 403 a real
+ * enquiry over its phone number's punctuation. Digits and separators cannot
+ * carry a link: a domain needs letters and a scheme needs a colon and slashes,
+ * none of which are allowed through here.
+ */
+const PHONE_PATTERN = /^[\d\s+().\-/]*$/;
+
+export function looksLikePhone(value: string): boolean {
+  return PHONE_PATTERN.test(value);
+}
 
 export function buildMessageBody(form: FormData): { body: string; reject: boolean } {
   let reject = false;
@@ -56,7 +71,9 @@ export function buildMessageBody(form: FormData): { body: string; reject: boolea
     const v = form.get(k);
     if (v === null) continue;
     const value = String(v);
-    if (!URL_ALLOWED_FIELDS.has(k) && hasUrl(value)) {
+    if (k === 'phone') {
+      if (!looksLikePhone(value)) reject = true;
+    } else if (!URL_ALLOWED_FIELDS.has(k) && hasUrl(value)) {
       reject = true;
       // Keep walking to log the attempt; the caller decides what to do.
     }

@@ -10,7 +10,7 @@
     step: 0, needs: new Set(), customRequest: '', businessNature: '',
     hasWebsite: null, websiteUrl: '', hasBranding: null, industry: '',
     goal: null, launchDate: '', stage: null,
-    name: '', email: '', company: '', callTime: '', message: '',
+    name: '', email: '', phone: '', company: '', callTime: '', message: '',
     referredPlan: '',
   };
 
@@ -38,6 +38,7 @@
     launch: $('#owLaunch'),
     name: $('#owName'),
     email: $('#owEmail'),
+    phone: $('#owPhone'),
     company: $('#owCompany'),
     callTime: $('#owCallTime'),
     message: $('#owMessage'),
@@ -166,6 +167,7 @@
   bind(els.launch, 'launchDate', 'change');
   bind(els.name, 'name', 'input', true);
   bind(els.email, 'email', 'input', true);
+  bind(els.phone, 'phone');
   bind(els.company, 'company');
   bind(els.callTime, 'callTime');
   bind(els.message, 'message');
@@ -193,7 +195,7 @@
     state.step = 0; state.needs = new Set(); state.customRequest = ''; state.businessNature = '';
     state.hasWebsite = null; state.websiteUrl = ''; state.hasBranding = null; state.industry = '';
     state.goal = null; state.launchDate = ''; state.stage = null; state.name = ''; state.email = '';
-    state.company = ''; state.callTime = ''; state.message = '';
+    state.phone = ''; state.company = ''; state.callTime = ''; state.message = '';
     els.form.reset();
     if (els.customRequest) els.customRequest.value = '';
     render();
@@ -250,6 +252,7 @@
     var data = new FormData(els.form);
     data.set('name', state.name.trim());
     data.set('email', state.email.trim());
+    data.set('phone', state.phone.trim());
     data.set('company', state.company.trim());
     data.set('title', Array.from(state.needs).map(function (id) { return NEED_LABELS[id]; }).join(', '));
     data.set('website_url', state.hasWebsite === 'yes' ? state.websiteUrl.trim() : '');
