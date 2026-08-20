@@ -23,9 +23,31 @@ export function honeypotTripped(value: FormDataEntryValue | null): boolean {
   return String(value).trim().length > 0;
 }
 
-// Field allowlist — matches the `keys` list in app.py:303. Anything outside
-// this list is silently dropped from the message body.
-export const ALLOWED_FIELDS = ['name', 'email', 'phone', 'company', 'title', 'message'] as const;
+// Field allowlist — matches the `keys` list in app.py:303, plus website_url
+// for the order wizard. Anything outside this list is dropped from the body.
+export const ALLOWED_FIELDS = [
+  'name',
+  'email',
+  'phone',
+  'company',
+  'website_url',
+  'title',
+  'message',
+] as const;
+
+/**
+ * Fields where a URL is expected rather than a spam signal.
+ *
+ * The order wizard asks "do you have a website?" and the contact form invites
+ * people to describe a project, so a link in either is normal: redesign and
+ * migration enquiries almost always contain one. Rejecting those was dropping
+ * exactly the leads the form exists to collect.
+ *
+ * The check still applies to name, phone, company and title, where a URL has
+ * no legitimate use and is a reliable spam tell. Turnstile and the honeypot
+ * remain the primary defence.
+ */
+const URL_ALLOWED_FIELDS: ReadonlySet<string> = new Set(['email', 'website_url', 'message']);
 
 export function buildMessageBody(form: FormData): { body: string; reject: boolean } {
   let reject = false;
@@ -34,7 +56,7 @@ export function buildMessageBody(form: FormData): { body: string; reject: boolea
     const v = form.get(k);
     if (v === null) continue;
     const value = String(v);
-    if (k !== 'email' && hasUrl(value)) {
+    if (!URL_ALLOWED_FIELDS.has(k) && hasUrl(value)) {
       reject = true;
       // Keep walking to log the attempt; the caller decides what to do.
     }

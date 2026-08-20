@@ -14,7 +14,9 @@ describe('findUrlsInString', () => {
 
   it('detects http and https URLs', () => {
     expect(findUrlsInString('check http://example.com today')).toContain('http://example.com');
-    expect(findUrlsInString('go to https://example.com/path')).toContain('https://example.com/path');
+    expect(findUrlsInString('go to https://example.com/path')).toContain(
+      'https://example.com/path',
+    );
   });
 
   it('detects bare domains and www-prefixed hosts', () => {
@@ -70,21 +72,53 @@ describe('buildMessageBody', () => {
     expect(body.indexOf('name')).toBeLessThan(body.indexOf('message'));
   });
 
-  it('flags reject when a non-email field contains a URL', () => {
-    const { reject } = buildMessageBody(
-      fd({ name: 'Bot', email: 'b@example.com', message: 'visit https://spam.example/win' }),
-    );
-    expect(reject).toBe(true);
+  it('flags reject when an identity field contains a URL', () => {
+    for (const field of ['name', 'phone', 'company', 'title']) {
+      const { reject } = buildMessageBody(
+        fd({ name: 'Bot', email: 'b@example.com', [field]: 'https://spam.example/win' }),
+      );
+      expect(reject, `${field} should be checked for URLs`).toBe(true);
+    }
   });
 
   it('does not flag reject when only the email field contains a URL-shaped value', () => {
     const { reject } = buildMessageBody(fd({ name: 'Real', email: 'foo@bar.com' }));
     expect(reject).toBe(false);
   });
+
+  // The order wizard asks for the customer's website, and people paste links
+  // when describing a project. Rejecting those dropped real enquiries.
+  it('allows a URL in website_url and in the message', () => {
+    const { body, reject } = buildMessageBody(
+      fd({
+        name: 'Jane',
+        email: 'jane@example.org',
+        website_url: 'https://janescoffee.com',
+        message: 'Has website: yes\nI like the look of stripe.com',
+      }),
+    );
+    expect(reject).toBe(false);
+    expect(body).toContain('website_url = https://janescoffee.com\n');
+  });
+
+  it('still rejects a bare domain in an identity field', () => {
+    const { reject } = buildMessageBody(
+      fd({ name: 'Bot', email: 'b@example.com', company: 'cheap-pills.example' }),
+    );
+    expect(reject).toBe(true);
+  });
 });
 
 describe('ALLOWED_FIELDS', () => {
-  it('matches the keys list from app.py exactly', () => {
-    expect([...ALLOWED_FIELDS]).toEqual(['name', 'email', 'phone', 'company', 'title', 'message']);
+  it('is the app.py keys list plus website_url for the order wizard', () => {
+    expect([...ALLOWED_FIELDS]).toEqual([
+      'name',
+      'email',
+      'phone',
+      'company',
+      'website_url',
+      'title',
+      'message',
+    ]);
   });
 });
