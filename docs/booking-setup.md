@@ -1,71 +1,115 @@
-# Call booking setup
+# Call booking
 
-The `/call/` page needs one KV binding and four env vars. Until they are set the
-page still works: it serves slots from KV alone and simply does not know about
-anything else in your calendars.
+The `/call/` page lets a visitor pick a 30 minute slot and get a calendar
+invite. It went live on 2026-08-21 in commit `53b961f`.
 
-Nothing here is in a `wrangler.toml` on purpose. Adding one to a Pages project
-can make the config file the source of truth for bindings, and four of the
-eleven env vars on `ah` are `secret_text` that nobody, including Cloudflare's
-API, can read back. If a deploy blanked them the contact form, the order form
-and the CMS login would all break and three secrets would need regenerating.
-Dashboard bindings are additive and carry none of that risk.
+Setup is **complete**. This file is the reference for changing it and for
+working out what is wrong when it misbehaves.
 
-## 1. Bind the KV namespace
+## How it fits together
 
-The namespace already exists:
+- `GET /api/slots` — generates slots, subtracts what KV already holds,
+  subtracts what Google says you are busy with, returns the rest.
+- `POST /api/book` — Turnstile, validation, then reserves the slot in KV
+  **before** notifying anyone. If neither Telegram nor our own email gets
+  through, the reservation is released and the visitor gets a 502, so no slot
+  is ever held for a call we never heard about.
 
-| Name       | ID                                 |
-| ---------- | ---------------------------------- |
-| `BOOKINGS` | `59f0676f91884ec5a76e8164f3f054df` |
+Google is a **secondary** filter. If the lookup fails the page still works and
+serves slots from KV alone, because losing the check offers a slot we might be
+busy for, while failing the request loses the booking outright. That is
+deliberate, and it is why a broken credential is quiet rather than loud. See
+"Checking it still works".
 
-Cloudflare dashboard, Workers & Pages, project `ah`, Settings, Functions, KV
-namespace bindings. Add the same binding to **both** Production and Preview:
+The confirmation email carries an `.ics` attachment. That is what removes the
+need for write access to anyone's calendar: accepting the invite puts the call
+where the next free/busy lookup will see it.
 
-- Variable name: `BOOKINGS`
-- KV namespace: `BOOKINGS`
+## What is already configured
 
-## 2. Google Calendar credentials
+| Thing        | Value                                                                                                          |
+| ------------ | -------------------------------------------------------------------------------------------------------------- |
+| KV namespace | `BOOKINGS` = `59f0676f91884ec5a76e8164f3f054df`                                                                |
+| Bound on     | production **and** preview                                                                                     |
+| Env vars     | `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REFRESH_TOKEN`, `GOOGLE_CALENDAR_IDS` on both environments |
 
-In [console.cloud.google.com](https://console.cloud.google.com):
+`GOOGLE_CALENDAR_IDS` is comma-separated. `primary` means the main calendar of
+whichever Google account minted the refresh token. To check a second person's
+calendar, they share theirs with that account at **"See only free/busy (hide
+details)"**, then add its id to the list. One token can read both; you never
+need a second token.
 
-1. Create a project and enable the **Google Calendar API**.
-2. OAuth consent screen: External, add both Google accounts as test users, then
-   **publish it**. Left in "Testing", Google expires the refresh token after
-   about a week and availability quietly stops reflecting your calendars. That
-   is the one part of this that can rot silently.
-3. Credentials, Create OAuth client ID, **Desktop app**. Copy the id and secret.
+### Adding bindings later
 
-Then run, once per Google account whose calendar should be checked:
+Do **not** add a `wrangler.toml`. Once a Pages project has one it can become the
+source of truth for bindings, and four of the env vars on `ah` are `secret_text`
+that nobody, including Cloudflare's API, can read back. Blanking them would take
+down both forms and the CMS login.
+
+Use the dashboard, or a `PATCH`, which merges rather than replaces (verified on
+a throwaway project first):
 
 ```
-node scripts/google-oauth.mjs <client-id> <client-secret>
+PATCH https://api.cloudflare.com/client/v4/accounts/<acct>/pages/projects/ah
+{"deployment_configs":{"production":{"kv_namespaces":{"NAME":{"namespace_id":"..."}}}}}
 ```
 
-It opens a consent flow, prints a refresh token, and lists the calendar ids that
-token can read.
+The `CF_API_TOKEN` in `.env` is purge-only and cannot do this. Use wrangler's
+OAuth token from `%APPDATA%/xdg.config/.wrangler/config/default.toml`.
 
-## 3. Pages env vars
+Secrets are easier: `npx wrangler pages secret put NAME --project-name=ah`, then
+again with `--env preview`. That flag is missing from `--help` and the docs but
+does work. Both are additive; neither disturbs existing values.
 
-Add to Production and Preview, then **deploy** (editing an env var does nothing
-until the next deploy):
-
-| Variable               | Value                                            |
-| ---------------------- | ------------------------------------------------ |
-| `GOOGLE_CLIENT_ID`     | from step 2                                      |
-| `GOOGLE_CLIENT_SECRET` | from step 2, mark as secret                      |
-| `GOOGLE_REFRESH_TOKEN` | from the script, mark as secret                  |
-| `GOOGLE_CALENDAR_IDS`  | comma-separated calendar ids, usually the emails |
-
-A refresh token belongs to one account. To check two calendars from one token,
-share the second calendar with the first account and list both ids here.
+**Nothing takes effect until the next deploy.**
 
 ## Changing when calls can be booked
 
 `BOOKING_CONFIG` in `src/lib/booking.ts`. Currently 30 minute slots, Tuesday to
 Thursday, 10:00-12:00 and 14:00-16:00 Sofia time, 24 hours' notice, 21 days
 ahead. Windows are wall-clock local time and the DST arithmetic is handled, so
-10:00 stays 10:00 across the March and October changes.
+10:00 stays 10:00 across the March and October changes. Edit and push; the
+GitHub connection deploys `main` on its own.
+
+## Checking it still works
+
+**The refresh token is the part that can rot silently.** If the Google OAuth
+consent screen was left in "Testing" rather than published, Google expires the
+refresh token after about 7 days. The page keeps working and quietly stops
+hiding times you are busy.
+
+So the health check is: put an event in your calendar inside one of the windows,
+load `/call/`, and confirm that slot disappears. Worth doing around **1
+September 2026**, a week or so after setup, and any time the page looks too
+available.
+
+To see whether the Google call is actually failing, read the function logs. The
+warning is `calendar lookup failed, serving reservations only`.
+
+```
+npx wrangler pages deployment tail <deployment-id> --project-name=ah --format=json
+```
+
+The deployment id is **required** in a non-interactive shell; without it the
+command exits with "Must specify a deployment in non-interactive mode". Get it
+from the deployments API or `wrangler pages deployment list`. In the JSON, an
+`/api/slots` request with `"logs": []` and `"exceptions": []` means Google
+answered fine and you are simply free.
+
+### Testing the live site from a script
+
+Two things that look like breakage and are not:
+
+- `curl` against `ahdesign.website` returns **403** with `cf-mitigated:
+challenge`. That is zone bot mitigation. Pass a normal browser `User-Agent`
+  and it returns 200.
+- The `*.pages.dev` deployment URLs return **302** to
+  `cloudflareaccess.com`. They sit behind Cloudflare Access and are not usable
+  from a script at all. Test the apex instead.
+
+A real booking still cannot be proven from a script, because Turnstile fails
+automated browsers by design. The first live submission by a person is the final
+test.
 
 ## Running it locally
 
@@ -76,21 +120,27 @@ npx wrangler pages dev ./dist --port 8790 --ip 127.0.0.1 \
   --binding TURNSTILE_SECRET_KEY=1x0000000000000000000000000000000AA
 ```
 
-Post `cf-turnstile-response=XXXX.DUMMY.TOKEN.XXXX` to exercise the real handler.
-Move `.env` and `.env.local` aside first unless you want it sending real mail.
+Bindings are passed as flags because there is no wrangler config, on purpose.
 
-If the server answers `Ready on` but every request then hangs, check for
-leftover `workerd.exe` and `wrangler` processes from earlier runs; they hold
-`.wrangler/tmp` and the next start fails to bundle.
+Turnstile's real site key refuses localhost, so to submit the form locally you
+also need the test **site** key baked into the build: set
+`PUBLIC_TURNSTILE_SITE_KEY=1x00000000000000000000AA` before `npm run build`.
+A blank value in `.env.local` overrides a `--binding`, so edit or move that file
+rather than fighting it, and put it back afterwards.
 
-## What the endpoints do
+The Google values only exist as Cloudflare secrets and cannot be read back, so a
+local run skips the calendar check and shows every slot. Gmail credentials in
+`.env.local` are real: submitting locally sends a genuine email.
 
-- `GET /api/slots` — generated slots, minus KV reservations, minus Google busy
-  time. A Google failure is logged and ignored rather than failing the request.
-- `POST /api/book` — Turnstile, validation, then reserve in KV **before**
-  notifying. If neither Telegram nor our own email gets through, the reservation
-  is released and the visitor gets a 502, so no slot is held for a call we never
-  heard about.
+If the server prints `Ready on` and then every request hangs, including static
+pages, look for leftover `workerd.exe` and `wrangler` processes from earlier
+runs. They hold `.wrangler/tmp` and the next start fails to bundle. `pkill` does
+not reach them on Windows; use `Get-CimInstance Win32_Process`, filter on the
+project path so other projects are left alone, then `Stop-Process -Force` and
+`rm -rf .wrangler/tmp`.
 
-Two people booking the same slot in the same second can both succeed: KV has no
-compare-and-set. At this volume the Telegram notification catches it.
+## Known limits
+
+Two people booking the same slot within the same second can both succeed: KV has
+no compare-and-set. At this volume the Telegram notification catches it, which
+is cheaper than the machinery to prevent it.
