@@ -75,35 +75,69 @@ export async function handle(ctx: Ctx, formName: 'Contact' | 'Order'): Promise<R
   const subject = `New ${formName}Form`;
   const fullText = `${subject}\n${msgBody}`;
 
-  // Send to Telegram + Gmail concurrently. We don't fail the request if
-  // Telegram fails; the user shouldn't see a 500 just because the bot is down.
+  // Send to Telegram + Gmail concurrently. Both legs are bounded: SMTP talks
+  // over a raw socket and a stalled conversation used to hold the whole
+  // request open, leaving the visitor watching a "Sending..." button that
+  // never resolved while the Telegram copy had already arrived.
   const [tg, email] = await Promise.allSettled([
-    sendTelegram({
-      botToken: env.TELEGRAM_BOT_TOKEN,
-      chatId: env.TELEGRAM_CHAT_ID,
-      text: fullText,
-    }),
-    sendEmail({
-      user: env.GMAIL_USER,
-      pass: env.GMAIL_APP_PASSWORD,
-      to: env.CONTACT_TO_EMAIL ?? env.GMAIL_USER,
-      from: env.GMAIL_USER,
-      fromName: 'AHDesign Website',
-      subject,
-      text: fullText,
-      replyTo: typeof form.get('email') === 'string' ? String(form.get('email')) : undefined,
-    }),
+    withTimeout(
+      sendTelegram({
+        botToken: env.TELEGRAM_BOT_TOKEN,
+        chatId: env.TELEGRAM_CHAT_ID,
+        text: fullText,
+      }),
+      TELEGRAM_TIMEOUT_MS,
+      'telegram',
+    ),
+    withTimeout(
+      sendEmail({
+        user: env.GMAIL_USER,
+        pass: env.GMAIL_APP_PASSWORD,
+        to: env.CONTACT_TO_EMAIL ?? env.GMAIL_USER,
+        from: env.GMAIL_USER,
+        fromName: 'AHDesign Website',
+        subject,
+        text: fullText,
+        replyTo: typeof form.get('email') === 'string' ? String(form.get('email')) : undefined,
+      }),
+      EMAIL_TIMEOUT_MS,
+      'email',
+    ),
   ]);
 
-  // Log failures via console so they show up in CF Pages logs.
-  if (tg.status === 'rejected') console.warn('telegram failed', tg.reason);
-  if (email.status === 'rejected') console.warn('email failed', email.reason);
+  // sendTelegram resolves with {ok:false} for an API-level rejection instead
+  // of throwing, so a settled promise is not proof of delivery.
+  const telegramDelivered = tg.status === 'fulfilled' && tg.value.ok === true;
+  const emailDelivered = email.status === 'fulfilled';
 
-  // Email is the authoritative channel — if it failed we surface the error.
-  if (email.status === 'rejected') {
-    return json({ error: 'email-failed' }, 502);
+  // Log failures via console so they show up in CF Pages logs.
+  if (!telegramDelivered) {
+    console.warn('telegram failed', tg.status === 'rejected' ? tg.reason : tg.value);
+  }
+  if (!emailDelivered) console.warn('email failed', email.reason);
+
+  // The enquiry is only lost if both channels failed. Treating email as
+  // authoritative meant a flaky SMTP leg showed the visitor an error after
+  // Telegram had already delivered the lead, so they submitted again and we
+  // got duplicates.
+  if (!telegramDelivered && !emailDelivered) {
+    return json({ error: 'delivery-failed' }, 502);
   }
   return json({ success: true }, 200);
+}
+
+// Telegram is a single HTTPS call; SMTP needs a handshake, auth and a data
+// phase, so it gets longer. Both are well inside what a visitor will wait.
+const TELEGRAM_TIMEOUT_MS = 8_000;
+const EMAIL_TIMEOUT_MS = 12_000;
+
+/** Reject rather than hang, so one stalled channel cannot hold the request. */
+function withTimeout<T>(promise: Promise<T>, ms: number, label: string): Promise<T> {
+  let timer: ReturnType<typeof setTimeout>;
+  const timeout = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => reject(new Error(`${label} timed out after ${ms}ms`)), ms);
+  });
+  return Promise.race([promise, timeout]).finally(() => clearTimeout(timer)) as Promise<T>;
 }
 
 function json(body: unknown, status: number): Response {
