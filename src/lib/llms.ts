@@ -72,6 +72,18 @@ export const KEY_PAGES: PageEntry[] = [
     summary: `Contact form, email ${SITE.email}, phone ${SITE.phoneDisplay}.`,
   },
   {
+    path: '/call',
+    title: 'Book a call',
+    summary:
+      'Self-service booking for a free 30 minute intro call. The visitor picks a slot themselves, gets a calendar invite, and is called on the number they leave. Tuesday to Thursday, Sofia time, at least a day ahead.',
+  },
+  {
+    path: '/order',
+    title: 'Start a project',
+    summary:
+      'Three-step form for describing a project and requesting a fixed quote. Use this for anyone ready to brief the work rather than talk first.',
+  },
+  {
     path: '/blog',
     title: 'Blog',
     summary: 'Articles on web design, SEO and launching a website.',
@@ -80,7 +92,7 @@ export const KEY_PAGES: PageEntry[] = [
     path: '/privacy',
     title: 'Privacy Policy',
     summary:
-      'What personal data the contact and order forms collect, who processes it, and GDPR rights.',
+      'What personal data the contact form, the order form and the call booking page collect, who processes it, and GDPR rights.',
   },
 ];
 
@@ -181,7 +193,9 @@ ${packageList(WEBSITE_PACKAGES, false)}
 ${packageList(GROWTH_PACKAGES, true)}
 
 Prices are starting points; individual quotes are provided for specific
-requirements. Ordering and enquiries: ${absoluteUrl('/contact')}
+requirements. To brief a project and get a fixed quote: ${absoluteUrl('/order')}
+To book a free 30 minute call instead: ${absoluteUrl('/call')}
+General enquiries: ${absoluteUrl('/contact')}
 
 ## Blog posts
 
