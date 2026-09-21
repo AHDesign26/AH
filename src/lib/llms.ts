@@ -92,7 +92,7 @@ export const KEY_PAGES: PageEntry[] = [
     path: '/privacy',
     title: 'Privacy Policy',
     summary:
-      'What personal data the contact form, the order form and the call booking page collect, who processes it, and GDPR rights.',
+      'What personal data the contact form, the order form and the call booking page collect, who processes it, GDPR rights, and how our Keyword Planner application uses the Google Ads API.',
   },
 ];
 
