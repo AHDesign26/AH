@@ -1,0 +1,1674 @@
+/*
+ * Styles for src/pages/index2.astro (homepage concept — scroll-morph hero,
+ * process flow, testimonials carousel, pricing and "tell us what you need"
+ * sections). Everything is scoped under .ah-page so it can't leak onto other
+ * pages built from vlt-main.min.css / custom.css.
+ *
+ * Breakpoints mirror the two used by the page's own script (index2.js):
+ *   1080px — multi-column grids collapse to stacked/tablet.
+ *   760px  — the pinned scroll-morph hero disengages into a static block.
+ *
+ * Navigation isn't styled here — the page uses BaseLayout's own fixed
+ * fullscreen header, same as every other page (see the comment at the top
+ * of index2.astro for why a second one wouldn't be reachable anyway).
+ */
+
+.ah-page {
+  --ah-navy: #201f42;
+  --ah-cream: #fbf3da;
+  --ah-cream-2: #f8f3f0;
+  --ah-purple: #4412c5;
+  --ah-purple-deep: #280f62;
+  --ah-mauve: #57315e;
+  --ah-teal: #5bcdbe;
+  --ah-teal-text: rgb(91, 205, 190);
+  --ah-violet-btn: rgb(83, 24, 235);
+  --ah-lilac: #ece9ff;
+  --ah-lilac-2: #ece9fe;
+  /* Same token as :root's in custom.css (site-wide, used by the footer's
+     "Read more about us" link) — mirrored here so this page's own
+     .ah-page palette has it too, under the name already used elsewhere. */
+  --ah-lilac-3: #9280ff;
+  --ah-lavender-bg: #f3f2ff;
+
+  position: relative;
+  background: #201f42;
+  font-family: 'Swansea', sans-serif;
+  color: var(--ah-cream-2);
+}
+
+.ah-page *,
+.ah-page *::before,
+.ah-page *::after {
+  box-sizing: border-box;
+}
+
+.ah-page ::selection {
+  background: var(--ah-cream);
+  color: var(--ah-navy);
+}
+
+/* Every <a> below sets its own color via a component class — no blanket
+   default here, since a lone .ah-page a rule (specificity 0,1,1) would
+   beat a single-class component rule (0,1,0) and wash it out. */
+.ah-page a {
+  text-decoration: none;
+}
+
+.ah-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@keyframes ah-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes ah-float-tag {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotateZ(0deg);
+  }
+  50% {
+    transform: translate3d(4px, -8px, 0) rotateZ(-2deg);
+  }
+}
+
+/* ==================== Hero (scroll-morph) ==================== */
+
+.ah-hero-track {
+  position: relative;
+  z-index: 2;
+  background: #ffffff;
+  height: 520vh;
+}
+
+.ah-hero-sticky {
+  /* Pinned via JS (index2.js), not CSS `position: sticky` — vlt-main.min.css
+     sets `overflow: hidden` on <main class="vlt-main">, and any ancestor
+     with non-visible overflow silently breaks a sticky descendant's
+     positioning (it falls back to acting like `position: relative`). The
+     script measures .ah-hero-track's scroll progress each frame and swaps
+     this between fixed/absolute — the same technique already used for the
+     morphing video card itself — including `top`: a stray `top: 0` here
+     would win the browser's over-constrained-box tiebreak against JS's
+     `bottom: 0` once the pin releases at the end of the track, since an
+     absolutely-positioned box with top, height AND bottom all set drops
+     `bottom` and keeps `top`. Leave `top` for the script to set per frame. */
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 80px 0 40px;
+}
+
+.ah-hero-grid {
+  width: 100%;
+  max-width: 1280px;
+  padding: 0 clamp(16px, 3vw, 40px);
+  margin: 0 auto;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: 1fr 1.25fr 1fr;
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  height: min(72vh, 560px);
+}
+
+.ah-side-card {
+  background: #f3f2ff;
+  border: 1px solid rgba(53, 51, 205, 0.14);
+  border-radius: 15px;
+  padding: clamp(14px, 1.8vw, 24px);
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.ah-side-card img {
+  width: 180px;
+  height: 180px;
+  max-width: 100%;
+  object-fit: contain;
+  align-self: center;
+}
+
+.ah-side-card__label {
+  margin: 0;
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--ah-purple);
+  text-wrap: balance;
+  text-align: center;
+}
+
+.ah-side-card--a {
+  grid-column: 1;
+  grid-row: 1;
+}
+.ah-side-card--b {
+  grid-column: 1;
+  grid-row: 2;
+}
+.ah-side-card--c {
+  grid-column: 3;
+  grid-row: 1;
+}
+.ah-side-card--d {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.ah-hero-cell {
+  position: relative;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+.ah-hero-card {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0;
+  overflow: hidden;
+  background: #2e1433;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 12;
+  will-change: left, top, width, height;
+}
+
+.ah-hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ah-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(46, 20, 51, 0.4);
+}
+
+.ah-hero-solid {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--ah-purple-deep) 65%, var(--ah-mauve));
+  opacity: 0;
+}
+
+.ah-hero-text {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: scale(1.7);
+  transform-origin: center;
+}
+
+.ah-hero-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-indent: 0.28em;
+  color: #dcd7ff;
+  margin-bottom: 14px;
+  white-space: nowrap;
+}
+
+.ah-hero-text h1 {
+  margin: 0;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 1.14;
+  letter-spacing: 0.03em;
+  color: var(--ah-cream-2);
+  text-wrap: balance;
+}
+
+.ah-hero-text p {
+  margin: 25px 0 20px;
+  font-size: 11px;
+  font-weight: 300;
+  line-height: 1.5;
+  color: rgba(248, 243, 240, 0.82);
+  max-width: 26em;
+  text-wrap: pretty;
+}
+
+.ah-hero-strategy {
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--ah-lilac);
+  color: var(--ah-navy);
+  border-radius: 999px;
+  padding: 5px 5px 5px 18px;
+  font-size: 12px;
+  font-weight: 300;
+}
+
+/* Theme-global `a:hover, p a { color: #e82e31 }` (vlt-main.min.css) beats
+   a lone class's color rule on hover (element+pseudo-class outranks a
+   lone class), so every button below pins its hover text color back
+   explicitly rather than relying on its base rule. */
+.ah-hero-strategy:hover {
+  color: var(--ah-navy);
+}
+
+/* ==================== Shared button ripple ====================
+   Cursor-following ripple used by every button on this page (.ah-ripple
+   on the button, .ah-ripple__fx as its first child span). Same mechanic
+   as the theme's own .vlt-btn hover (vlt-main.min.css: span grows from 0
+   to 40rem, centered on the pointer's entry point via index2.js), just
+   recolored to --ah-teal at 50% opacity instead of the theme red. */
+.ah-ripple {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.ah-ripple__fx {
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 0;
+  height: 0;
+  background: rgba(91, 205, 190, 0.5);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 1s, height 1s;
+  pointer-events: none;
+}
+
+.ah-ripple:hover .ah-ripple__fx {
+  width: 40rem;
+  height: 40rem;
+}
+
+.ah-hero-strategy__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: var(--ah-violet-btn);
+}
+
+.ah-hero-cardtext {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 26px;
+  pointer-events: none;
+}
+
+.ah-hero-services {
+  font-family: 'Swansea', sans-serif;
+  font-size: clamp(40px, 6vw, 84px);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #b7b6b6;
+  -webkit-text-stroke-color: currentColor;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 1px;
+  margin-bottom: 16px;
+  line-height: 1;
+  opacity: 0;
+}
+
+.ah-hero-cardtext h2 {
+  margin: 0;
+  font-weight: 500;
+  font-size: clamp(15px, 1.5vw, 20px);
+  line-height: 1.2;
+  letter-spacing: 0.01em;
+  color: var(--ah-cream-2);
+  text-wrap: balance;
+  opacity: 0;
+}
+
+/* ==================== About ==================== */
+
+/* Reserves .ah-about's natural (unpinned) height in normal document flow.
+   index2.js locks this to a pixel height measured while .ah-about sits at
+   `position: relative`, then pins .ah-about to fixed/absolute inside it as
+   the page scrolls — the manual version of `position: sticky`, needed
+   because <main class="vlt-main"> has `overflow: hidden` (vlt-main.min.css,
+   site-wide) and that silently breaks a sticky descendant (it degrades to
+   acting like `position: relative`, so it never actually stays pinned while
+   .ah-flow slides up to cover it). Without this wrapper, switching
+   .ah-about to `position: fixed` would pull it out of flow entirely and
+   collapse the space below it — same reason the hero has .ah-hero-track. */
+.ah-about-track {
+  position: relative;
+}
+
+.ah-about {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  background: #ffffff;
+  padding: clamp(48px, 9vw, 130px) clamp(20px, 4vw, 64px) clamp(180px, 26vw, 400px);
+}
+
+.ah-about__panel {
+  max-width: 1240px;
+  margin: 0 auto;
+  background: var(--ah-lavender-bg);
+  border-radius: 28px;
+  padding: clamp(28px, 4vw, 64px);
+}
+
+.ah-about__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.ah-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(12px, 1vw, 13px);
+  letter-spacing: 0.28em;
+  text-indent: 0.28em;
+  text-transform: uppercase;
+  color: rgb(68, 18, 197);
+}
+
+.ah-eyebrow--light {
+  color: #dcd7ff;
+}
+
+.ah-about__left {
+  position: relative;
+  padding-right: clamp(0px, 3vw, 56px);
+}
+
+.ah-about__left .ah-eyebrow {
+  display: block;
+  margin-bottom: clamp(20px, 2.5vw, 30px);
+}
+
+.ah-about__title {
+  margin: 0 0 26px;
+  font-weight: 500;
+  font-size: clamp(28px, 3.6vw, 50px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, var(--ah-navy), #a18afb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  text-wrap: balance;
+}
+
+.ah-about__lead {
+  margin: 0;
+  font-size: clamp(15px, 1.25vw, 18px);
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--ah-navy);
+  max-width: 40em;
+  text-wrap: pretty;
+}
+
+.ah-stats {
+  margin-top: 48px;
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(90px, 14vw, 190px);
+  flex-wrap: wrap;
+}
+
+.ah-stat {
+  position: relative;
+  display: inline-block;
+  padding-top: 22px;
+}
+
+.ah-stat__value {
+  display: block;
+  font-size: clamp(64px, 7vw, 96px);
+  font-weight: 600;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--ah-purple);
+}
+
+.ah-stat__tag {
+  position: absolute;
+  top: 0;
+  left: 42%;
+  white-space: nowrap;
+  color: var(--ah-navy);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.3;
+  padding: 8px 16px;
+  border-radius: 999px;
+  will-change: transform;
+  transform-style: preserve-3d;
+  animation: ah-float-tag 2.6s ease-in-out infinite;
+  text-transform: uppercase;
+}
+
+.ah-stat__tag--a {
+  background: #c0b5fd6e;
+}
+
+.ah-stat__tag--b {
+  background: #d3f4ee;
+  animation-duration: 3.4s;
+  animation-delay: -1.7s;
+}
+
+.ah-about__right {
+  justify-self: end;
+  width: 100%;
+  padding-left: clamp(0px, 3vw, 56px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ah-about__pill {
+  background: #3432cd33;
+  border: 1px solid rgba(53, 51, 205, 0.12);
+  border-radius: 12px;
+  padding: 16px 20px;
+}
+
+.ah-about__pill-label {
+  font-weight: 500;
+  color: var(--ah-navy);
+}
+
+.ah-about__pill-text {
+  font-weight: 300;
+  color: var(--ah-navy);
+}
+
+/* ==================== Flow / process ==================== */
+
+.ah-flow {
+  position: relative;
+  z-index: 3;
+  background: #ffffff;
+  border-radius: 40px 40px 0 0;
+  box-shadow: 0 -40px 80px rgba(46, 20, 51, 0.14);
+  margin-top: -60px;
+  padding: clamp(60px, 8vw, 120px) clamp(20px, 4vw, 64px);
+}
+
+.ah-flow__inner {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.ah-flow__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: clamp(20px, 2.5vw, 32px);
+}
+
+.ah-flow__label {
+  margin: 0;
+  font-family: 'Swansea', sans-serif;
+  font-weight: 700;
+  font-size: clamp(64px, 12vw, 110px);
+  line-height: 0.82;
+  letter-spacing: -0.03em;
+  color: #b7b6b6;
+  -webkit-text-stroke-color: currentColor;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 1px;
+}
+
+.ah-flow__intro {
+  margin: 8px 0 0;
+  font-size: clamp(15px, 1.3vw, 19px);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--ah-navy);
+  max-width: 20em;
+  text-align: right;
+}
+
+.ah-eyebrow-row {
+  margin-bottom: clamp(24px, 3vw, 40px);
+}
+
+.ah-eyebrow-row .ah-eyebrow {
+  color: var(--ah-navy);
+}
+
+.ah-eyebrow-row b {
+  font-weight: 700;
+  font-size: 1.25em;
+}
+
+.ah-flow__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.ah-flow__col {
+  border-left: 1px solid rgba(32, 31, 66, 0.12);
+  padding: 40px 28px;
+  align-self: start;
+}
+
+.ah-flow__col:nth-child(2) {
+  margin-top: 50px;
+}
+.ah-flow__col:nth-child(3) {
+  margin-top: 150px;
+}
+/* Continues the "before Build" column line (the one at the 50% mark,
+   between Design and Build) down through this section's bottom padding so
+   it meets .ah-contact__grid::before, which is pulled up through its own
+   top padding by the same amount — together they read as one unbroken
+   line running from the flow steps into the "Let's shape" section. */
+.ah-flow__connector {
+  position: absolute;
+  left: 50%;
+  width: 1px;
+  top: 150px;
+  bottom: calc(-1 * clamp(60px, 8vw, 120px));
+  background: rgba(32, 31, 66, 0.12);
+}
+
+.ah-flow__col:nth-child(4) {
+  margin-top: 200px;
+  border-right: 1px solid rgba(32, 31, 66, 0.12);
+}
+
+.ah-flow__visual-img {
+  width: clamp(80px, 8vw, 100px);
+  height: clamp(80px, 8vw, 100px);
+  object-fit: contain;
+  margin-bottom: 30px;
+  display: block;
+}
+
+.ah-flow__swatch {
+  width: clamp(120px, 12vw, 168px);
+  height: clamp(120px, 12vw, 168px);
+  border-radius: 22px;
+  background: linear-gradient(180deg, var(--ah-purple-deep) 15%, var(--ah-mauve) 55%, #8a5aa0);
+  margin-bottom: 30px;
+}
+
+.ah-flow__step {
+  margin: 0 0 20px;
+  font-weight: 700;
+  font-size: clamp(24px, 2.2vw, 32px);
+  letter-spacing: -0.01em;
+  color: var(--ah-purple);
+}
+
+.ah-flow__desc {
+  margin: 0 0 40px;
+  font-size: clamp(15px, 1.15vw, 17px);
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(32, 31, 66, 0.6);
+}
+
+.ah-flow__pct {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ah-purple-deep);
+  margin-bottom: 12px;
+}
+
+.ah-flow__bar {
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(40, 15, 98, 0.14);
+  overflow: hidden;
+}
+
+.ah-flow__bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--ah-purple-deep);
+}
+
+.ah-flow__bar-fill--pct-25 {
+  width: 25%;
+}
+.ah-flow__bar-fill--pct-50 {
+  width: 50%;
+}
+.ah-flow__bar-fill--pct-75 {
+  width: 75%;
+}
+.ah-flow__bar-fill--pct-100 {
+  width: 100%;
+}
+
+/* ==================== Contact CTA ==================== */
+
+.ah-contact {
+  position: relative;
+  z-index: 4;
+  background: #ffffff;
+  padding: 0 clamp(20px, 4vw, 64px) clamp(60px, 9vw, 130px);
+}
+
+.ah-contact__inner {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.ah-contact__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 5vw, 80px);
+  padding-top: clamp(36px, 5vw, 64px);
+}
+
+.ah-contact__grid::before {
+  content: '';
+  position: absolute;
+  /* Pulled up through the grid's own top padding so it starts at the very
+     top of .ah-contact, meeting .ah-flow__connector right at the section
+     boundary with no gap between them. */
+  top: calc(-1 * clamp(36px, 5vw, 64px));
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: rgba(32, 31, 66, 0.12);
+}
+
+.ah-contact__title {
+  margin: 0;
+  font-weight: 700;
+  font-size: clamp(44px, 5vw, 60px);
+  line-height: 1.1;
+  padding-bottom: 0.08em;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, var(--ah-purple), #b072c3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.ah-contact__right {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(48px, 7vw, 110px);
+}
+
+.ah-contact__copy {
+  margin: 0;
+  align-self: flex-end;
+  max-width: 26em;
+  font-size: clamp(16px, 1.3vw, 20px);
+  line-height: 1.4;
+  color: rgba(32, 31, 66, 0.7);
+  text-align: right;
+}
+
+.ah-contact__cta-wrap {
+  position: relative;
+  z-index: 1;
+  background: var(--ah-lilac);
+  border-radius: 100px;
+  margin-top: 100px;
+  margin-left: -200px;
+  margin-right: 300px;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: scale(0.8);
+  transform-origin: left center;
+}
+
+.ah-contact__cta:hover {
+  color: var(--ah-navy);
+}
+
+.ah-contact__cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(16px, 1.6vw, 26px);
+  width: 100%;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(16px, 2vw, 24px);
+  letter-spacing: -0.01em;
+  color: var(--ah-navy);
+  white-space: nowrap;
+}
+
+.ah-contact__cta-sub {
+  font-size: clamp(12px, 1.2vw, 14px);
+  font-weight: 500;
+}
+
+.ah-contact__cta-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(52px, 5vw, 74px);
+  height: clamp(52px, 5vw, 74px);
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: var(--ah-violet-btn);
+  color: #ffffff;
+}
+
+/* ==================== Testimonials ==================== */
+
+.ah-testimonials {
+  position: relative;
+  z-index: 5;
+  background: var(--ah-navy);
+  padding: clamp(56px, 8vw, 110px) clamp(20px, 4vw, 64px) clamp(64px, 9vw, 120px);
+}
+
+.ah-testimonials__inner {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.ah-testimonials__inner > .ah-eyebrow--light {
+  display: block;
+  margin-bottom: clamp(28px, 4vw, 46px);
+}
+
+.ah-testimonials__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin-bottom: clamp(44px, 6vw, 84px);
+}
+
+.ah-testimonials__title {
+  margin: 0;
+  font-family: 'Swansea', sans-serif;
+  font-weight: 500;
+  font-size: clamp(38px, 6vw, 82px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, var(--ah-cream-2), #a18afb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  padding-bottom: 0.08em;
+}
+
+.ah-testi-arrows {
+  display: flex;
+  gap: 14px;
+}
+
+.ah-testi-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(48px, 4.5vw, 64px);
+  height: clamp(48px, 4.5vw, 64px);
+  border-radius: 999px;
+  border: 1px solid rgba(248, 243, 240, 0.25);
+  background: transparent;
+  color: var(--ah-cream-2);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.ah-testi-arrow:hover {
+  background: #fdddbd;
+  color: var(--ah-navy);
+  border-color: #fdddbd;
+}
+
+.ah-testi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(20px, 2.5vw, 34px);
+  align-items: end;
+}
+
+.ah-testi-card {
+  display: flex;
+  flex-direction: column;
+  background: #f7f6ff;
+  border-radius: 26px;
+  padding: clamp(28px, 3vw, 40px);
+  min-height: clamp(380px, 30vw, 460px);
+}
+
+.ah-testi-card--mid {
+  margin-top: clamp(60px, 7vw, 110px);
+  min-height: clamp(300px, 24vw, 360px);
+}
+
+.ah-testi-icon {
+  color: var(--ah-navy);
+  margin-bottom: clamp(24px, 3vw, 40px);
+}
+
+.ah-testi-quote {
+  margin: 0;
+  flex: 1;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(16px, 1.25vw, 19px);
+  line-height: 1.55;
+  color: var(--ah-navy);
+}
+
+.ah-testi-more {
+  display: none;
+  margin-left: 4px;
+  padding: 0;
+  border: none;
+  background: none;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: inherit;
+  white-space: nowrap;
+  color: var(--ah-teal);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.ah-testi-more.is-visible {
+  display: inline;
+}
+
+.ah-testi-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: clamp(28px, 4vw, 48px);
+}
+
+.ah-testi-avatar {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: contain;
+  background: #ffffff;
+  border: 1px solid rgba(32, 31, 66, 0.1);
+}
+
+.ah-testi-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--ah-navy);
+}
+
+.ah-testi-role {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 15px;
+  color: rgba(32, 31, 66, 0.55);
+}
+
+/* ==================== More about + marquee ==================== */
+
+.ah-more {
+  position: relative;
+  z-index: 3;
+  background: #ffffff;
+  padding: clamp(56px, 8vw, 110px) clamp(20px, 4vw, 64px);
+}
+
+.ah-more__inner {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.ah-more__grid {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) 2.4fr;
+  gap: clamp(28px, 5vw, 80px);
+  align-items: start;
+}
+
+.ah-more__title {
+  margin: 0;
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: var(--ah-navy);
+  text-wrap: balance;
+}
+
+.ah-more__actions {
+  margin-top: clamp(36px, 5vw, 60px);
+  display: flex;
+  align-items: center;
+  gap: clamp(20px, 3vw, 40px);
+  flex-wrap: wrap;
+}
+
+.ah-more__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  height: 58px;
+  background: var(--ah-lilac);
+  color: var(--ah-navy);
+  border-radius: 999px;
+  padding: 0 8px 0 28px;
+  font-size: clamp(15px, 1.2vw, 17px);
+  font-weight: 400;
+}
+
+.ah-more__btn:hover {
+  color: var(--ah-navy);
+}
+
+.ah-more__btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: var(--ah-violet-btn);
+}
+
+.ah-more__btn--outline {
+  height: 58px;
+  border: 1px solid #5318eb;
+  border-radius: 999px;
+  padding: 0 28px;
+  color: var(--ah-navy);
+  font-size: clamp(15px, 1.2vw, 17px);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  background: transparent;
+  gap: 10px;
+}
+
+.ah-marquee {
+  background: #2e14330d;
+  overflow: hidden;
+  margin-top: clamp(48px, 6vw, 80px);
+  margin-left: calc(-1 * clamp(20px, 4vw, 64px));
+  margin-right: calc(-1 * clamp(20px, 4vw, 64px));
+  padding: clamp(20px, 2.6vw, 34px) 0;
+}
+
+.ah-marquee__track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  gap: clamp(36px, 5vw, 72px);
+  animation: ah-marquee 32s linear infinite;
+}
+
+.ah-marquee__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  color: var(--ah-navy);
+}
+
+.ah-marquee__item span {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(16px, 1.3vw, 20px);
+  font-weight: 300;
+  white-space: nowrap;
+}
+
+.ah-marquee__item--accent {
+  color: var(--ah-teal-text);
+}
+
+/* ==================== Pricing / engagements ==================== */
+
+.ah-pricing {
+  position: relative;
+  z-index: 3;
+  background: #ffffff;
+  padding: clamp(56px, 8vw, 110px) clamp(20px, 4vw, 64px);
+}
+
+.ah-pricing__inner {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.ah-pricing__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: clamp(24px, 4vw, 60px);
+  flex-wrap: wrap;
+  margin-bottom: clamp(44px, 6vw, 88px);
+}
+
+.ah-pricing__label {
+  margin: 0 0 0 auto;
+  flex: 0 1 auto;
+  min-width: 0;
+  font-family: 'Swansea', sans-serif;
+  font-weight: 700;
+  font-size: clamp(42px, 11vw, 100px);
+  line-height: 0.82;
+  letter-spacing: -0.03em;
+  text-align: right;
+  color: #b7b6b6;
+  -webkit-text-stroke-color: currentColor;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 1px;
+}
+
+.ah-pricing__intro {
+  margin: 8px 0 0 auto;
+  flex: 0 0 auto;
+  max-width: 18em;
+  font-size: clamp(15px, 1.3vw, 19px);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--ah-navy);
+  text-align: right;
+}
+
+.ah-pricing__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 2.5vw, 32px);
+}
+
+.ah-price-card {
+  position: relative;
+  border-radius: 28px;
+  padding: clamp(28px, 3.2vw, 52px);
+  display: flex;
+  flex-direction: column;
+}
+
+.ah-price-card--dark {
+  background: linear-gradient(135deg, rgb(40, 15, 98) 65%, rgb(87, 49, 94));
+}
+
+.ah-price-card--teal {
+  background: var(--ah-teal);
+}
+
+.ah-price-card__head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: clamp(20px, 2.5vw, 30px);
+}
+
+.ah-price-card__head h3 {
+  margin: 0;
+  font-family: 'Swansea', sans-serif;
+  font-weight: 700;
+  font-size: clamp(23px, 2.3vw, 34px);
+  letter-spacing: -0.01em;
+}
+
+.ah-price-card--dark .ah-price-card__head h3 {
+  color: #ffffff;
+}
+
+.ah-price-card--teal .ah-price-card__head h3 {
+  color: var(--ah-navy);
+}
+
+.ah-price-card__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  flex-basis: 100%;
+  font-size: clamp(14px, 1.1vw, 16px);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.ah-price-card__badge span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.ah-price-card--teal .ah-price-card__badge {
+  color: rgba(32, 31, 66, 0.75);
+}
+
+.ah-price-card--teal .ah-price-card__badge span {
+  background: var(--ah-navy);
+}
+
+.ah-price-card .ah-price-card__desc {
+  margin: 0 0 clamp(34px, 5vw, 60px);
+  font-size: clamp(16px, 1.3vw, 19px);
+  line-height: 1.5;
+  max-width: 22em;
+}
+
+.ah-price-card--dark .ah-price-card__desc {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.ah-price-card--teal .ah-price-card__desc {
+  color: rgba(32, 31, 66, 0.6);
+}
+
+.ah-price-card__price {
+  margin: 0 0 clamp(14px, 1.6vw, 18px);
+  font-family: 'Swansea', sans-serif;
+  font-weight: 700;
+  font-size: clamp(18px, 1.6vw, 22px);
+  letter-spacing: -0.01em;
+}
+
+.ah-price-card--dark .ah-price-card__price {
+  color: #ffffff;
+}
+
+.ah-price-card--teal .ah-price-card__price {
+  color: var(--ah-navy);
+}
+
+.ah-price-card__features {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(16px, 1.8vw, 22px);
+  margin-bottom: clamp(34px, 5vw, 60px);
+}
+
+.ah-price-feature {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.ah-price-feature span {
+  font-size: clamp(16px, 1.3vw, 19px);
+  font-weight: 300;
+}
+
+.ah-price-card--dark .ah-price-feature span {
+  color: #ffffff;
+}
+
+.ah-price-card--teal .ah-price-feature span {
+  color: var(--ah-navy);
+}
+
+.ah-price-card__cta {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  height: 58px;
+  background: var(--ah-lilac);
+  color: var(--ah-navy);
+  border-radius: 999px;
+  padding: 0 8px 0 28px;
+  font-size: clamp(15px, 1.2vw, 17px);
+  font-weight: 400;
+  justify-content: space-between;
+  align-self: stretch;
+}
+
+.ah-price-card__cta:hover {
+  color: var(--ah-navy);
+}
+
+.ah-price-card__cta-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: var(--ah-violet-btn);
+  flex-shrink: 0;
+}
+
+/* ==================== Latest Projects ====================
+   Copied verbatim from src/pages/index.astro (same .bg-project markup as
+   the real homepage), but with its own background here instead of
+   .bg-project's plain black (custom.css) — still opaque, so it still
+   needs `position: relative` + a z-index above the pinned About panel's
+   2, same reveal requirement as Blog below (see that comment). Scoped to
+   .ah-page so it doesn't affect the real homepage's .bg-project. */
+.ah-page .bg-project {
+  position: relative;
+  z-index: 3;
+  background: linear-gradient(135deg, var(--ah-purple-deep) 65%, var(--ah-mauve));
+}
+
+/* "See all projects" — same pill-button recipe as .ah-more__btn elsewhere
+   on this page (lilac pill, navy text, circular violet icon bubble),
+   rather than the plain underline-style .vlt-simple-link/.project-ref the
+   homepage uses for this link. */
+.ah-project-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  height: 58px;
+  background: var(--ah-lilac);
+  color: var(--ah-navy);
+  border-radius: 999px;
+  padding: 0 8px 0 28px;
+  font-size: clamp(15px, 1.2vw, 17px);
+  font-weight: 400;
+}
+
+.ah-project-cta:hover {
+  color: var(--ah-navy);
+}
+
+.ah-project-cta__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  background: var(--ah-violet-btn);
+  flex-shrink: 0;
+}
+
+/* ==================== Blog ====================
+   Copied verbatim from src/pages/index.astro (same markup, same vlt-*
+   classes as the real homepage's Blog section) — no ah- class of its own,
+   so it isn't touched anywhere else in this file. It sits between Pricing
+   and Need, both of which are `position: relative` with a z-index above
+   the pinned About panel's 2 (see .ah-about above, pinned by index2.js),
+   so About paints underneath them. This bare <section> would otherwise
+   render at the default stacking level below that fixed panel, and being
+   background: transparent by default, About would show through it. This
+   is a structural fix only — no visual/copy change to the section itself. */
+.ah-page > section:not([class]) {
+  position: relative;
+  z-index: 3;
+  background: #ffffff;
+}
+
+/* Title color only, to match .ah-contact__title ("Let's shape something
+   precise.") — same gradient, same white-background section. Everything
+   else about this heading (font, size, weight) stays the global vlt-
+   theme's own .vlt-section-title__title. Scoped to this bare <section>
+   (the Blog heading) specifically — .vlt-section-title__title is also the
+   class on "Latest Projects" (.bg-project, black background, inline
+   style="color: white") just above it, which an unscoped rule here would
+   wrongly override too, since -webkit-text-fill-color beats a plain
+   inline `color`. */
+.ah-page > section:not([class]) .vlt-section-title__title {
+  background: linear-gradient(90deg, var(--ah-purple), #b072c3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+/* ==================== Tell us what you need ==================== */
+
+.ah-need {
+  position: relative;
+  z-index: 3;
+  background: var(--ah-lilac-2);
+  padding: clamp(64px, 9vw, 130px) clamp(20px, 4vw, 64px) clamp(56px, 7vw, 100px);
+  overflow: hidden;
+}
+
+.ah-need__inner {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.ah-need__title {
+  margin: 0;
+  text-align: center;
+  font-family: 'Swansea', sans-serif;
+  font-weight: 500;
+  font-size: 75px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--ah-purple);
+}
+
+.ah-need__bar {
+  margin: clamp(40px, 5vw, 72px) auto 0;
+  max-width: 900px;
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 14px 14px 14px clamp(24px, 3vw, 34px);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.ah-need__prefix {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(18px, 1.6vw, 22px);
+  color: var(--ah-navy);
+  white-space: nowrap;
+}
+
+.ah-need__chips {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 1;
+  min-width: 60px;
+}
+
+.ah-need__chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: #ffffff;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(15px, 1.3vw, 18px);
+  font-weight: 500;
+  color: var(--ah-navy);
+  cursor: pointer;
+}
+
+.ah-need__chip svg {
+  stroke: rgba(32, 31, 66, 0.5);
+}
+
+.ah-need__chips-hint {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(15px, 1.3vw, 18px);
+  color: rgba(32, 31, 66, 0.4);
+  white-space: nowrap;
+}
+
+.ah-need__next {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--ah-purple);
+  color: #ffffff;
+  border-radius: 14px;
+  padding: 16px 28px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(15px, 1.3vw, 18px);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.ah-need__next:hover {
+  color: #ffffff;
+}
+
+.ah-need__grid {
+  margin-top: clamp(48px, 7vw, 96px);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(14px, 2vw, 28px) clamp(24px, 3vw, 48px);
+}
+
+.ah-need__service {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(32, 31, 66, 0.12);
+  padding: 16px 4px;
+  cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(17px, 1.5vw, 22px);
+  font-weight: 400;
+  color: var(--ah-navy);
+  text-align: left;
+}
+
+.ah-need__service--selected {
+  color: rgba(32, 31, 66, 0.4);
+}
+
+.ah-need__service--selected .ah-need__service-plus {
+  stroke: var(--ah-teal-text);
+}
+
+.ah-need__service-label {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 12px;
+  text-align: left;
+}
+
+.ah-need__service-label svg {
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.ah-need__service-plus {
+  flex-shrink: 0;
+}
+
+/* ==================== Responsive ==================== */
+
+@media (max-width: 1080px) {
+  .ah-about__grid,
+  .ah-contact__grid,
+  .ah-pricing__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ah-contact__grid::before,
+  .ah-flow__connector {
+    display: none;
+  }
+
+  /* .ah-contact__cta-wrap's negative/positive margins are a desktop-only
+     flourish (the pill bleeds left across the 2-col divider). Once the
+     grid stacks to 1 column above, those margins just push the pill off
+     the edge of the viewport, so reset them here. */
+  .ah-contact__cta-wrap {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 48px;
+    padding: clamp(24px, 5vw, 40px);
+  }
+
+  .ah-contact__copy {
+    align-self: flex-start;
+    text-align: left;
+  }
+
+  .ah-more__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ah-testi-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ah-testi-card,
+  .ah-testi-card--mid {
+    margin-top: 0;
+    min-height: 0;
+  }
+
+  .ah-need__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ah-flow__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ah-flow__col:nth-child(2),
+  .ah-flow__col:nth-child(3),
+  .ah-flow__col:nth-child(4) {
+    margin-top: 0;
+  }
+
+  .ah-flow__col:nth-child(4) {
+    border-right: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .ah-hero-track {
+    height: auto;
+  }
+
+  .ah-hero-sticky {
+    position: relative;
+    height: auto;
+    padding: 120px 0 40px;
+  }
+
+  .ah-hero-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    height: auto;
+  }
+
+  .ah-side-card--a,
+  .ah-side-card--b,
+  .ah-side-card--c,
+  .ah-side-card--d {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .ah-hero-cell {
+    grid-column: auto;
+    grid-row: auto;
+    order: -1;
+    min-height: 64vh;
+  }
+
+  .ah-hero-card {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 15px !important;
+  }
+
+  .ah-hero-text {
+    transform: scale(1) !important;
+  }
+
+  /* .ah-hero-eyebrow/.ah-hero-text p are sized small (10px/11px) because
+     on desktop heroMorph's scroll-driven transform scales .ah-hero-text up
+     from 1.7x as the hero settles, so the rendered size is much larger
+     than the base font-size suggests. The rule just above forces that
+     transform to scale(1) on mobile (the pin/morph effect is disabled
+     here — see heroMorph's vw <= 760 bypass in index2.js), so without a
+     mobile-specific bump these render at their tiny literal size instead. */
+  .ah-hero-eyebrow {
+    font-size: 12px;
+  }
+
+  .ah-hero-text p {
+    font-size: 14px;
+  }
+
+  .ah-hero-video {
+    opacity: 1 !important;
+  }
+
+  .ah-side-card {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .ah-need__title {
+    font-size: 50px;
+  }
+
+  .ah-stats {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .ah-stat__value {
+    font-size: 44px;
+  }
+
+  .ah-need__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ah-need__bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ah-need__chips-hint {
+    white-space: normal;
+  }
+
+  .ah-need__next {
+    justify-content: center;
+  }
+}

@@ -6,6 +6,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   title="Page not found | AH Design"
   description="That page does not exist. Head back to the AH Design home page or browse our services, projects and prices."
   noindex
+  noCanonical
   htmlClass="no-js vlt-is--page-404 vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
 >
   <div class="vlt-site-overlay"></div>
@@ -46,14 +47,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                       <div class="vlt-stroke-text vlt-stroke-text--lg">404</div>
                     </div>
                     <div class="vlt-gap-10"></div>
-                    <h2>Page not found.</h2>
+                    <h1>Page not found.</h1>
                     <div class="vlt-gap-10"></div>
                     <p class="fz-3">The page you were looking for could not be found.</p>
                     <div class="vlt-gap-60"></div>
-                    <a
-                      class="vlt-btn vlt-btn--secondary vlt-btn--md"
-                      href="/"
-                      target="_self">Back to Home</a>
+                    <a class="vlt-btn vlt-btn--secondary vlt-btn--md" href="/" target="_self"
+                      >Back to Home</a
+                    >
                   </div>
                 </div>
               </div>
