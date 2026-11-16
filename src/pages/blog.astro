@@ -2,9 +2,23 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { SITE, absoluteUrl, breadcrumbSchema, isoDate } from '../lib/seo';
+import { imageDims } from '../lib/image-dims';
 
-const posts = (await getCollection('blog')).sort((a, b) =>
-  b.data.published_date.localeCompare(a.data.published_date),
+// Posts with a canonical_slug are duplicates of another entry (e.g.
+// website-design-first-steps-to-consider canonicalises to website) — they
+// get no card of their own here, same as they get no entry in blogSchema
+// below, so the only link to them anywhere is the canonical redirect.
+const posts = (await getCollection('blog'))
+  .filter((post) => !post.data.canonical_slug)
+  .sort((a, b) => b.data.published_date.localeCompare(a.data.published_date));
+
+// Each post's thumbnail is a different size — read the real dimensions so
+// <img width height> can be set below and the page doesn't jump as the
+// grid's thumbnails load in.
+const thumbDims = new Map(
+  await Promise.all(
+    posts.map(async (post) => [post.data.slug, await imageDims(post.data.thumbnail)] as const),
+  ),
 );
 
 const blogSchema = {
@@ -14,16 +28,13 @@ const blogSchema = {
   url: absoluteUrl('/blog'),
   inLanguage: SITE.lang,
   publisher: { '@id': `${SITE.url}/#organization` },
-  // Duplicates canonicalise elsewhere, so they get no entry of their own.
-  blogPost: posts
-    .filter((post) => !post.data.canonical_slug)
-    .map((post) => ({
-      '@type': 'BlogPosting',
-      '@id': `${absoluteUrl(`/post/${post.data.slug}`)}#article`,
-      headline: post.data.title.slice(0, 110),
-      url: absoluteUrl(`/post/${post.data.slug}`),
-      datePublished: isoDate(post.data.published_date),
-    })),
+  blogPost: posts.map((post) => ({
+    '@type': 'BlogPosting',
+    '@id': `${absoluteUrl(`/post/${post.data.slug}`)}#article`,
+    headline: post.data.title.slice(0, 110),
+    url: absoluteUrl(`/post/${post.data.slug}`),
+    datePublished: isoDate(post.data.published_date),
+  })),
 };
 ---
 
@@ -53,7 +64,8 @@ const blogSchema = {
                 class="vlt-page-title__phantom-title lax"
                 data-lax-translate-x="0 0, vw (vw*0.5)"
                 data-lax-opacity="1 1, 250 0"
-                data-lax-anchor=".vlt-page-title">
+                data-lax-anchor=".vlt-page-title"
+              >
                 Blog
               </div>
             </div>
@@ -77,30 +89,42 @@ const blogSchema = {
                 data-load-more-selector="#vlt-load-more-blog-02"
               >
                 <div class="grid-sizer"></div>
-                {posts.map((post) => (
-                  <div class=" grid-item filter-design">
-                    <article class="vlt-post vlt-post--style-4">
-                      <div class="vlt-post__media">
-                        <a class="vlt-post__link" href={`/post/${post.data.slug}`}></a>
-                        <img src={post.data.thumbnail} alt={post.data.thumbnail_alt} loading="lazy" />
-                      </div>
-                      <div class="vlt-post__content">
-                        <header class="vlt-post__header">
-                          <div class="vlt-post-meta">
-                            <span>{post.data.published_date_raw}</span>
-                            <span>{post.data.category_title}</span>
-                          </div>
-                          <h3 class="vlt-post-title">
-                            <a href={`/post/${post.data.slug}`}>{post.data.title}</a>
-                          </h3>
-                        </header>
-                        <div class="vlt-post-excerpt">
-                          <p>{post.data.brief}</p>
+                {
+                  posts.map((post) => (
+                    <div class=" grid-item filter-design">
+                      <article class="vlt-post vlt-post--style-4">
+                        <div class="vlt-post__media">
+                          <a
+                            class="vlt-post__link"
+                            href={`/post/${post.data.slug}/`}
+                            aria-label={post.data.title}
+                          />
+                          <img
+                            src={post.data.thumbnail}
+                            alt={post.data.thumbnail_alt}
+                            width={thumbDims.get(post.data.slug)?.width}
+                            height={thumbDims.get(post.data.slug)?.height}
+                            loading="lazy"
+                          />
                         </div>
-                      </div>
-                    </article>
-                  </div>
-                ))}
+                        <div class="vlt-post__content">
+                          <header class="vlt-post__header">
+                            <div class="vlt-post-meta">
+                              <span>{post.data.published_date_raw}</span>
+                              <span>{post.data.category_title}</span>
+                            </div>
+                            <h2 class="vlt-post-title">
+                              <a href={`/post/${post.data.slug}/`}>{post.data.title}</a>
+                            </h2>
+                          </header>
+                          <div class="vlt-post-excerpt">
+                            <p>{post.data.brief}</p>
+                          </div>
+                        </div>
+                      </article>
+                    </div>
+                  ))
+                }
               </div>
               <div class="vlt-gap-100"></div>
               <div class="text-center"></div>

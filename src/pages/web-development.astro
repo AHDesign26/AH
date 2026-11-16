@@ -1,0 +1,346 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema, serviceSchema } from '../lib/seo';
+import { versioned } from '../lib/asset-version';
+
+const description =
+  'Responsive websites, e-commerce stores, custom web applications and CMS builds that attract the right visitors and turn them into paying clients.';
+---
+
+<BaseLayout
+  title="Website Design & Development | AH Design"
+  description={description}
+  schema={[
+    serviceSchema({
+      name: 'Website design and development',
+      description,
+      path: '/web-development',
+      serviceType: 'Web design',
+    }),
+    breadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Services', path: '/services' },
+      { name: 'Website Design & Development', path: '/web-development' },
+    ]),
+  ]}
+  htmlClass="no-js vlt-is--web-development vlt-is--service-single vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
+>
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href={versioned('/static/css/process-wheel.css')} />
+  </Fragment>
+  <div class="vlt-site-overlay"></div>
+  <main class="vlt-main">
+    <div class="vlt-page-content">
+      <div class="vlt-page-title vlt-page-title--style-2 jarallax">
+        <div class="vlt-page-title__overlay"></div>
+        <div class="container">
+          <h1
+            class="vlt-page-title__title lax"
+            data-lax-translate-y="0 0, vh (vw*0.25)"
+            data-lax-opacity="1 1, (vh*0.5) 0"
+            data-lax-anchor=".vlt-page-title"
+          >
+            Web Development Services
+          </h1>
+        </div>
+      </div>
+      <div id="content"></div>
+      <section>
+        <div class="vlt-gap-100"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-11 offset-md-1">
+              <div class="vlt-animated-block" data-aos="fade" data-aos-delay="0">
+                <span class="vlt-display-1 has-primary-color">Description</span>
+              </div>
+              <div class="vlt-gap-30"></div>
+            </div>
+            <div class="col-md-5 offset-md-1">
+              <div class="vlt-animated-block" data-aos="fade" data-aos-delay="0">
+                <h4 class="ah-navy-gradient-title">
+                  Your website is your best salesperson, or your most expensive mistake.
+                </h4>
+              </div>
+              <div class="vlt-gap-40--sm"></div>
+            </div>
+            <div class="col-md-5">
+              <div class="vlt-animated-block" data-aos="fade" data-aos-delay="100">
+                <p class="fz-3 text-justify">
+                  Your website is the first place customers go to learn who you are and whether they
+                  can trust you. Done right, it works around the clock: it brings in the right
+                  visitors, answers their questions and turns them into calls, bookings and sales.
+                </p>
+              </div>
+              <div class="vlt-gap-50"></div>
+            </div>
+            <div class="col-md-10 offset-md-1">
+              <div class="vlt-animated-block" data-aos="fade" data-aos-delay="200">
+                <p class="fz-3 text-justify">
+                  Done wrong, it quietly costs you. Slow pages lose visitors before they load.
+                  Template sites look like everyone else&rsquo;s. Monthly platform fees keep rising,
+                  and when you want to leave, you find out you never really owned your site in the
+                  first place. <br />
+                  A website that works does three things:
+                  <br />
+                </p>
+                <ul class="vlt-styled-list vlt-styled-list--style-3">
+                  <li>
+                    <span
+                      ><strong>Attracts the right visitors:</strong> built to be found on Google by people
+                      who need what you offer.</span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      ><strong>Guides them to what you sell:</strong> clear pages and calls to action
+                      that lead straight to your main services or products.</span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      ><strong>Captures the lead:</strong> forms, bookings and payments that collect contact
+                      details so you can follow up.</span
+                    >
+                  </li>
+                </ul>
+                <br />
+                Everything we build is designed around those three jobs.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="vlt-gap-120"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="vlt-animated-block" data-aos="fade" data-aos-delay="0">
+                <div class="vlt-section-title vlt-section-title--style-2">
+                  <h2 class="vlt-section-title__title ah-workflow-title">What we build</h2>
+                </div>
+              </div>
+              <div class="vlt-gap-40"></div>
+            </div>
+
+            <div class="col-md-12">
+              <div class="ah-wd-cards">
+                <div class="ah-wd-card vlt-animated-block" data-aos="fade" data-aos-delay="0">
+                  <span class="ah-wd-card__num">01</span>
+                  <h4 class="ah-wd-h4">Custom Websites &amp; Web Apps</h4>
+                  <p>
+                    Fast, mobile-first websites and custom web apps, built from scratch rather than
+                    squeezed into a template. Whether you need a professional business website, a
+                    website redesign or a custom web app for your startup, it&rsquo;s built around
+                    how your customers actually buy.
+                  </p>
+                  <ul class="vlt-styled-list vlt-styled-list--style-3">
+                    <li>Custom design for your brand</li>
+                    <li>Fast loading and mobile friendly</li>
+                    <li>On-page SEO and Google indexing set up from day one</li>
+                  </ul>
+                </div>
+
+                <div class="ah-wd-card vlt-animated-block" data-aos="fade" data-aos-delay="100">
+                  <span class="ah-wd-card__num">02</span>
+                  <h4 class="ah-wd-h4">Booking Websites &amp; Online Scheduling</h4>
+                  <p>
+                    Let clients book, pay a deposit and land in your calendar without a phone call,
+                    on your own website rather than a rented scheduling tool.
+                  </p>
+                  <ul class="vlt-styled-list vlt-styled-list--style-3">
+                    <li>Self-service booking with calendar sync</li>
+                    <li>Upfront deposits and payments</li>
+                    <li>No Calendly or Acuity subscription</li>
+                  </ul>
+                </div>
+
+                <div class="ah-wd-card vlt-animated-block" data-aos="fade" data-aos-delay="0">
+                  <span class="ah-wd-card__num">03</span>
+                  <h4 class="ah-wd-h4">Membership Websites &amp; Client Portals</h4>
+                  <p>
+                    Members-only content, client dashboards and recurring billing, built on your
+                    site so you keep the revenue that platforms like Kajabi or Patreon take a cut
+                    of.
+                  </p>
+                  <ul class="vlt-styled-list vlt-styled-list--style-3">
+                    <li>Gated content and member areas</li>
+                    <li>Recurring billing with Stripe</li>
+                    <li>Secure client logins and dashboards</li>
+                  </ul>
+                </div>
+
+                <div
+                  class="ah-wd-card ah-wd-card--highlight vlt-animated-block"
+                  data-aos="fade"
+                  data-aos-delay="100"
+                >
+                  <span class="ah-wd-card__num">04</span>
+                  <span class="ah-wd-card__badge">From &euro;700</span>
+                  <h4 class="ah-wd-h4">Website Migration: The Move</h4>
+                  <p>
+                    Paying Wix, Shopify or Squarespace every month? We rebuild your website on
+                    infrastructure you own, so you stop renting and start owning.
+                  </p>
+                  <ul class="vlt-styled-list vlt-styled-list--style-3">
+                    <li>One-time price from &euro;700</li>
+                    <li>Your content, pages and SEO carried over</li>
+                    <li>No more monthly platform fees</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-10 offset-md-1">
+              <div class="vlt-gap-60"></div>
+
+              <div class="vlt-animated-block" data-aos="fade" data-aos-delay="0">
+                <h3 class="ah-wd-h3">You own everything. No lock-in.</h3>
+                <p class="fz-3 text-justify">
+                  Many business owners find out too late that their web designer controls the
+                  domain, the hosting or the login, or that their DIY builder charges a fee for
+                  every year they stay. We do it differently:
+                </p>
+                <p class="fz-3 text-justify">
+                  100% handover of code, assets and accounts. Hosted on your own account, with no
+                  monthly hosting markup from us. No forced retainers: we&rsquo;re here if you need
+                  us, not because you&rsquo;re locked in.
+                </p>
+              </div>
+              <div class="vlt-gap-60"></div>
+
+              <div class="vlt-animated-block" data-aos="fade" data-aos-delay="0">
+                <h3 class="ah-wd-h3">Custom website vs. DIY builder</h3>
+                <p class="fz-3 text-justify">
+                  You can always build a site yourself on Wix or Squarespace, and for some
+                  businesses that&rsquo;s enough. But it takes time you could spend running your
+                  business, the monthly fees never stop, and you&rsquo;re limited to what the
+                  platform allows. A custom website is built around your business, loads faster, and
+                  is yours to keep.
+                </p>
+              </div>
+              <div class="vlt-gap-60"></div>
+
+              <div class="vlt-animated-block" data-aos="fade" data-aos-delay="0">
+                <p class="fz-3 text-justify">
+                  <span class="ah-wd-quote-lead"
+                    >Tell us about your business and get a fixed quote within
+                    <strong>48 hours</strong>:</span
+                  >
+                  <br />
+                  no obligation, no monthly fees, and 100% ownership when we&rsquo;re done.
+                </p>
+                <div class="vlt-gap-30"></div>
+                <a class="vlt-btn ah-btn" href="/order/" target="_self">
+                  Get your custom Quote
+                  <i class="ah-btn-icon">
+                    <svg width="14" height="14" viewBox="0 0 17 17" fill="none" aria-hidden="true"
+                      ><path
+                        d="M4 13 L13 4 M6 4 H13 V11"
+                        stroke="#ffffff"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></path></svg
+                    >
+                  </i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="vlt-gap-120"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-5">
+              <div class="vlt-animated-block" data-aos="fade" data-aos-delay="0">
+                <div class="vlt-section-title vlt-section-title--style-2">
+                  <h2 class="vlt-section-title__title ah-workflow-title">Workflow</h2>
+                </div>
+              </div>
+              <div class="vlt-gap-70"></div>
+            </div>
+            <div class="col-md-10 offset-md-1">
+              <div class="vlt-animated-block" data-aos="fade" data-aos-delay="100">
+                <p class="text-justify" style="margin-bottom: 30px;">
+                  We follow a unique workflow for each service, which is an iterative few-step
+                  procedure, to ensure client satisfaction. There is a 5-step process for website
+                  design, including: Strategy, Design, Development, Testing and, Website set-off.
+                  Please note that each step require some participation of you as a clinet which are
+                  mentioned below the workflow
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="vlt-gap-15"></div>
+        <div class="ah-process-wheel" id="ahProcessWheel">
+          <div class="ah-process-wheel__sticky" id="ahProcessSticky">
+            <svg
+              class="ah-process-wheel__arc"
+              id="ahProcessArc"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <defs>
+                <linearGradient id="ahProcessArcGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#a18afb" stop-opacity="0"></stop>
+                  <stop offset="0.32" stop-color="#a18afb" stop-opacity="0.55"></stop>
+                  <stop offset="0.5" stop-color="#5bcdbe" stop-opacity="0.9"></stop>
+                  <stop offset="0.68" stop-color="#a18afb" stop-opacity="0.55"></stop>
+                  <stop offset="1" stop-color="#a18afb" stop-opacity="0"></stop>
+                </linearGradient>
+              </defs>
+              <circle
+                id="ahProcessArcCircle"
+                fill="none"
+                stroke="url(#ahProcessArcGradient)"
+                stroke-width="2"></circle>
+            </svg>
+            <div class="ah-process-wheel__numbers" id="ahProcessNumbers" aria-hidden="true"></div>
+            <div class="ah-process-wheel__content">
+              <h4 class="ah-process-wheel__heading">From Blank Space to Brand Voice:</h4>
+              <div class="ah-process-wheel__eyebrow" id="ahProcessEyebrow">PHASE 01 / 05</div>
+              <h3 class="ah-process-wheel__title" id="ahProcessTitle">Strategy</h3>
+              <p class="ah-process-wheel__desc" id="ahProcessDesc">
+                We align on goals, audience and scope — then turn it into a concrete plan.
+              </p>
+              <div class="ah-process-wheel__tags" id="ahProcessTags"></div>
+            </div>
+            <div class="ah-process-wheel__scroll">
+              <span>SCROLL</span>
+              <span class="ah-process-wheel__scroll-track">
+                <span class="ah-process-wheel__scroll-fill" id="ahProcessScrollFill"></span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section
+        class="vlt-page-navigation vlt-page-navigation--style-1 has-black-color"
+        style="background-color: var(--ah-lilac-3);"
+      >
+        <div class="vlt-gap-130"></div>
+        <div class="container">
+          <div class="text-center">
+            <h3 class="ah-wd-final-cta-heading">
+              Ready for a website that works as hard as you do?
+            </h3>
+            <div class="vlt-gap-50"></div>
+            <div class="vlt-stroke-text vlt-stroke-text--lg" style="color: white;">
+              <a href="/order/" target="_self">Let's start</a>
+            </div>
+          </div>
+        </div>
+        <div class="vlt-gap-130"></div>
+      </section>
+    </div>
+  </main>
+
+  <Fragment slot="js">
+    <script src="/static/scripts/process-wheel.js" is:inline></script>
+  </Fragment>
+</BaseLayout>

@@ -20,18 +20,19 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      // 404 plus the author/category archives, which duplicate /blog and carry
-      // a noindex meta tag. The one post with a `canonical_slug` in its front
-      // matter is a scraped duplicate of /post/website and is listed there.
+      // 404, the author/category archives, and home-v1 (the previous
+      // homepage design, kept for reference) all carry a noindex meta tag.
+      // The one post with a `canonical_slug` in its front matter is a
+      // scraped duplicate of /post/website and is listed there.
       filter: (page) =>
-        !/\/(404|author|category)(\/|$)/.test(page) &&
+        !/\/(404|author|category|home-v1)(\/|$)/.test(page) &&
         !/\/post\/website-design-first-steps-to-consider\/?$/.test(page),
       changefreq: 'weekly',
       lastmod: new Date(),
       serialize(item) {
         // Marketing pages outrank blog archives for crawl priority.
         if (item.url === 'https://ahdesign.website/') item.priority = 1.0;
-        else if (/\/(services|price|projects|web_development|ads-service)\/?$/.test(item.url))
+        else if (/\/(services|price|projects|web-development|ads-service)\/?$/.test(item.url))
           item.priority = 0.9;
         else if (/\/(post|blog)/.test(item.url)) item.priority = 0.7;
         else item.priority = 0.8;
@@ -54,6 +55,12 @@ export default defineConfig({
     // Files under public/ are served as-is by Astro and need no scanning.
     optimizeDeps: {
       entries: ['src/**/*.{ts,astro}', 'src/**/*.{js,jsx,tsx}'],
+      // src/lib/email.ts matches the entries glob above and imports
+      // worker-mailer, which needs `cloudflare:sockets` — real only inside
+      // the Workers runtime the Cloudflare Pages Function that calls it
+      // actually runs in, not in Vite's Node-based dev/dep-scan. Excluding
+      // it here stops that scan from failing on every `astro dev` start.
+      exclude: ['worker-mailer'],
     },
   },
 });

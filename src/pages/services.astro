@@ -1,263 +1,440 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { breadcrumbSchema } from '../lib/seo';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../lib/seo';
+
+const SERVICES_FAQ = [
+  {
+    question: 'Who owns the website and accounts after launch?',
+    answer:
+      'You do, fully. Every build is zero vendor lock-in: 100% handover of code, assets and accounts, hosted on your own account with no monthly hosting fee from us.',
+  },
+  {
+    question: 'Can I move my website away from Wix, Shopify or Squarespace?',
+    answer:
+      'Yes — website migration off those platforms is a one-time €700, after which the site is yours to own outright instead of renting it monthly.',
+  },
+  {
+    question: 'Is SEO included when you build a website?',
+    answer:
+      "Yes, SEO setup and Google indexing are included from day one on every build, alongside the site's design and development.",
+  },
+  {
+    question: 'Who owns the ad accounts and data for marketing campaigns?',
+    answer:
+      'You do, always — your ad accounts, analytics and data stay yours. There are no long-term lock-in contracts on the marketing side either.',
+  },
+  {
+    question: 'What is GEO / AI SEO?',
+    answer:
+      'GEO (Generative Engine Optimization) is optimizing your content so AI tools like ChatGPT, Perplexity, Gemini and Google AI Overviews recommend your business, alongside traditional Google SEO.',
+  },
+];
 ---
 
 <BaseLayout
   title="Services: Web Design, Marketing & Growth | AH Design"
   description="Website design and development, digital marketing and SEO, and systemised business development. Ready-to-launch sites or fully tailored solutions for your business."
   schema={[
+    faqSchema(SERVICES_FAQ),
     breadcrumbSchema([
       { name: 'Home', path: '/' },
-      { name: 'Services', path: '/services' },
+      { name: 'Services', path: '/services/' },
     ]),
+    serviceSchema({
+      name: 'Website design and development',
+      description:
+        'Responsive websites, e-commerce stores and custom web applications built around user-centred design.',
+      path: '/web-development',
+      serviceType: 'Web design',
+    }),
+    serviceSchema({
+      name: 'Digital marketing and advertising',
+      description:
+        'SEO, paid advertising campaigns and audio, video and event production that put your business in front of buyers.',
+      path: '/ads-service',
+      serviceType: 'Digital marketing',
+    }),
+    serviceSchema({
+      name: 'Business development and automation',
+      description:
+        'Systemised growth plans, workflow automation and AI assistants that remove manual work from your operations.',
+      path: '/services',
+      serviceType: 'Business consulting',
+    }),
   ]}
   htmlClass="no-js vlt-is--services-01 vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
 >
-<!-- ============= Site overlay ============== -->
-	<div class="vlt-site-overlay"></div>
-	<!--Main-->
-	<main class="vlt-main">
-		<!--Page content-->
-		<div class="vlt-page-content">
-			<!--====== Page title ======-->
-			<div class="vlt-page-title vlt-page-title--style-4">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-6 offset-md-1">
-							<h1 class="vlt-page-title__title">We build modern experiences
-							</h1>
-						</div>
-						<div class="col-md-4">
-							<div class="vlt-page-title__phantom-title lax" data-lax-translate-x="0 0,
+  <!-- ============= Site overlay ============== -->
+  <div class="vlt-site-overlay"></div>
+  <!--Main-->
+  <main class="vlt-main">
+    <!--Page content-->
+    <div class="vlt-page-content">
+      <!--====== Page title ======-->
+      <div class="vlt-page-title vlt-page-title--style-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 offset-md-1">
+              <h1 class="vlt-page-title__title">We build modern experiences</h1>
+            </div>
+            <div class="col-md-4">
+              <div
+                class="vlt-page-title__phantom-title lax"
+                data-lax-translate-x="0 0,
 								vw (vw*0.5)"
-								data-lax-opacity="1 1, 250 0" data-lax-anchor=".vlt-page-title">
-								Services
-							</div>
-						</div>
-					</div>
-					<div class="vlt-gap-120"></div>
-					<div class="row">
-						<div class="col-md-1"></div>
-						<div class="col-md-10">
-							<p class="text-justify">
-								We are professional and creative in our approach, providing both generic and tailored digital solutions. Whether you need a ready-to-launch website, a fully customized marketing strategy, or a systemized business growth plan, our products stand out with their user-centered aspects, interactivity, and user-friendly features. Highly satisfied customers and improved business performance are some of the key outcomes we can assist you in achieving. Beyond providing top-quality web solutions, we are experienced in digital advertising and systemized business development.
-							</p>
-						</div>
-						<div class="col-md-1"></div>
-					</div>
+                data-lax-opacity="1 1, 250 0"
+                data-lax-anchor=".vlt-page-title"
+              >
+                Services
+              </div>
+            </div>
+          </div>
+          <div class="vlt-gap-120"></div>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+              <p class="text-justify">
+                Websites, marketing and growth systems for businesses that want more clients. Choose
+                one service, or let us run all three under one plan. Everything we build is designed
+                around one goal: turning visitors into paying clients.
+              </p>
+            </div>
+            <div class="col-md-1"></div>
+          </div>
+        </div>
+      </div>
+      <div id="content"></div>
 
-				</div>
-			</div>
-			<div id="content"></div>
+      <!--========================== services ==========================-->
+      <section class="position-relative">
+        <div class="vlt-gap-120"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 order-md-5">
+              <div class="position-relative ah-service-media">
+                <!--Simple image-->
+                <div class="vlt-simple-image">
+                  <div
+                    class="vlt-simple-image__mask"
+                    data-aos="image-mask-animation"
+                    data-aos-delay="0"
+                  >
+                    <div class="inside"></div>
+                  </div>
+                  <video class="fade-edges" autoplay muted loop playsinline>
+                    <source src="/static/img/video/wd_ah-navy_story.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+              <div class="vlt-gap-60--sm"></div>
+            </div>
+            <div class="col-md-6">
+              <!--Animated block-->
+              <div class="vlt-animated-block service-tt" data-aos="fade" data-aos-delay="100">
+                <span
+                  class="has-primary-color ah-eyebrow-teal"
+                  style="display:block; font-size:13px; font-weight:700; letter-spacing:2px; margin-bottom:12px; text-transform:uppercase;"
+                  >To Be Efficient</span
+                >
+                <h2 class="ah-gradient-title">Web Development Services</h2>
+                <div class="vlt-gap-40"></div>
+                <p>
+                  Your website should bring in clients, not another monthly bill. We build fast,
+                  mobile-ready websites and custom web apps, launch them, and hand full ownership to
+                  you.
+                </p>
+                <div class="vlt-gap-40"></div>
+                <div class="has-black-color">
+                  <p class="ah-service-list-heading">What we build</p>
+                  <ul class="ah-service-feature-list">
+                    <li>
+                      <strong>Custom Websites &amp; Web Apps:</strong> fast, mobile-first sites built
+                      to turn visitors into clients.
+                    </li>
+                    <li>
+                      <strong>Booking Websites &amp; Online Scheduling:</strong> clients book and pay
+                      a deposit on your site, with no Calendly fees.
+                    </li>
+                    <li>
+                      <strong>Membership Websites &amp; Client Portals:</strong> gated content and recurring
+                      billing, without giving Kajabi a cut.
+                    </li>
+                    <li>
+                      <strong>Website Migration (The Move):</strong> leave Wix, Shopify or Squarespace
+                      for a one-time &euro;700.
+                    </li>
+                  </ul>
+                  <div class="vlt-gap-30"></div>
+                  <p class="ah-service-list-heading">Included in every build</p>
+                  <ul class="ah-service-feature-list">
+                    <li>Zero vendor lock-in: 100% handover of code, assets and accounts.</li>
+                    <li>Hosted on your own account, with no monthly hosting fee from us.</li>
+                    <li>SEO setup and Google indexing from day one.</li>
+                  </ul>
+                </div>
+                <div class="vlt-gap-50"></div>
+                <!--Button-->
+                <a class="vlt-btn ah-btn" href="/web-development/" target="_self">
+                  See website services
+                  <i class="ah-btn-icon">
+                    <svg width="14" height="14" viewBox="0 0 17 17" fill="none" aria-hidden="true"
+                      ><path
+                        d="M4 13 L13 4 M6 4 H13 V11"
+                        stroke="#ffffff"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></path></svg
+                    >
+                  </i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="vlt-gap-120"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="position-relative ah-service-media">
+                <!--Simple image-->
+                <div class="vlt-simple-image">
+                  <div
+                    class="vlt-simple-image__mask"
+                    data-aos="image-mask-animation"
+                    data-aos-delay="0"
+                  >
+                    <div class="inside"></div>
+                  </div>
+                  <video autoplay muted loop playsinline>
+                    <source
+                      src="/static/img/video/digital_marketing_ah-navy_story.mp4"
+                      type="video/mp4"
+                    />
+                    <!-- <source src="movie.ogg" type="video/ogg"> -->
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+              <div class="vlt-gap-60--sm"></div>
+            </div>
+            <div class="col-md-6">
+              <!--Animated block-->
+              <div class="vlt-animated-block service-tt" data-aos="fade" data-aos-delay="100">
+                <span
+                  class="has-primary-color ah-eyebrow-teal"
+                  style="display:block; font-size:13px; font-weight:700; letter-spacing:2px; margin-bottom:12px; text-transform:uppercase;"
+                  >To Be Seen</span
+                >
+                <h2 class="ah-gradient-title">Targeted Digital Marketing</h2>
+                <div class="vlt-gap-40"></div>
+                <p>
+                  Traffic only matters if it turns into paying customers. We run Google Ads, Meta
+                  Ads and SEO campaigns that put your business in front of people ready to buy,
+                  whether they&rsquo;re searching Google, scrolling Instagram or asking ChatGPT for
+                  a recommendation. You&rsquo;ll see exactly what every lead costs.
+                </p>
+                <div class="vlt-gap-40"></div>
+                <div class="has-black-color">
+                  <p class="ah-service-list-heading">What we do</p>
+                  <ul class="ah-service-feature-list">
+                    <li>
+                      <strong>Google Ads Management:</strong> Search, Performance Max and retargeting
+                      that reach people already looking for you.
+                    </li>
+                    <li>
+                      <strong>Meta Ads (Facebook &amp; Instagram):</strong> creative-led campaigns that
+                      turn people scrolling past into customers.
+                    </li>
+                    <li>
+                      <strong>SEO &amp; Local SEO:</strong> higher Google rankings and more calls from
+                      Google Maps.
+                    </li>
+                    <li>
+                      <strong>AI SEO (GEO):</strong> get recommended by ChatGPT, Perplexity, Gemini and
+                      Google&rsquo;s AI Overviews.
+                    </li>
+                    <li>
+                      <strong>Conversion Tracking &amp; ROAS Dashboard:</strong> a live view of your cost
+                      per lead and return on ad spend.
+                    </li>
+                  </ul>
+                  <div class="vlt-gap-30"></div>
+                  <p class="ah-service-list-heading">Included in every campaign</p>
+                  <ul class="ah-service-feature-list">
+                    <li>You own your ad accounts, analytics and data, always.</li>
+                    <li>
+                      Plain-English reporting on leads, cost per lead and return on ad spend, not
+                      likes and impressions.
+                    </li>
+                    <li>No long-term lock-in contracts.</li>
+                  </ul>
+                </div>
+                <div class="vlt-gap-50"></div>
+                <!--Button-->
+                <a class="vlt-btn ah-btn" href="/ads-service/" target="_self">
+                  See marketing services
+                  <i class="ah-btn-icon">
+                    <svg width="14" height="14" viewBox="0 0 17 17" fill="none" aria-hidden="true"
+                      ><path
+                        d="M4 13 L13 4 M6 4 H13 V11"
+                        stroke="#ffffff"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></path></svg
+                    >
+                  </i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="vlt-gap-120"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 order-md-5">
+              <div class="position-relative ah-service-media">
+                <!--Simple image-->
+                <div class="vlt-simple-image">
+                  <div
+                    class="vlt-simple-image__mask"
+                    data-aos="image-mask-animation"
+                    data-aos-delay="0"
+                  >
+                    <div class="inside"></div>
+                  </div>
+                  <video autoplay muted loop playsinline>
+                    <source
+                      src="/static/img/video/business_scaling_ah-navy_story.mp4"
+                      type="video/mp4"
+                    />
+                    <!-- <source src="movie.ogg" type="video/ogg"> -->
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+              <div class="vlt-gap-60--sm"></div>
+            </div>
+            <div class="col-md-6">
+              <!--Animated block-->
+              <div class="vlt-animated-block service-tt" data-aos="fade" data-aos-delay="100">
+                <span
+                  class="has-primary-color"
+                  style="display:block; font-size:13px; font-weight:700; letter-spacing:2px; margin-bottom:12px; text-transform:uppercase;"
+                  >To Grow</span
+                >
+                <h2 class="ah-gradient-title">Business scaling</h2>
+                <div class="vlt-gap-10"></div>
+                <p class="ah-service-list-heading">
+                  Branding &bull; Website &bull; Ads &amp; SEO &bull; Automation
+                </p>
+                <div class="vlt-gap-30"></div>
+                <p>
+                  Growing past a certain point takes more than ads. It takes a clear brand, a real
+                  understanding of your customers, and systems that follow up on every lead. We
+                  handle all of it as one team, without hiring five full-time specialists.
+                </p>
+                <div class="vlt-gap-40"></div>
+                <div class="has-black-color">
+                  <p class="ah-service-list-heading">What we do</p>
+                  <ul class="ah-service-feature-list">
+                    <li>
+                      <strong>Market &amp; Customer Research:</strong> who buys from you, why, and what
+                      your competitors miss.
+                    </li>
+                    <li>
+                      <strong>Brand Strategy &amp; Identity:</strong> a clear position, voice and look
+                      that makes you the obvious choice.
+                    </li>
+                    <li>
+                      <strong>Website &amp; Marketing, Run as One:</strong> your site, ads and SEO, all
+                      on the same plan.
+                    </li>
+                    <li>
+                      <strong>AI Automation &amp; CRM:</strong> every lead followed up and routine admin
+                      handled automatically.
+                    </li>
+                  </ul>
+                  <div class="vlt-gap-30"></div>
+                  <p class="ah-service-list-heading">Included in every partnership</p>
+                  <ul class="ah-service-feature-list">
+                    <li>You own everything: brand assets, accounts, data and automations.</li>
+                    <li>One team, one plan, one monthly report.</li>
+                    <li>A strategy review every quarter to adjust as you grow.</li>
+                  </ul>
+                </div>
+                <div class="vlt-gap-50"></div>
+                <!--Button-->
+                <a class="vlt-btn ah-btn" href="/business-scaling/" target="_self">
+                  See how partnership works
+                  <i class="ah-btn-icon">
+                    <svg width="14" height="14" viewBox="0 0 17 17" fill="none" aria-hidden="true"
+                      ><path
+                        d="M4 13 L13 4 M6 4 H13 V11"
+                        stroke="#ffffff"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></path></svg
+                    >
+                  </i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="vlt-gap-120"></div>
+      </section>
 
+      <!--============== FAQ ================-->
+      <section>
+        <div class="container">
+          <div class="text-center">
+            <h2 class="ah-gradient-title">Common questions</h2>
+          </div>
+          <div class="vlt-gap-50"></div>
+          <div class="ah-faq">
+            {
+              SERVICES_FAQ.map((item) => (
+                <details class="ah-faq__item">
+                  <summary>{item.question}</summary>
+                  <p>{item.answer}</p>
+                </details>
+              ))
+            }
+          </div>
+        </div>
+        <div class="vlt-gap-120"></div>
+      </section>
 
-			<!--========================== services ==========================-->
-			<section class="position-relative">
-				<div class="vlt-gap-120"></div>
-				<div class="vlt-gap-120"></div>
-				<div class="container">
-					<div class="row">
-						<div class="col-md-5" style="background-color: black;">
-							<div class="position-relative">
-								<!--Particle image-->
-								<img class="vlt-particle service-img" src="/static/img/service-image-04.png"
-									data-animation-name="fadeInUp" alt="" loading="lazy">
-								<!--Simple image-->
-								<div class="vlt-simple-image">
-									<div class="vlt-simple-image__mask" data-aos="image-mask-animation"
-										data-aos-delay="0">
-										<div class="inside"></div>
-									</div>
-									<video class="fade-edges" width="100%" height="100%" autoplay muted loop
-										style="margin-top:150px">
-										<source src="/static/img/services/wd.mp4" type="video/mp4">
-										Your browser does not support the video tag.
-									</video>
-								</div>
-							</div>
-							<div class="vlt-gap-60--sm"></div>
-						</div>
-						<div class="col-md-5 offset-md-2">
-							<!--Animated block-->
-							<div class="vlt-animated-block service-tt" data-aos="fade"
-								data-aos-delay="100">
-								<span class="has-primary-color" style="display:block; font-size:13px; font-weight:700; letter-spacing:2px; margin-bottom:12px; text-transform:uppercase;">To Be Efficient</span>
-								<h2>Website Design & Development</h2>
-								<div class="vlt-gap-40"></div>
-								<p>
-								Your website should work as hard as you do. We craft beautiful, fully responsive, and highly interactive websites that adapt to all devices. By prioritizing user-centered design and intuitive functionality, we streamline your digital user experience—turning casual visitors into loyal, paying clients.
-								</p>
-								<div class="vlt-gap-40"></div>
-								<div class="has-black-color">
-									<!--Styled list-->
-									<ul class="vlt-styled-list vlt-styled-list--style-3">
-										<li>Websites & E-Commerce Applications
-										</li>
-										<li>Custom Web Applications
-										</li>
-										<li>Content Management Systems (CMS)
-										</li>
-										<li>QUALITY ASSURANCE AND TESTING
-										</li>
-										
-						
-									</ul>
-								</div>
-								<div class="vlt-gap-50"></div>
-								<!--Button--><a class="vlt-btn vlt-btn--secondary vlt-btn--md" href="/web_development" target="_self">learn more</a>
-								<div class="vlt-gap-30"></div>
-								<p class="ah-services-note">Already have a website and pay a platform every
-									month? <a href="/migration/">THE MOVE rebuilds it on infrastructure you own</a>
-									for a one-time &euro;700.</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="vlt-gap-120"></div>
-				<div class="vlt-gap-120"></div>
-				<div class="container">
-					<div class="row">
-						<div class="col-md-5 offset-md-2 order-md-5" style="background-color:
-							black;">
-							<div class="position-relative">
-								<!--Particle image-->
+      <!--===================== Testimonial ======================-->
+    </div>
+  </main>
 
-								<img class="vlt-particle service-img" src="/static/img/service-image-05.png"
-									data-animation-name="fadeInUp" alt="" loading="lazy">
-								<!--Simple image-->
-								<div class="vlt-simple-image">
-									<div class="vlt-simple-image__mask" data-aos="image-mask-animation"
-										data-aos-delay="0">
-										<div class="inside"></div>
-									</div>
-									<video width="100%" height="100%" autoplay muted loop
-										style="margin-top:150px">
-
-										<source src="/static/img/services/digital_marketing.mp4" type="video/mp4">
-										<!-- <source src="movie.ogg" type="video/ogg"> -->
-										Your browser does not support the video tag.
-									</video>
-								</div>
-							</div>
-							<div class="vlt-gap-60--sm"></div>
-						</div>
-						<div class="col-md-5">
-							<!--Animated block-->
-							<div class="vlt-animated-block service-tt" data-aos="fade"
-								data-aos-delay="100">
-								<span class="has-primary-color" style="display:block; font-size:13px; font-weight:700; letter-spacing:2px; margin-bottom:12px; text-transform:uppercase;">To Be Seen</span>
-								<h2>Digital Marketing</h2>
-								<div class="vlt-gap-40"></div>
-								<p>
-								Get your business in front of the right audience at the perfect time. We drive high-quality, targeted traffic to your brand using advanced SEO techniques, strategic pay-per-click (PPC) advertising, and data-driven contextual marketing campaigns engineered to dominate search results and maximize your online visibility.
-								</p>
-								<div class="vlt-gap-40"></div>
-								<div class="has-black-color">
-									<!--Styled list-->
-									<!--
-									<ul class="vlt-styled-list vlt-styled-list--style-3">
-										<li>SEO (Search engine optimization).
-										</li>
-										<li>PPC, google my business.
-										</li>
-										<li>Google Ads
-										</li>
-										<li>Social Media Marketing
-										</li>
-										<li>YouTube ads
-										</li>
-									</ul>
-									-->
-
-								</div>
-								<div class="vlt-gap-50"></div>
-								<!--Button--><a class="vlt-btn vlt-btn--secondary vlt-btn--md"
-									href="/ads-service" target="_self">learn more</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="vlt-gap-120"></div>
-				<div class="vlt-gap-120"></div>
-				<div class="container">
-					<div class="row">
-						<div class="col-md-5" style="background-color: black;">
-							<div class="position-relative">
-								<!--Particle image-->
-								<img class="vlt-particle service-img" src="/static/img/service-image-06.png"
-									data-animation-name="fadeInUp" alt="" loading="lazy">
-								<!--Simple image-->
-								<div class="vlt-simple-image">
-									<div class="vlt-simple-image__mask" data-aos="image-mask-animation"
-										data-aos-delay="0">
-										<div class="inside"></div>
-									</div>
-									<video width="100%" height="100%" autoplay muted loop
-										style="margin-top:150px">
-										<source src="/static/img/services/business_scaling.mp4" type="video/mp4">
-										<!-- <source src="movie.ogg" type="video/ogg"> -->
-										Your browser does not support the video tag.
-									</video>
-								</div>
-							</div>
-							<div class="vlt-gap-60--sm"></div>
-						</div>
-						<div class="col-md-5 offset-md-2">
-							<!--Animated block-->
-							<div class="vlt-animated-block service-tt" data-aos="fade"
-								data-aos-delay="100">
-								<span class="has-primary-color" style="display:block; font-size:13px; font-weight:700; letter-spacing:2px; margin-bottom:12px; text-transform:uppercase;">To Grow</span>
-								<h2>Business scaling</h2>
-								<div class="vlt-gap-40"></div>
-								<p>
-								Scale your business with predictable, robust systems. We design and implement advanced lead generation funnels, automated customer acquisition activities, and long-term business development strategies explicitly tailored to expand your market share, optimize operational efficiency, and accelerate your overall revenue growth.
-								</p>
-								<div class="vlt-gap-40"></div>
-								<div class="has-black-color">
-									<!--Styled list-->
-									<ul class="vlt-styled-list vlt-styled-list--style-3">
-										<li>Brand Strategy & Business Planning
-										</li>
-										<li>Local SEO & Platform Citations (Google, Facebook, Instagram)
-										</li>
-										<li>Workflow & Business Automation
-										</li>
-
-									</ul>
-								</div>
-								<div class="vlt-gap-50"></div>
-								<!--Button--><a class="vlt-btn vlt-btn--secondary vlt-btn--md"
-									href="/fricta" target="_self">learn more</a>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="vlt-gap-120"></div>
-			</section>
-
-
-			<!--===================== Testimonial ======================-->
-
-		</div>
-	</main>
-
-	<style>
-		/* Feather the wd.mp4 video edges so it blends into the surrounding
+  <style>
+    /* Feather the wd.mp4 video edges so it blends into the surrounding
 		   black panel instead of showing a hard rectangular border. The
 		   radial mask keeps the center fully opaque and fades to transparent
 		   near the edges. */
-		.fade-edges {
-			-webkit-mask-image: radial-gradient(
-				ellipse 85% 85% at center,
-				black 55%,
-				transparent 100%
-			);
-			mask-image: radial-gradient(
-				ellipse 85% 85% at center,
-				black 55%,
-				transparent 100%
-			);
-		}
-	</style>
+    .fade-edges {
+      -webkit-mask-image: radial-gradient(ellipse 85% 85% at center, black 55%, transparent 100%);
+      mask-image: radial-gradient(ellipse 85% 85% at center, black 55%, transparent 100%);
+    }
+
+    /* The service videos are vertical (9:16) "story" clips, which inflate
+	   the whole row if the media column is stretched to match (the row is a
+	   flex row with default "stretch" alignment). Take the media column out
+	   of the stretch so it doesn't push the row's height around, and drop
+	   the old 150px top offset so it starts level with the title instead of
+	   the description. */
+    .ah-service-media {
+      align-self: flex-start;
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+    .ah-service-media .vlt-simple-image video {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  </style>
 </BaseLayout>

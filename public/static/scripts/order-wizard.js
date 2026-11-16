@@ -78,6 +78,20 @@
     return true;
   }
 
+  // .ow-next has an icon bubble alongside its text (see order.astro), so
+  // setting the button's own textContent would wipe the icon out. The label
+  // is deliberately a plain text node (not a wrapper element) — the theme's
+  // ripple-span injection (VLTJS.button, vlt-controllers.min.js) checks for
+  // any <span> across every .vlt-btn on the page before appending its own,
+  // so a wrapper here would be mistaken for that span and block it.
+  function setNextLabel(text) {
+    if (!els.next) return;
+    var textNode = Array.prototype.find.call(els.next.childNodes, function (n) {
+      return n.nodeType === Node.TEXT_NODE && n.textContent.trim();
+    });
+    if (textNode) textNode.textContent = text;
+  }
+
   function render() {
     var pct = state.step >= 3 ? 100 : ((state.step + 1) / 3) * 100;
     if (els.progressFill) els.progressFill.style.width = pct + '%';
@@ -96,7 +110,7 @@
     if (els.back) els.back.hidden = state.step === 0;
     if (els.next) {
       els.next.disabled = disabled();
-      els.next.textContent = state.step === 2 ? 'Submit request' : 'Continue';
+      setNextLabel(state.step === 2 ? 'Submit request' : 'Continue');
     }
 
     els.needCards.forEach(function (card) {
@@ -246,7 +260,7 @@
   function submit() {
     if (disabled()) return;
     els.next.disabled = true;
-    els.next.textContent = 'Sending…';
+    setNextLabel('Sending…');
     hideError();
 
     var data = new FormData(els.form);
@@ -287,7 +301,7 @@
           ? 'That took too long. Your details may still have reached us, so please check with us before sending again.'
           : 'Something went wrong, please try again.');
         els.next.disabled = false;
-        els.next.textContent = 'Submit request';
+        setNextLabel('Submit request');
       })
       .finally(function () { clearTimeout(bail); });
   }

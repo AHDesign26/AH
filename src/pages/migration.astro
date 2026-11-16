@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { breadcrumbSchema, serviceSchema } from '../lib/seo';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../lib/seo';
 
 const description =
   'Still paying Wix, Squarespace or GoDaddy every month? We rebuild your site on infrastructure you own. One payment of €700. Your monthly bill goes to zero.';
@@ -10,12 +10,40 @@ const description =
 const EXAMPLES = [20, 30, 50];
 const MIGRATION_PRICE = 700;
 const DOMAIN_5Y = 75;
+
+const MIGRATION_FAQ = [
+  {
+    question: 'How much does a migration cost, and what does it include?',
+    answer:
+      'A one-time €700 for up to 8 pages, your contact form, email routing, redirects from the old URLs, and a full handover pack. Typical turnaround is five working days.',
+  },
+  {
+    question: 'What does it cost to keep the site running afterwards?',
+    answer:
+      'About €15/year for your domain renewal — nothing else. Hosting is free under a fair-use policy, with no monthly platform fee.',
+  },
+  {
+    question: 'What if I need changes after the migration is done?',
+    answer: 'Changes are billed at €50/hour, with no retainer and no minimum.',
+  },
+  {
+    question: 'What is in the handover pack?',
+    answer:
+      'A written document listing your domain, your hosting account, your repository, where your form submissions go, what is free and what is not, the limits of the build, and what to hand another developer if you ever want to leave.',
+  },
+  {
+    question: 'Will I actually own the new site?',
+    answer:
+      "Yes — you own the code, the domain and the accounts. That's the whole point of moving off a subscription platform.",
+  },
+];
 ---
 
 <BaseLayout
   title="Move Your Website Off Monthly Fees | AH Design"
   description={description}
   schema={[
+    faqSchema(MIGRATION_FAQ),
     serviceSchema({
       name: 'Website migration off subscription platforms',
       description,
@@ -28,8 +56,16 @@ const DOMAIN_5Y = 75;
       { name: 'Migration', path: '/migration' },
     ]),
   ]}
-  htmlClass="no-js vlt-is--careers-single vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
+  htmlClass="no-js vlt-is--migration vlt-is--careers-single vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
 >
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </Fragment>
   <div class="vlt-site-overlay"></div>
   <main class="vlt-main">
     <div class="vlt-page-content">
@@ -161,7 +197,7 @@ const DOMAIN_5Y = 75;
           <div class="row">
             <div class="col-md-10 offset-md-1">
               <div class="vlt-section-title vlt-section-title--style-1">
-                <h2 class="vlt-section-title__title">Is this you?</h2>
+                <h2 class="vlt-section-title__title ah-gradient-title">Is this you?</h2>
               </div>
               <div class="vlt-gap-40"></div>
               <ul class="vlt-styled-list vlt-styled-list--style-3">
@@ -187,7 +223,7 @@ const DOMAIN_5Y = 75;
           <div class="row">
             <div class="col-md-10 offset-md-1">
               <div class="vlt-section-title vlt-section-title--style-1">
-                <h2 class="vlt-section-title__title">What we move</h2>
+                <h2 class="vlt-section-title__title ah-gradient-title">What we move</h2>
               </div>
               <div class="vlt-gap-40"></div>
               <ol class="ah-move-list">
@@ -221,7 +257,7 @@ const DOMAIN_5Y = 75;
           <div class="row">
             <div class="col-md-10 offset-md-1">
               <div class="vlt-section-title vlt-section-title--style-1">
-                <h2 class="vlt-section-title__title">What it costs</h2>
+                <h2 class="vlt-section-title__title ah-gradient-title">What it costs</h2>
               </div>
               <div class="vlt-gap-40"></div>
               <div class="ah-cost">
@@ -266,7 +302,7 @@ const DOMAIN_5Y = 75;
           <div class="row">
             <div class="col-md-10 offset-md-1">
               <div class="vlt-section-title vlt-section-title--style-1">
-                <h2 class="vlt-section-title__title">What we will not pretend</h2>
+                <h2 class="vlt-section-title__title ah-gradient-title">What we will not pretend</h2>
               </div>
               <div class="vlt-gap-40"></div>
               <dl class="ah-own-grid ah-own-grid--two">
@@ -313,7 +349,7 @@ const DOMAIN_5Y = 75;
             <div class="col-md-10 offset-md-1">
               <div class="vlt-section-title vlt-section-title--style-1">
                 <span class="vlt-section-title__subtitle">Case study</span>
-                <h2 class="vlt-section-title__title">ZVB, Sofia</h2>
+                <h2 class="vlt-section-title__title ah-gradient-title">ZVB, Sofia</h2>
               </div>
               <div class="vlt-gap-40"></div>
               <p class="fz-3 text-justify">
@@ -346,9 +382,30 @@ const DOMAIN_5Y = 75;
         <div class="vlt-gap-120"></div>
       </section>
 
+      <!--============== FAQ ================-->
+      <section>
+        <div class="container">
+          <div class="text-center">
+            <h2 class="ah-gradient-title">Migration questions, answered</h2>
+          </div>
+          <div class="vlt-gap-50"></div>
+          <div class="ah-faq">
+            {
+              MIGRATION_FAQ.map((item) => (
+                <details class="ah-faq__item">
+                  <summary>{item.question}</summary>
+                  <p>{item.answer}</p>
+                </details>
+              ))
+            }
+          </div>
+        </div>
+        <div class="vlt-gap-120"></div>
+      </section>
+
       <section
         class="vlt-page-navigation vlt-page-navigation--style-1 has-black-color"
-        style="background-color: #e82e31;"
+        style="background-color: var(--ah-lilac-3);"
       >
         <div class="vlt-gap-130"></div>
         <div class="container">
@@ -358,8 +415,8 @@ const DOMAIN_5Y = 75;
             </div>
             <div class="vlt-gap-30"></div>
             <p style="color: white;">
-              Or call <a href="tel:+359886660034" style="color: white; text-decoration: underline;"
-                >(+359) 88 666 0034</a
+              Or call <a href="tel:+359887786022" style="color: white; text-decoration: underline;"
+                >(+359) 88 77 86 022</a
               > and describe what you have. We will tell you on the call whether moving it makes sense.
             </p>
           </div>

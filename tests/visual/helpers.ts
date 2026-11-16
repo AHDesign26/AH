@@ -71,7 +71,7 @@ export const PUBLIC_PAGES = [
   { path: '/', name: 'home' },
   { path: '/about-us', name: 'about-us' },
   { path: '/services', name: 'services' },
-  { path: '/web_development', name: 'web-development' },
+  { path: '/web-development', name: 'web-development' },
   { path: '/ads-service', name: 'ads-service' },
   { path: '/projects', name: 'projects' },
   { path: '/price', name: 'price' },

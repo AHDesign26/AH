@@ -9,286 +9,597 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
 <BaseLayout
   title="Order a Website or Growth Package | AH Design"
   description="Choose a website or monthly growth package and tell us about your project. We confirm scope, timeline and a fixed quote before any work starts."
-  htmlClass="no-js vlt-is--contact-02 vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
+  htmlClass="no-js vlt-is--order vlt-is--contact-02 vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
 >
   <Fragment slot="head">
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline
+    ></script>
     <link rel="stylesheet" href={versioned('/static/css/order-wizard.css')} />
   </Fragment>
-<!--Site overlay-->
-	<div class="vlt-site-overlay"></div>
-	<!--Main-->
-	<main class="vlt-main">
-		<!--Page content-->
-		<div class="vlt-page-content">
-			<!--Page title-->
-			<div class="vlt-page-title vlt-page-title--style-4">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-11  offset-md-1">
-							<h1 class="vlt-page-title__title">Great design is born of simplicity and clarity
-							</h1>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div id="content"></div>
+  <!--Site overlay-->
+  <div class="vlt-site-overlay"></div>
+  <!--Main-->
+  <main class="vlt-main">
+    <!--Page content-->
+    <div class="vlt-page-content">
+      <!--Page title-->
+      <div class="vlt-page-title vlt-page-title--style-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-11 offset-md-1">
+              <h1 class="vlt-page-title__title">Great design is born of simplicity and clarity</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="content"></div>
 
+      <!--Section-->
+      <section>
+        <div class="vlt-gap-120"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12">
+              <!--Animated block-->
+              <div class="vlt-animated-block" data-aos="fade" data-aos-delay="0">
+                <h2 class="ah-gradient-title">Let's work together</h2>
+              </div>
+              <div class="vlt-gap-60"></div>
+            </div>
 
-			<!--Section-->
-			<section>
-				<div class="vlt-gap-120"></div>
-				<div class="container">
-					<div class="row">
-						<div class="col-lg-12">
-							<!--Animated block-->
-							<div class="vlt-animated-block" data-aos="fade" data-aos-delay="0">
-								<h2>Let's work together</h2>
-							</div>
-							<div class="vlt-gap-60"></div>
-						</div>
+            <!--=========== Contact form ============-->
+            <div class="col-lg-9 order-form">
+              <!--Animated block-->
+              <div class="vlt-animated-block" data-aos="fade" data-aos-delay="100">
+                <div class="ow-card">
+                  <div class="ow-progress">
+                    <div class="ow-progress__fill" id="owProgressFill"></div>
+                  </div>
+                  <div class="ow-body">
+                    <ol class="ow-steps" id="owSteps" aria-hidden="true">
+                      <li class="ow-steps__item" data-step-indicator="0">
+                        <span class="ow-steps__num">01</span><span class="ow-steps__label"
+                          >Scope</span>
+                      </li>
+                      <li class="ow-steps__sep"></li>
+                      <li class="ow-steps__item" data-step-indicator="1">
+                        <span class="ow-steps__num">02</span><span class="ow-steps__label"
+                          >Ambition</span>
+                      </li>
+                      <li class="ow-steps__sep"></li>
+                      <li class="ow-steps__item" data-step-indicator="2">
+                        <span class="ow-steps__num">03</span><span class="ow-steps__label"
+                          >Contact</span>
+                      </li>
+                    </ol>
 
-						<!--=========== Contact form ============-->
-						<div class="col-lg-9 order-form">
-							<!--Animated block-->
-							<div class="vlt-animated-block" data-aos="fade" data-aos-delay="100">
-								<div class="ow-card">
-									<div class="ow-progress"><div class="ow-progress__fill" id="owProgressFill"></div></div>
-									<div class="ow-body">
+                    <form id="ordersubmit" novalidate="novalidate">
+                      <!-- STEP 1: SCOPE -->
+                      <div class="ow-panel" data-panel="0">
+                        <div class="ow-field">
+                          <div class="ow-label">What do you need help with?</div>
+                          <div class="ow-hint">Select all that apply.</div>
+                          <div class="ow-cardgrid">
+                            <div class="ow-optioncard" data-need="new" role="button" tabindex="0">
+                              <span class="ow-optioncard__badge" hidden>&#10003;</span>
+                              <svg
+                                width="26"
+                                height="26"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#e82e31"
+                                stroke-width="1.6"
+                                ><rect x="3" y="4" width="18" height="15" rx="2"></rect><line
+                                  x1="3"
+                                  y1="8"
+                                  x2="21"
+                                  y2="8"></line><circle cx="6" cy="6" r=".6" fill="#e82e31"
+                                ></circle></svg
+                              >
+                              <div>
+                                <div class="ow-optioncard__title">New Website</div><div
+                                  class="ow-optioncard__sub"
+                                >
+                                  Build from the ground up
+                                </div>
+                              </div>
+                            </div>
 
-										<ol class="ow-steps" id="owSteps" aria-hidden="true">
-											<li class="ow-steps__item" data-step-indicator="0"><span class="ow-steps__num">01</span><span class="ow-steps__label">Scope</span></li>
-											<li class="ow-steps__sep"></li>
-											<li class="ow-steps__item" data-step-indicator="1"><span class="ow-steps__num">02</span><span class="ow-steps__label">Ambition</span></li>
-											<li class="ow-steps__sep"></li>
-											<li class="ow-steps__item" data-step-indicator="2"><span class="ow-steps__num">03</span><span class="ow-steps__label">Contact</span></li>
-										</ol>
+                            <div
+                              class="ow-optioncard"
+                              data-need="redesign"
+                              role="button"
+                              tabindex="0"
+                            >
+                              <span class="ow-optioncard__badge" hidden>&#10003;</span>
+                              <svg
+                                width="26"
+                                height="26"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#e82e31"
+                                stroke-width="1.6"
+                                ><rect x="3" y="6" width="13" height="12" rx="2"></rect><rect
+                                  x="9"
+                                  y="3"
+                                  width="12"
+                                  height="11"
+                                  rx="2"
+                                  fill="#fff"></rect></svg
+                              >
+                              <div>
+                                <div class="ow-optioncard__title">Website Redesign</div><div
+                                  class="ow-optioncard__sub"
+                                >
+                                  Refresh an existing site
+                                </div>
+                              </div>
+                            </div>
 
-										<form id="ordersubmit" novalidate="novalidate">
+                            <div class="ow-optioncard" data-need="seo" role="button" tabindex="0">
+                              <span class="ow-optioncard__badge" hidden>&#10003;</span>
+                              <svg
+                                width="26"
+                                height="26"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#e82e31"
+                                stroke-width="1.6"
+                                ><circle cx="10" cy="10" r="6"></circle><line
+                                  x1="14.5"
+                                  y1="14.5"
+                                  x2="20"
+                                  y2="20"></line></svg
+                              >
+                              <div>
+                                <div class="ow-optioncard__title">SEO / Marketing</div><div
+                                  class="ow-optioncard__sub"
+                                >
+                                  Get seen &amp; get traffic
+                                </div>
+                              </div>
+                            </div>
 
-											<!-- STEP 1: SCOPE -->
-											<div class="ow-panel" data-panel="0">
-												<div class="ow-field">
-													<div class="ow-label">What do you need help with?</div>
-													<div class="ow-hint">Select all that apply.</div>
-													<div class="ow-cardgrid">
+                            <div
+                              class="ow-optioncard"
+                              data-need="scaling"
+                              role="button"
+                              tabindex="0"
+                            >
+                              <span class="ow-optioncard__badge" hidden>&#10003;</span>
+                              <svg
+                                width="26"
+                                height="26"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#e82e31"
+                                stroke-width="1.6"
+                                ><line x1="4" y1="20" x2="4" y2="14"></line><line
+                                  x1="10"
+                                  y1="20"
+                                  x2="10"
+                                  y2="10"></line><line x1="16" y1="20" x2="16" y2="6"></line><line
+                                  x1="22"
+                                  y1="20"
+                                  x2="22"
+                                  y2="3"></line></svg
+                              >
+                              <div>
+                                <div class="ow-optioncard__title">Business Scaling</div><div
+                                  class="ow-optioncard__sub"
+                                >
+                                  Automate &amp; grow
+                                </div>
+                              </div>
+                            </div>
 
-														<div class="ow-optioncard" data-need="new" role="button" tabindex="0">
-															<span class="ow-optioncard__badge" hidden>&#10003;</span>
-															<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#e82e31" stroke-width="1.6"><rect x="3" y="4" width="18" height="15" rx="2"/><line x1="3" y1="8" x2="21" y2="8"/><circle cx="6" cy="6" r=".6" fill="#e82e31"/></svg>
-															<div><div class="ow-optioncard__title">New Website</div><div class="ow-optioncard__sub">Build from the ground up</div></div>
-														</div>
+                            <div
+                              class="ow-optioncard ow-optioncard--wide"
+                              data-need="other"
+                              role="button"
+                              tabindex="0"
+                            >
+                              <div class="ow-optioncard__row">
+                                <span class="ow-optioncard__badge" hidden>&#10003;</span>
+                                <svg
+                                  width="26"
+                                  height="26"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="#e82e31"
+                                  stroke-width="1.6"
+                                  ><path d="M4 20h16"></path><path d="M14.5 4.5l3 3L8 17l-4 1 1-4z"
+                                  ></path></svg
+                                >
+                                <div>
+                                  <div class="ow-optioncard__title">Something else</div><div
+                                    class="ow-optioncard__sub"
+                                    id="owOtherSub"
+                                  >
+                                    Describe your own request
+                                  </div>
+                                </div>
+                              </div>
+                              <label class="ah-visually-hidden" for="owCustomRequest"
+                                >Describe your own request</label
+                              >
+                              <textarea
+                                id="owCustomRequest"
+                                class="ow-textarea ow-optioncard__textarea"
+                                rows="3"
+                                placeholder="Tell us what you need in a sentence or two."
+                                hidden></textarea>
+                            </div>
+                          </div>
+                        </div>
 
-														<div class="ow-optioncard" data-need="redesign" role="button" tabindex="0">
-															<span class="ow-optioncard__badge" hidden>&#10003;</span>
-															<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#e82e31" stroke-width="1.6"><rect x="3" y="6" width="13" height="12" rx="2"/><rect x="9" y="3" width="12" height="11" rx="2" fill="#fff"/></svg>
-															<div><div class="ow-optioncard__title">Website Redesign</div><div class="ow-optioncard__sub">Refresh an existing site</div></div>
-														</div>
+                        <div class="ow-field">
+                          <label class="ow-label" for="owBusiness">Nature of your business</label>
+                          <input
+                            class="ow-input"
+                            id="owBusiness"
+                            placeholder="e.g. Boutique law firm, coffee roaster, SaaS startup"
+                          />
+                        </div>
 
-														<div class="ow-optioncard" data-need="seo" role="button" tabindex="0">
-															<span class="ow-optioncard__badge" hidden>&#10003;</span>
-															<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#e82e31" stroke-width="1.6"><circle cx="10" cy="10" r="6"/><line x1="14.5" y1="14.5" x2="20" y2="20"/></svg>
-															<div><div class="ow-optioncard__title">SEO / Marketing</div><div class="ow-optioncard__sub">Get seen &amp; get traffic</div></div>
-														</div>
+                        <div class="ow-field">
+                          <div class="ow-label">Do you currently have a website?</div>
+                          <div class="ow-pillrow">
+                            <button
+                              type="button"
+                              class="ow-pill"
+                              data-set="hasWebsite"
+                              data-value="yes">Yes</button
+                            >
+                            <button
+                              type="button"
+                              class="ow-pill"
+                              data-set="hasWebsite"
+                              data-value="no">No</button
+                            >
+                          </div>
+                          <div class="ow-conditional" id="owWebsiteUrlWrap" hidden>
+                            <label class="ow-label" for="owWebsiteUrl">Your website address</label>
+                            <input
+                              class="ow-input"
+                              id="owWebsiteUrl"
+                              placeholder="https://yoursite.com"
+                            />
+                          </div>
+                        </div>
 
-														<div class="ow-optioncard" data-need="scaling" role="button" tabindex="0">
-															<span class="ow-optioncard__badge" hidden>&#10003;</span>
-															<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#e82e31" stroke-width="1.6"><line x1="4" y1="20" x2="4" y2="14"/><line x1="10" y1="20" x2="10" y2="10"/><line x1="16" y1="20" x2="16" y2="6"/><line x1="22" y1="20" x2="22" y2="3"/></svg>
-															<div><div class="ow-optioncard__title">Business Scaling</div><div class="ow-optioncard__sub">Automate &amp; grow</div></div>
-														</div>
+                        <div class="ow-field ow-field--divider" id="owBrandingWrap" hidden>
+                          <div class="ow-label">Do you have branding &amp; logos ready?</div>
+                          <div class="ow-pillrow">
+                            <button
+                              type="button"
+                              class="ow-pill"
+                              data-set="hasBranding"
+                              data-value="yes">Yes, ready to go</button
+                            >
+                            <button
+                              type="button"
+                              class="ow-pill"
+                              data-set="hasBranding"
+                              data-value="partial">Partially</button
+                            >
+                            <button
+                              type="button"
+                              class="ow-pill"
+                              data-set="hasBranding"
+                              data-value="no">Not yet</button
+                            >
+                          </div>
+                        </div>
 
-														<div class="ow-optioncard ow-optioncard--wide" data-need="other" role="button" tabindex="0">
-															<div class="ow-optioncard__row">
-																<span class="ow-optioncard__badge" hidden>&#10003;</span>
-																<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#e82e31" stroke-width="1.6"><path d="M4 20h16"/><path d="M14.5 4.5l3 3L8 17l-4 1 1-4z"/></svg>
-																<div><div class="ow-optioncard__title">Something else</div><div class="ow-optioncard__sub" id="owOtherSub">Describe your own request</div></div>
-															</div>
-															<textarea id="owCustomRequest" class="ow-textarea ow-optioncard__textarea" rows="3" placeholder="Tell us what you need in a sentence or two." hidden></textarea>
-														</div>
+                        <div class="ow-field ow-field--divider" id="owIndustryWrap" hidden>
+                          <label class="ow-label" for="owIndustry"
+                            >What is your primary industry?</label
+                          >
+                          <input
+                            class="ow-input"
+                            id="owIndustry"
+                            placeholder="e.g. Real estate, hospitality, e-commerce"
+                          />
+                        </div>
+                      </div>
 
-													</div>
-												</div>
+                      <!-- STEP 2: AMBITION -->
+                      <div class="ow-panel" data-panel="1" hidden>
+                        <div class="ow-field">
+                          <div class="ow-label">Primary goal for this project</div>
+                          <div class="ow-cardgrid ow-cardgrid--sm">
+                            <div
+                              class="ow-optioncard ow-optioncard--sm"
+                              data-goal="sales"
+                              role="button"
+                              tabindex="0"
+                            >
+                              <span class="ow-optioncard__badge" hidden>&#10003;</span>
+                              <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#e82e31"
+                                stroke-width="1.6"
+                                ><polyline points="3,17 9,11 13,15 21,6"></polyline><polyline
+                                  points="15,6 21,6 21,12"></polyline></svg
+                              >
+                              <div class="ow-optioncard__title">Increase Sales</div>
+                            </div>
+                            <div
+                              class="ow-optioncard ow-optioncard--sm"
+                              data-goal="brand"
+                              role="button"
+                              tabindex="0"
+                            >
+                              <span class="ow-optioncard__badge" hidden>&#10003;</span>
+                              <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#e82e31"
+                                stroke-width="1.6"
+                                ><rect
+                                  x="6.5"
+                                  y="6.5"
+                                  width="11"
+                                  height="11"
+                                  transform="rotate(45 12 12)"></rect></svg
+                              >
+                              <div class="ow-optioncard__title">Brand Identity</div>
+                            </div>
+                            <div
+                              class="ow-optioncard ow-optioncard--sm"
+                              data-goal="traffic"
+                              role="button"
+                              tabindex="0"
+                            >
+                              <span class="ow-optioncard__badge" hidden>&#10003;</span>
+                              <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#e82e31"
+                                stroke-width="1.6"
+                                ><circle cx="12" cy="12" r="8"></circle><circle
+                                  cx="12"
+                                  cy="12"
+                                  r="3.4"></circle></svg
+                              >
+                              <div class="ow-optioncard__title">More Traffic</div>
+                            </div>
+                            <div
+                              class="ow-optioncard ow-optioncard--sm"
+                              data-goal="automate"
+                              role="button"
+                              tabindex="0"
+                            >
+                              <span class="ow-optioncard__badge" hidden>&#10003;</span>
+                              <svg
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#e82e31"
+                                stroke-width="1.6"
+                                ><circle cx="7" cy="7" r="3"></circle><circle cx="17" cy="17" r="3"
+                                ></circle><line x1="9" y1="9" x2="15" y2="15"></line></svg
+                              >
+                              <div class="ow-optioncard__title">Automate my Business</div>
+                            </div>
+                          </div>
+                        </div>
 
-												<div class="ow-field">
-													<label class="ow-label" for="owBusiness">Nature of your business</label>
-													<input class="ow-input" id="owBusiness" placeholder="e.g. Boutique law firm, coffee roaster, SaaS startup" />
-												</div>
+                        <div class="ow-field">
+                          <label class="ow-label" for="owLaunch">Target launch date</label>
+                          <input class="ow-input" type="date" id="owLaunch" />
+                        </div>
 
-												<div class="ow-field">
-													<div class="ow-label">Do you currently have a website?</div>
-													<div class="ow-pillrow">
-														<button type="button" class="ow-pill" data-set="hasWebsite" data-value="yes">Yes</button>
-														<button type="button" class="ow-pill" data-set="hasWebsite" data-value="no">No</button>
-													</div>
-													<div class="ow-conditional" id="owWebsiteUrlWrap" hidden>
-														<label class="ow-label" for="owWebsiteUrl">Your website address</label>
-														<input class="ow-input" id="owWebsiteUrl" placeholder="https://yoursite.com" />
-													</div>
-												</div>
+                        <div class="ow-field">
+                          <div class="ow-label">How would you describe your project stage?</div>
+                          <div class="ow-stack">
+                            <button type="button" class="ow-pill ow-pill--block" data-stage="idea"
+                              >I have an idea</button
+                            >
+                            <button type="button" class="ow-pill ow-pill--block" data-stage="assets"
+                              >I have a brand &amp; assets ready</button
+                            >
+                            <button type="button" class="ow-pill ow-pill--block" data-stage="launch"
+                              >I&rsquo;m ready to launch</button
+                            >
+                          </div>
+                        </div>
+                      </div>
 
-												<div class="ow-field ow-field--divider" id="owBrandingWrap" hidden>
-													<div class="ow-label">Do you have branding &amp; logos ready?</div>
-													<div class="ow-pillrow">
-														<button type="button" class="ow-pill" data-set="hasBranding" data-value="yes">Yes, ready to go</button>
-														<button type="button" class="ow-pill" data-set="hasBranding" data-value="partial">Partially</button>
-														<button type="button" class="ow-pill" data-set="hasBranding" data-value="no">Not yet</button>
-													</div>
-												</div>
+                      <!-- STEP 3: CONTACT -->
+                      <div class="ow-panel" data-panel="2" hidden>
+                        <div class="ow-grid2">
+                          <div class="ow-field">
+                            <label class="ow-label" for="owName">Your name *</label>
+                            <input class="ow-input" id="owName" placeholder="Jane Doe" />
+                          </div>
+                          <div class="ow-field">
+                            <label class="ow-label" for="owEmail">Email *</label>
+                            <input
+                              class="ow-input"
+                              type="email"
+                              id="owEmail"
+                              placeholder="jane@company.com"
+                            />
+                          </div>
+                          <div class="ow-field">
+                            <label class="ow-label" for="owPhone">Phone</label>
+                            <input
+                              class="ow-input"
+                              type="tel"
+                              id="owPhone"
+                              autocomplete="tel"
+                              placeholder="+359 88 000 0000"
+                            />
+                          </div>
+                          <div class="ow-field">
+                            <label class="ow-label" for="owCompany">Company</label>
+                            <input class="ow-input" id="owCompany" placeholder="Company name" />
+                          </div>
+                          <div class="ow-field">
+                            <label class="ow-label" for="owCallTime">Best time for a call</label>
+                            <input
+                              class="ow-input"
+                              id="owCallTime"
+                              placeholder="e.g. Weekday mornings CET"
+                            />
+                          </div>
+                        </div>
+                        <div class="ow-field">
+                          <label class="ow-label" for="owMessage"
+                            >Anything else we should know?</label
+                          >
+                          <textarea
+                            class="ow-textarea"
+                            id="owMessage"
+                            rows="4"
+                            placeholder="A sentence or two about your project, goals or references."
+                          ></textarea>
+                        </div>
+                        <input
+                          type="text"
+                          name="website"
+                          class="ow-honeypot"
+                          tabindex="-1"
+                          autocomplete="off"
+                          aria-hidden="true"
+                        />
+                        <div
+                          class="cf-turnstile"
+                          data-sitekey={turnstileSiteKey}
+                          data-size="invisible"
+                        >
+                        </div>
+                      </div>
 
-												<div class="ow-field ow-field--divider" id="owIndustryWrap" hidden>
-													<label class="ow-label" for="owIndustry">What is your primary industry?</label>
-													<input class="ow-input" id="owIndustry" placeholder="e.g. Real estate, hospitality, e-commerce" />
-												</div>
-											</div>
+                      <!-- SUCCESS -->
+                      <div class="ow-success" data-panel="success" hidden>
+                        <div class="ow-success__icon">&#10003;</div>
+                        <h3 class="ow-success__title">Request received</h3>
+                        <p class="ow-success__text" id="owSuccessText">
+                          Thanks. We&rsquo;ll review your project and get back within one business
+                          day to confirm scope, timeline and a fixed quote.
+                        </p>
+                        <div class="ow-summary">
+                          <div class="ow-summary__row">
+                            <span>Needs</span><span id="owSummaryNeeds"></span>
+                          </div>
+                          <div class="ow-summary__row">
+                            <span>Goal</span><span id="owSummaryGoal"></span>
+                          </div>
+                          <div class="ow-summary__row">
+                            <span>Stage</span><span id="owSummaryStage"></span>
+                          </div>
+                          <div class="ow-summary__row">
+                            <span>Email</span><span id="owSummaryEmail"></span>
+                          </div>
+                        </div>
+                        <button type="button" class="ow-reset" id="owReset"
+                          >Submit another request</button
+                        >
+                      </div>
 
-											<!-- STEP 2: AMBITION -->
-											<div class="ow-panel" data-panel="1" hidden>
-												<div class="ow-field">
-													<div class="ow-label">Primary goal for this project</div>
-													<div class="ow-cardgrid ow-cardgrid--sm">
-														<div class="ow-optioncard ow-optioncard--sm" data-goal="sales" role="button" tabindex="0">
-															<span class="ow-optioncard__badge" hidden>&#10003;</span>
-															<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e82e31" stroke-width="1.6"><polyline points="3,17 9,11 13,15 21,6"/><polyline points="15,6 21,6 21,12"/></svg>
-															<div class="ow-optioncard__title">Increase Sales</div>
-														</div>
-														<div class="ow-optioncard ow-optioncard--sm" data-goal="brand" role="button" tabindex="0">
-															<span class="ow-optioncard__badge" hidden>&#10003;</span>
-															<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e82e31" stroke-width="1.6"><rect x="6.5" y="6.5" width="11" height="11" transform="rotate(45 12 12)"/></svg>
-															<div class="ow-optioncard__title">Brand Identity</div>
-														</div>
-														<div class="ow-optioncard ow-optioncard--sm" data-goal="traffic" role="button" tabindex="0">
-															<span class="ow-optioncard__badge" hidden>&#10003;</span>
-															<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e82e31" stroke-width="1.6"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3.4"/></svg>
-															<div class="ow-optioncard__title">More Traffic</div>
-														</div>
-														<div class="ow-optioncard ow-optioncard--sm" data-goal="automate" role="button" tabindex="0">
-															<span class="ow-optioncard__badge" hidden>&#10003;</span>
-															<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#e82e31" stroke-width="1.6"><circle cx="7" cy="7" r="3"/><circle cx="17" cy="17" r="3"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-															<div class="ow-optioncard__title">Automate my Business</div>
-														</div>
-													</div>
-												</div>
+                      <!-- NAV -->
+                      <div class="ow-nav" id="owNav">
+                        <button type="button" class="ow-back" id="owBack" hidden>&larr; Back</button
+                        >
+                        <button
+                          type="button"
+                          class="vlt-btn ah-btn ow-next"
+                          id="owNext"
+                          disabled="disabled"
+                        >
+                          Continue
+                          <i class="ah-btn-icon">
+                            <svg
+                              width="14"
+                              height="14"
+                              viewBox="0 0 17 17"
+                              fill="none"
+                              aria-hidden="true"
+                              ><path
+                                d="M4 13 L13 4 M6 4 H13 V11"
+                                stroke="#ffffff"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"></path></svg
+                            >
+                          </i>
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                <p id="output" class="ow-error"></p>
+              </div>
+              <div class="vlt-gap-60--md"></div>
+            </div>
 
-												<div class="ow-field">
-													<label class="ow-label" for="owLaunch">Target launch date</label>
-													<input class="ow-input" type="date" id="owLaunch" />
-												</div>
+            <!--=========== Contact info ============-->
+            <div class="col-lg-3">
+              <div class="vlt-pl-70 vlt-pl-0--md">
+                <div class="row">
+                  <div class="col-lg-12 col-md-6">
+                    <!--Animated block-->
+                    <div class="vlt-gap-20"></div>
+                    <div class="vlt-animated-block" data-aos="fade" data-aos-delay="200">
+                      <h5 class="text-accent">contact info:</h5>
+                      <div class="vlt-gap-20"></div>
+                      <a href="mailto:info@ahdesign.website">info@ahdesign.website</a>
+                      <div class="vlt-gap-20"></div>
+                      <a href="tel:+359887786022">(+359)- 88 77 86 022</a>
+                    </div>
+                    <div class="vlt-gap-60"></div>
+                  </div>
+                  <div class="col-lg-12 col-md-6">
+                    <!--Animated block-->
+                    <div class="vlt-animated-block" data-aos="fade" data-aos-delay="300">
+                      <h5 class="text-accent">Address:</h5>
+                      <div class="vlt-gap-20"></div>
+                      <p class="lh-2">Bulgaria, Sofia. <br />AHdesign Co.</p>
+                    </div>
+                    <div class="vlt-gap-40"></div>
+                    <!--Animated block-->
+                    <div class="vlt-animated-block" data-aos="fade" data-aos-delay="400">
+                      <h5 class="text-accent">Social media:</h5>
+                      <div class="vlt-gap-20"></div>
+                      <div class="has-black-color">
+                        {
+                          socials.map((s) => (
+                            <a
+                              class="vlt-social-icon vlt-social-icon--style-1"
+                              href={s.url}
+                              target="_blank"
+                              rel="noopener"
+                              aria-label={`AH Design on ${s.name}`}
+                            >
+                              {s.short}.
+                            </a>
+                          ))
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="vlt-gap-120"></div>
+      </section>
+    </div>
+  </main>
 
-												<div class="ow-field">
-													<div class="ow-label">How would you describe your project stage?</div>
-													<div class="ow-stack">
-														<button type="button" class="ow-pill ow-pill--block" data-stage="idea">I have an idea</button>
-														<button type="button" class="ow-pill ow-pill--block" data-stage="assets">I have a brand &amp; assets ready</button>
-														<button type="button" class="ow-pill ow-pill--block" data-stage="launch">I&rsquo;m ready to launch</button>
-													</div>
-												</div>
-											</div>
-
-											<!-- STEP 3: CONTACT -->
-											<div class="ow-panel" data-panel="2" hidden>
-												<div class="ow-grid2">
-													<div class="ow-field">
-														<label class="ow-label" for="owName">Your name *</label>
-														<input class="ow-input" id="owName" placeholder="Jane Doe" />
-													</div>
-													<div class="ow-field">
-														<label class="ow-label" for="owEmail">Email *</label>
-														<input class="ow-input" type="email" id="owEmail" placeholder="jane@company.com" />
-													</div>
-													<div class="ow-field">
-														<label class="ow-label" for="owPhone">Phone</label>
-														<input class="ow-input" type="tel" id="owPhone" autocomplete="tel" placeholder="+359 88 000 0000" />
-													</div>
-													<div class="ow-field">
-														<label class="ow-label" for="owCompany">Company</label>
-														<input class="ow-input" id="owCompany" placeholder="Company name" />
-													</div>
-													<div class="ow-field">
-														<label class="ow-label" for="owCallTime">Best time for a call</label>
-														<input class="ow-input" id="owCallTime" placeholder="e.g. Weekday mornings CET" />
-													</div>
-												</div>
-												<div class="ow-field">
-													<label class="ow-label" for="owMessage">Anything else we should know?</label>
-													<textarea class="ow-textarea" id="owMessage" rows="4" placeholder="A sentence or two about your project, goals or references."></textarea>
-												</div>
-												<input type="text" name="website" class="ow-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
-												<div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-size="invisible"></div>
-											</div>
-
-											<!-- SUCCESS -->
-											<div class="ow-success" data-panel="success" hidden>
-												<div class="ow-success__icon">&#10003;</div>
-												<h3 class="ow-success__title">Request received</h3>
-												<p class="ow-success__text" id="owSuccessText">Thanks. We&rsquo;ll review your project and get back within one business day to confirm scope, timeline and a fixed quote.</p>
-												<div class="ow-summary">
-												<div class="ow-summary__row"><span>Needs</span><span id="owSummaryNeeds"></span></div>
-												<div class="ow-summary__row"><span>Goal</span><span id="owSummaryGoal"></span></div>
-												<div class="ow-summary__row"><span>Stage</span><span id="owSummaryStage"></span></div>
-												<div class="ow-summary__row"><span>Email</span><span id="owSummaryEmail"></span></div>
-											</div>
-												<button type="button" class="ow-reset" id="owReset">Submit another request</button>
-											</div>
-
-											<!-- NAV -->
-											<div class="ow-nav" id="owNav">
-												<button type="button" class="ow-back" id="owBack" hidden>&larr; Back</button>
-												<button type="button" class="ow-next" id="owNext" disabled="disabled">Continue</button>
-											</div>
-										</form>
-									</div>
-								</div>
-								<p id="output" class="ow-error"></p>
-							</div>
-							<div class="vlt-gap-60--md"></div>
-						</div>
-
-						<!--=========== Contact info ============-->
-						<div class="col-lg-3">
-							<div class="vlt-pl-70 vlt-pl-0--md">
-								<div class="row">
-									<div class="col-lg-12 col-md-6">
-										<!--Animated block-->
-										<div class="vlt-gap-20"></div>
-										<div class="vlt-animated-block" data-aos="fade" data-aos-delay="200">
-											<h5 class="text-accent">contact info:</h5>
-											<div class="vlt-gap-20"></div>
-											<a href="mailto:info@ahdesign.website">info@ahdesign.website</a>
-											<div class="vlt-gap-20"></div>
-											<a href="tel:+359886660034">(+359)- 88 666 0034</a>
-										</div>
-										<div class="vlt-gap-60"></div>
-									</div>
-									<div class="col-lg-12 col-md-6">
-										<!--Animated block-->
-										<div class="vlt-animated-block" data-aos="fade" data-aos-delay="300">
-											<h5 class="text-accent">Address:</h5>
-											<div class="vlt-gap-20"></div>
-											<p class="lh-2">Bulgaria, Sofia. <br/>AHdesign Co.</p>
-										</div>
-										<div class="vlt-gap-40"></div>
-										<!--Animated block-->
-										<div class="vlt-animated-block" data-aos="fade" data-aos-delay="400">
-											<h5 class="text-accent">Social media:</h5>
-											<div class="vlt-gap-20"></div>
-											<div class="has-black-color">
-												{socials.map((s) => (
-													<a class="vlt-social-icon vlt-social-icon--style-1" href={s.url} target="_blank" rel="noopener" aria-label={`AH Design on ${s.name}`}>{s.short}.</a>
-												))}
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="vlt-gap-120"></div>
-			</section>
-		</div>
-	</main>
-
-	<Fragment slot="js">
-		<script src="/static/scripts/order-wizard.js" is:inline></script>
-	</Fragment>
+  <Fragment slot="js">
+    <script src="/static/scripts/order-wizard.js" is:inline></script>
+  </Fragment>
 </BaseLayout>

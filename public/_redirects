@@ -1,0 +1,22 @@
+# Cloudflare Pages redirects. One rule per line: source destination code.
+# https://developers.cloudflare.com/pages/configuration/redirects/
+
+# website-design-first-steps-to-consider is a duplicate of website (its
+# canonical tag already points there — src/content/blog/website-design-first-steps-to-consider.md).
+# Every internal link already points at /post/website/; this catches anyone
+# who still has the old URL bookmarked or indexed.
+/post/website-design-first-steps-to-consider/ /post/website/ 301
+/post/website-design-first-steps-to-consider /post/website/ 301
+
+# web_development -> web-development: every other URL on the site uses
+# hyphens, not underscores (src/pages/web-development.astro, renamed from
+# web_development.astro). Catches anyone with the old URL bookmarked or
+# indexed.
+/web_development/ /web-development/ 301
+/web_development /web-development/ 301
+
+# fricta -> business-scaling: the URL was an unrelated internal codename for
+# a page titled "Growth Partnership" with H1 "Business scaling" — renamed to
+# match (src/pages/business-scaling.astro, renamed from fricta.astro).
+/fricta/ /business-scaling/ 301
+/fricta /business-scaling/ 301
