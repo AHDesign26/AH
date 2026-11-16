@@ -28,7 +28,7 @@ export const KEY_PAGES: PageEntry[] = [
       'The three service lines in detail: websites and web apps, digital marketing and SEO, business scaling.',
   },
   {
-    path: '/web_development',
+    path: '/web-development',
     title: 'Website Design & Development',
     summary:
       'Responsive websites, e-commerce, custom web applications, CMS builds, QA and testing.',
@@ -61,10 +61,10 @@ export const KEY_PAGES: PageEntry[] = [
     summary: 'Who AH Design is, how the team works, and the delivery process.',
   },
   {
-    path: '/fricta',
-    title: 'Fricta: Operational Intelligence',
+    path: '/business-scaling',
+    title: 'Business Scaling',
     summary:
-      'Sub-brand for operational audits, AI workflow systems, process optimisation and custom internal tools.',
+      'A fractional CMO, brand strategy and AI automation partnership: one team for strategy, brand, marketing and automation, instead of five freelancers.',
   },
   {
     path: '/contact',

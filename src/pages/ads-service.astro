@@ -22,8 +22,16 @@ const description =
       { name: 'Advertising Solutions', path: '/ads-service' },
     ]),
   ]}
-  htmlClass="no-js vlt-is--service-single vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
+  htmlClass="no-js vlt-is--ads-service vlt-is--service-single vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
 >
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </Fragment>
   <div class="vlt-site-overlay"></div>
   <main class="vlt-main">
     <div class="vlt-page-content">
@@ -34,7 +42,8 @@ const description =
             class="vlt-page-title__title lax"
             data-lax-translate-y="0 0, vh (vw*0.25)"
             data-lax-opacity="1 1, (vh*0.5) 0"
-            data-lax-anchor=".vlt-page-title">
+            data-lax-anchor=".vlt-page-title"
+          >
             Advertising Solutions
           </h1>
         </div>
@@ -52,7 +61,9 @@ const description =
             </div>
             <div class="col-md-5 offset-md-1">
               <div class="vlt-animated-block" data-aos="fade" data-aos-delay="0">
-                <h4><q>Making promises and keeping them is a great way to build a brand</q></h4>
+                <h4 class="ah-navy-gradient-title">
+                  <q>Making promises and keeping them is a great way to build a brand</q>
+                </h4>
               </div>
               <div class="vlt-gap-40--sm"></div>
             </div>
@@ -62,17 +73,17 @@ const description =
                   Digital marketing is essential for any business that wants to be part of the
                   digital marketplace, but navigating the type of channel you want to use and grow
                   your business may feel tricky. Here&rsquo;s what you need to know<br />
-                  Digital market channels can be categorized based on the type of audience and
-                  their content:
+                  Digital market channels can be categorized based on the type of audience and their content:
                 </p>
                 <ul class="vlt-styled-list vlt-styled-list--style-3">
                   <br />
-                  <li>Search engines</li>
-                  <li>Social media</li>
-                  <li>Websites</li>
-                  <li>Audio and video materials</li>
-                  <li>Digital and offline events</li>
-                  <li>and more.</li>
+                  <li>Search & AI Visibility</li>
+                  <li>Paid Advertising (PPC)</li>
+                  <li>Content Marketing</li>
+                  <li>Social Media Marketing</li>
+                  <li>Email & SMS Marketing</li>
+                  <li>Influencer & Affiliate Marketing</li>
+                  <li>Video Marketing</li>
                 </ul>
               </div>
               <div class="vlt-gap-30"></div>
@@ -89,26 +100,274 @@ const description =
               <p class="fz-3 text-justify">
                 At this point, the main challenge that most businesses face is how to make it
                 budget-friendly and affordable for their business. <br />
-                We recommend you have a strategic plan and decide which channel of digital
-                marketing you want to use to attract the audience to be your customer. But how to
-                find which one suits your business more?
+                We recommend you have a strategic plan and decide which channel of digital marketing you
+                want to use to attract the audience to be your customer. But how to find which one suits
+                your business more?
               </p>
-              <div class="vlt-gap-30"></div>
-              <img
-                src="/static/img/services/Marketing.png"
-                alt="The main digital marketing channels: search engines, social media, websites, audio and video, and events"
-                loading="lazy"
-              />
-              <div class="vlt-gap-50"></div>
+            </div>
+          </div>
+        </div>
+        <div class="vlt-gap-30"></div>
+        <section class="ah-services-grid">
+          <h2 class="ah-services-grid__heading">
+            Ways we help you <span class="ah-services-grid__heading-stroke">grow</span>
+          </h2>
+          <div class="ah-services-grid__grid">
+            <div
+              class="ah-services-grid__card ah-services-grid__card--span-3 ah-services-grid__card--accent"
+            >
+              <div class="ah-services-grid__top">
+                <span class="ah-services-grid__icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M11 19a8 8 0 100-16 8 8 0 000 16zM21 21l-4.3-4.3"
+                      stroke="#5bcdbe"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </span>
+                <span class="ah-services-grid__no">01</span>
+              </div>
+              <h3 class="ah-services-grid__title">
+                Search &amp; AI Visibility (Organic Discovery)
+              </h3>
+              <div class="ah-services-grid__subs">
+                <div class="ah-services-grid__sub">
+                  <div class="ah-services-grid__sub-head">
+                    <span class="ah-services-grid__sub-abbr">Traditional SEO</span>
+                  </div>
+                  <p class="ah-services-grid__sub-text">
+                    Optimizing site architecture and keywords to capture clicks from search engines.
+                  </p>
+                </div>
+                <div class="ah-services-grid__sub">
+                  <div class="ah-services-grid__sub-head">
+                    <span class="ah-services-grid__sub-abbr">Local SEO</span>
+                  </div>
+                  <p class="ah-services-grid__sub-text">
+                    An optimized Google Business Profile and more calls from Google Maps.
+                  </p>
+                </div>
+                <div class="ah-services-grid__sub">
+                  <div class="ah-services-grid__sub-head">
+                    <span class="ah-services-grid__sub-abbr">AEO</span>
+                    <span class="ah-services-grid__sub-full">Answer Engine Optimization</span>
+                  </div>
+                  <p class="ah-services-grid__sub-text">
+                    Structuring content with FAQs and schema to be the definitive answer for voice
+                    assistants.
+                  </p>
+                </div>
+                <div class="ah-services-grid__sub">
+                  <div class="ah-services-grid__sub-head">
+                    <span class="ah-services-grid__sub-abbr">GEO</span>
+                    <span class="ah-services-grid__sub-full">Generative Engine Optimization</span>
+                  </div>
+                  <p class="ah-services-grid__sub-text">
+                    Building authority to be directly cited inside AI platforms like ChatGPT.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ah-services-grid__card ah-services-grid__card--span-3 ah-services-grid__card--accent"
+            >
+              <div class="ah-services-grid__top">
+                <span class="ah-services-grid__icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M3 11l18-7-7 18-2.5-8L3 11z"
+                      stroke="#5bcdbe"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </span>
+                <span class="ah-services-grid__no">02</span>
+              </div>
+              <h3 class="ah-services-grid__title">Paid Advertising (PPC &amp; Performance Ads)</h3>
+              <div class="ah-services-grid__subs">
+                <div class="ah-services-grid__sub">
+                  <div class="ah-services-grid__sub-head">
+                    <span class="ah-services-grid__sub-abbr">Google Ads</span>
+                  </div>
+                  <p class="ah-services-grid__sub-text">
+                    Search, Performance Max and retargeting campaigns that reach people already
+                    looking for what you sell.
+                  </p>
+                </div>
+                <div class="ah-services-grid__sub">
+                  <div class="ah-services-grid__sub-head">
+                    <span class="ah-services-grid__sub-abbr"
+                      >Meta Ads (Facebook &amp; Instagram)</span
+                    >
+                  </div>
+                  <p class="ah-services-grid__sub-text">
+                    Creative-led campaigns that turn people scrolling past into leads and customers.
+                  </p>
+                </div>
+                <div class="ah-services-grid__sub">
+                  <div class="ah-services-grid__sub-head">
+                    <span class="ah-services-grid__sub-abbr">Retail Media</span>
+                  </div>
+                  <p class="ah-services-grid__sub-text">
+                    Advertising directly on digital marketplaces (like Amazon or Uber) when users
+                    already have high purchase intent.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div
+              class="ah-services-grid__card ah-services-grid__card--span-4 ah-services-grid__card--accent"
+            >
+              <div class="ah-services-grid__top">
+                <span class="ah-services-grid__icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M18 8a3 3 0 10-2.8-4H9a5 5 0 00-5 5v3l-1.5 2.5L4 16v0a5 5 0 005 5h4"
+                      stroke="#5bcdbe"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </span>
+                <span class="ah-services-grid__no">03</span>
+              </div>
+              <h3 class="ah-services-grid__title">Social Media &amp; Social Commerce</h3>
+              <div class="ah-services-grid__subs">
+                <div class="ah-services-grid__sub">
+                  <div class="ah-services-grid__sub-head">
+                    <span class="ah-services-grid__sub-abbr">Community Building</span>
+                  </div>
+                  <p class="ah-services-grid__sub-text">
+                    Engaging audiences on platforms like LinkedIn, Instagram, or TikTok.
+                  </p>
+                </div>
+                <div class="ah-services-grid__sub">
+                  <div class="ah-services-grid__sub-head">
+                    <span class="ah-services-grid__sub-abbr">One-Click Shopping</span>
+                  </div>
+                  <p class="ah-services-grid__sub-text">
+                    Utilizing in-app storefronts where users can browse and purchase products
+                    directly without ever leaving the social platform.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="ah-services-grid__card ah-services-grid__card--span-2">
+              <div class="ah-services-grid__top">
+                <span class="ah-services-grid__icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M4 5h16M4 12h16M4 19h10"
+                      stroke="#5bcdbe"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </span>
+                <span class="ah-services-grid__no">04</span>
+              </div>
+              <h3 class="ah-services-grid__title">Content Marketing</h3>
+              <p class="ah-services-grid__blurb">
+                Educational &amp; value-driven content: creating blogs, podcasts, and ebooks focused
+                on storytelling and building trust rather than hard selling, which fuels the rest of
+                the marketing ecosystem.
+              </p>
+            </div>
+            <div class="ah-services-grid__card ah-services-grid__card--span-2">
+              <div class="ah-services-grid__top">
+                <span class="ah-services-grid__icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M3 6h18v12H3zM3 7l9 6 9-6"
+                      stroke="#5bcdbe"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </span>
+                <span class="ah-services-grid__no">05</span>
+              </div>
+              <h3 class="ah-services-grid__title">Email &amp; SMS Marketing</h3>
+              <p class="ah-services-grid__blurb">
+                Your owned audience. Personalized campaigns that send targeted messages, product
+                launches, and newsletters directly to a subscriber list you own, protecting you from
+                sudden algorithm changes on social or search platforms.
+              </p>
+            </div>
+            <div class="ah-services-grid__card ah-services-grid__card--span-2">
+              <div class="ah-services-grid__top">
+                <span class="ah-services-grid__icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M16 11a4 4 0 10-8 0M12 3v4M5 20a7 7 0 0114 0"
+                      stroke="#5bcdbe"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </span>
+                <span class="ah-services-grid__no">06</span>
+              </div>
+              <h3 class="ah-services-grid__title">Influencer &amp; Affiliate Marketing</h3>
+              <p class="ah-services-grid__blurb">
+                Niche partnerships: collaborating with micro-influencers or setting up
+                performance-based commission systems where creators drive their established,
+                trusting audiences to your brand.
+              </p>
+            </div>
+            <div class="ah-services-grid__card ah-services-grid__card--span-2">
+              <div class="ah-services-grid__top">
+                <span class="ah-services-grid__icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                    <path
+                      d="M4 6h16v12H4zM10 9l5 3-5 3V9z"
+                      stroke="#5bcdbe"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+                  </svg>
+                </span>
+                <span class="ah-services-grid__no">07</span>
+              </div>
+              <h3 class="ah-services-grid__title">Video Marketing</h3>
+              <p class="ah-services-grid__blurb">
+                Visual storytelling: using long-form content on YouTube or short-form vertical
+                videos (Reels, TikToks, Shorts) to visually demonstrate products, share case
+                studies, or entertain.
+              </p>
+            </div>
+          </div>
+        </section>
+        <div class="vlt-gap-50"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
               <p class="fz-3 text-justify">
                 You&rsquo;ll need to learn about the different types of digital marketing and how
-                each of them can advance your business. You will be able to maximize your result
-                and optimize your budget.<br />
-                When it comes to digital marketing, you don&rsquo;t have to do it alone.
-                <br />
-                If you need help to get started with your strategy and implement that we are here
-                to help you, <a href="/order">CONTACT US</a> now!
+                each of them can advance your business. You will be able to maximize your result and
+                optimize your budget.<br />
+                When it comes to digital marketing, you don&rsquo;t have to do it alone. If you need help
+                to get started with your strategy and implementation, we are here to help you.
               </p>
+              <div class="vlt-gap-30"></div>
+              <div class="text-center">
+                <a class="vlt-btn ah-btn" href="/order/" target="_self">
+                  contact us
+                  <i class="ah-btn-icon">
+                    <svg width="14" height="14" viewBox="0 0 17 17" fill="none" aria-hidden="true"
+                      ><path
+                        d="M4 13 L13 4 M6 4 H13 V11"
+                        stroke="#ffffff"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></path></svg
+                    >
+                  </i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -118,7 +377,7 @@ const description =
             <div class="col-md-5">
               <div class="vlt-animated-block" data-aos="fade" data-aos-delay="0">
                 <div class="vlt-section-title vlt-section-title--style-2">
-                  <h2 class="vlt-section-title__title">Workflow</h2>
+                  <h2 class="vlt-section-title__title ah-workflow-title">Workflow</h2>
                 </div>
               </div>
               <div class="vlt-gap-70"></div>
@@ -127,16 +386,63 @@ const description =
               <div class="vlt-animated-block" data-aos="fade" data-aos-delay="100">
                 <p class="text-justify">
                   We follow a unique workflow for each service, which is an iterative few-step
-                  procedure, to ensure client satisfaction. To create a targeted advertisementwe
-                  need you to Providing some essential information to start the advertising cycle.
+                  procedure, to ensure client satisfaction. To create a targeted advertisement, we
+                  need you to provide some essential information to start the advertising cycle.
                 </p>
                 <div class="vlt-gap-30"></div>
-                <h4 class="text-center">Advertising process:</h4>
-                <img
-                  src="/static/img/services/ad-workflow.png"
-                  alt="The AH Design advertising process, from brief to live campaign"
-                  loading="lazy"
-                />
+                <h4 class="text-center ah-gradient-title">From Strategy to Execution</h4>
+                <div class="vlt-gap-30"></div>
+                <div class="ah-ad-phases">
+                  <div class="ah-ad-phase">
+                    <div class="ah-ad-phase__head">
+                      <span class="ah-ad-phase__no">1</span>
+                      <h5 class="ah-ad-phase__title">What We Need From You</h5>
+                    </div>
+                    <ul class="ah-ad-phase__list">
+                      <li>Product details</li>
+                      <li>Core features &amp; selling points</li>
+                      <li>Your business roadmap</li>
+                    </ul>
+                  </div>
+                  <div class="ah-ad-phase">
+                    <div class="ah-ad-phase__head">
+                      <span class="ah-ad-phase__no">2</span>
+                      <h5 class="ah-ad-phase__title">What We Will Do</h5>
+                    </div>
+                    <div class="ah-ad-phase__items">
+                      <div class="ah-ad-phase__item">
+                        <span class="ah-ad-phase__item-label">Strategy &amp; Execution</span>
+                        <p class="ah-ad-phase__item-text">
+                          Crafting and launching targeted campaigns.
+                        </p>
+                      </div>
+                      <div class="ah-ad-phase__item">
+                        <span class="ah-ad-phase__item-label">Monitoring &amp; Testing</span>
+                        <p class="ah-ad-phase__item-text">
+                          Tracking performance and running A/B tests.
+                        </p>
+                      </div>
+                      <div class="ah-ad-phase__item">
+                        <span class="ah-ad-phase__item-label">Analysis &amp; Optimization</span>
+                        <p class="ah-ad-phase__item-text">
+                          Refining the ads to maximize your budget.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="ah-ad-phase">
+                    <div class="ah-ad-phase__head">
+                      <span class="ah-ad-phase__no">3</span>
+                      <h5 class="ah-ad-phase__title">The Results</h5>
+                    </div>
+                    <ul class="ah-ad-phase__list">
+                      <li>Increased lead generation</li>
+                      <li>Higher website traffic</li>
+                      <li>Greater brand awareness</li>
+                      <li>More direct sales</li>
+                    </ul>
+                  </div>
+                </div>
                 <div class="vlt-gap-50"></div>
               </div>
             </div>
@@ -146,13 +452,13 @@ const description =
       </section>
       <section
         class="vlt-page-navigation vlt-page-navigation--style-1 has-black-color"
-        style="background-color: #e82e31;"
+        style="background-color: var(--ah-lilac-3);"
       >
         <div class="vlt-gap-130"></div>
         <div class="container">
           <div class="text-center">
             <div class="vlt-stroke-text vlt-stroke-text--lg" style="color: white;">
-              <a href="/order" target="_self">Let's start</a>
+              <a href="/order/" target="_self">Let's start</a>
             </div>
           </div>
         </div>

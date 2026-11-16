@@ -8,7 +8,7 @@ you ever hire another developer, this document is what you hand them.
 - **Site:** {{SITE_URL}}
 - **Launched:** {{LAUNCH_DATE}}
 - **Package:** {{PACKAGE}}
-- **Prepared by:** AH Design, info@ahdesign.website, (+359) 88 666 0034
+- **Prepared by:** AH Design, info@ahdesign.website, (+359) 88 77 86 022
 
 ---
 
@@ -162,7 +162,7 @@ Hand another developer this list:
 - **Rate:** €50/hour. No retainer, no minimum, no monthly fee.
 - **Typical jobs:** text and image changes, a new page, a form field, a
   redirect.
-- **Contact:** info@ahdesign.website, (+359) 88 666 0034.
+- **Contact:** info@ahdesign.website, (+359) 88 77 86 022.
 
 If you bought a package with a CMS, you can make text and image changes yourself
 and only need us for structural work.

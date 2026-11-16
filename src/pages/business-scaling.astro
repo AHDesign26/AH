@@ -1,0 +1,566 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumbSchema, serviceSchema } from '../lib/seo';
+import { versioned } from '../lib/asset-version';
+
+const description =
+  'A fractional CMO, brand strategy and AI automation partnership: one team for strategy, brand, marketing and automation, instead of five freelancers.';
+---
+
+<BaseLayout
+  title="Business Scaling | AH Design"
+  description={description}
+  schema={[
+    serviceSchema({
+      name: 'Business scaling',
+      description,
+      path: '/business-scaling',
+      serviceType: 'Fractional CMO and growth marketing',
+    }),
+    breadcrumbSchema([
+      { name: 'Home', path: '/' },
+      { name: 'Services', path: '/services' },
+      { name: 'Business Scaling', path: '/business-scaling' },
+    ]),
+  ]}
+  htmlClass="no-js vlt-is--fricta vlt-is--service-single vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
+>
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href={versioned('/static/css/fricta.css')} />
+  </Fragment>
+  <div class="vlt-site-overlay"></div>
+  <main class="vlt-main">
+    <div class="vlt-page-content">
+      <div class="vlt-page-title vlt-page-title--style-2 jarallax">
+        <div class="vlt-page-title__overlay"></div>
+        <div class="container">
+          <h1
+            class="vlt-page-title__title lax"
+            data-lax-translate-y="0 0, vh (vw*0.25)"
+            data-lax-opacity="1 1, (vh*0.5) 0"
+            data-lax-anchor=".vlt-page-title"
+          >
+            Business scaling
+          </h1>
+        </div>
+      </div>
+      <div id="content"></div>
+
+      <!--Intro-->
+      <section>
+        <div class="vlt-gap-100"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <div class="vlt-animated-block">
+                <span class="vlt-display-1 has-primary-color"
+                  >Branding &middot; Website &middot; Ads &amp; SEO &middot; Automation</span
+                >
+              </div>
+              <div class="vlt-gap-20"></div>
+              <div class="vlt-animated-block">
+                <h4 class="ah-navy-gradient-title">
+                  Everything your business needs to grow, under one plan.
+                </h4>
+              </div>
+              <div class="vlt-gap-30"></div>
+              <div class="vlt-animated-block">
+                <p class="fricta-hero-text">
+                  We design your brand, build your website, run your ads and SEO, and automate your
+                  follow-up. One team instead of five specialists.
+                </p>
+              </div>
+              <div class="vlt-gap-30"></div>
+              <div class="vlt-animated-block">
+                <a class="vlt-btn ah-btn" href="/call/" target="_self">
+                  Book your free call
+                  <i class="ah-btn-icon">
+                    <svg width="14" height="14" viewBox="0 0 17 17" fill="none" aria-hidden="true"
+                      ><path
+                        d="M4 13 L13 4 M6 4 H13 V11"
+                        stroke="#ffffff"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"></path></svg
+                    >
+                  </i>
+                </a>
+              </div>
+              <div class="vlt-gap-15"></div>
+              <div class="vlt-animated-block">
+                <span class="fricta-hero-note"
+                  >30 min &bull; No sales pitch &bull; Clear next steps</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--Every service, under one plan-->
+      <section>
+        <div class="vlt-gap-120"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <div class="vlt-animated-block">
+                <span class="fricta-package-label">To Grow</span>
+              </div>
+              <div class="fricta-package-grid">
+                <div>
+                  <div class="vlt-animated-block">
+                    <h2 class="fricta-package-title ah-navy-gradient-title">
+                      One team for everything your business needs
+                    </h2>
+                    <p class="fricta-package-desc">
+                      Instead of managing separate freelancers who blame each other when leads drop,
+                      you get one team that&rsquo;s accountable for everything, from your brand to
+                      your last follow-up.
+                    </p>
+                  </div>
+                  <div class="vlt-animated-block">
+                    <div class="fricta-package-media">
+                      <video width="100%" height="100%" autoplay muted loop playsinline>
+                        <source src="/static/img/video/about-us.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                </div>
+                <div class="fricta-package-list">
+                  <div class="fricta-package-item vlt-animated-block">
+                    <span class="fricta-package-icon fricta-package-icon--ads">
+                      <img
+                        src="/static/img/icon/marketing-icon.png"
+                        alt=""
+                        width="80"
+                        height="80"
+                        loading="lazy"
+                      />
+                    </span>
+                    <span class="fricta-package-body">
+                      <span class="fricta-package-body__title">Branding</span>
+                      <span class="fricta-package-body__desc"
+                        >Positioning, voice and guidelines your team can follow.</span
+                      >
+                    </span>
+                  </div>
+                  <div class="fricta-package-item vlt-animated-block">
+                    <span class="fricta-package-icon fricta-package-icon--webdev">
+                      <img
+                        src="/static/img/icon/webapp.png"
+                        alt=""
+                        width="80"
+                        height="80"
+                        loading="lazy"
+                      />
+                    </span>
+                    <span class="fricta-package-body">
+                      <span class="fricta-package-body__title">Web Development</span>
+                      <span class="fricta-package-body__desc"
+                        >Custom websites, booking systems, portals and migrations.</span
+                      >
+                    </span>
+                  </div>
+                  <div class="fricta-package-item vlt-animated-block">
+                    <span class="fricta-package-icon fricta-package-icon--seo">
+                      <img
+                        src="/static/img/icon/seo-geo-icon.png"
+                        alt=""
+                        width="80"
+                        height="80"
+                        loading="lazy"
+                      />
+                    </span>
+                    <span class="fricta-package-body">
+                      <span class="fricta-package-body__title">Ads &amp; SEO</span>
+                      <span class="fricta-package-body__desc"
+                        >Paid campaigns for fast leads, SEO/GEO and content for leads that compound.</span
+                      >
+                    </span>
+                  </div>
+                  <div class="fricta-package-item vlt-animated-block">
+                    <span class="fricta-package-icon fricta-package-icon--brand">
+                      <img
+                        src="/static/img/icon/automation-icon.png"
+                        alt=""
+                        width="80"
+                        height="80"
+                        loading="lazy"
+                      />
+                    </span>
+                    <span class="fricta-package-body">
+                      <span class="fricta-package-body__title">AI Automation &amp; CRM</span>
+                      <span class="fricta-package-body__desc"
+                        >Every lead followed up. Admin on autopilot.</span
+                      >
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--What we do-->
+      <section>
+        <div class="vlt-gap-120"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <div class="vlt-animated-block">
+                <div class="vlt-section-title vlt-section-title--style-2">
+                  <h2 class="vlt-section-title__title ah-workflow-title">How it works</h2>
+                </div>
+                <div class="vlt-gap-20"></div>
+                <p class="fricta-services-note">
+                  Each step feeds the next: research shapes the brand, the brand guides the website
+                  and campaigns, and automation makes sure every lead gets followed up. You get the
+                  output of five specialists, run by one team that&rsquo;s accountable for all of
+                  it.
+                </p>
+              </div>
+              <div class="vlt-gap-40"></div>
+              <div class="fricta-services-list">
+                <div class="fricta-service-row vlt-animated-block">
+                  <div>
+                    <h3 class="fricta-service-row__title">
+                      <span class="fricta-service-row__num">01</span>
+                      Market &amp; Customer Research
+                    </h3>
+                    <p class="fricta-service-row__desc">
+                      We start by learning who buys from you, why they buy, and what your
+                      competitors miss.
+                    </p>
+                  </div>
+                  <span class="fricta-service-row__media fricta-service-row__media--photo">
+                    <img
+                      src="/static/img/marketresearch_AH.jpeg"
+                      alt="Tablet showing a market and customer research dashboard with a world map and age-distribution charts"
+                      width="320"
+                      height="240"
+                      loading="lazy"
+                    />
+                  </span>
+                </div>
+
+                <div class="fricta-service-row vlt-animated-block">
+                  <div>
+                    <h3 class="fricta-service-row__title">
+                      <span class="fricta-service-row__num">02</span>
+                      Brand Strategy &amp; Identity
+                    </h3>
+                    <p class="fricta-service-row__desc">
+                      We turn that research into a clear position, voice and look that makes you the
+                      obvious choice.
+                    </p>
+                  </div>
+                  <span class="fricta-service-row__media fricta-service-row__media--photo">
+                    <img
+                      src="/static/img/branding_AH.jpeg"
+                      alt="Desk with branded business cards, a color palette, and a cosmetic bottle mockup"
+                      width="320"
+                      height="240"
+                      loading="lazy"
+                    />
+                  </span>
+                </div>
+
+                <div class="fricta-service-row vlt-animated-block">
+                  <div>
+                    <h3 class="fricta-service-row__title">
+                      <span class="fricta-service-row__num">03</span>
+                      Website &amp; Marketing, Run as One
+                    </h3>
+                    <p class="fricta-service-row__desc">
+                      We build your site and launch your ads, SEO and content, all on the same brand
+                      and plan.
+                    </p>
+                  </div>
+                  <span class="fricta-service-row__media fricta-service-row__media--photo">
+                    <img
+                      src="/static/img/businessgrowth_AH.jpeg"
+                      alt="Laptop showing a website homepage and analytics dashboard side by side on a desk"
+                      width="320"
+                      height="240"
+                      loading="lazy"
+                    />
+                  </span>
+                </div>
+
+                <div class="fricta-service-row vlt-animated-block">
+                  <div>
+                    <h3 class="fricta-service-row__title">
+                      <span class="fricta-service-row__num">04</span>
+                      AI Automation &amp; CRM
+                    </h3>
+                    <p class="fricta-service-row__desc">
+                      We connect everything so every lead is followed up and routine admin runs on
+                      its own.
+                    </p>
+                  </div>
+                  <span class="fricta-service-row__media fricta-service-row__media--photo">
+                    <img
+                      src="/static/img/Automation_AH.jpeg"
+                      alt="Monitor showing an AI automation workflow and CRM dashboard with lead and pipeline analytics"
+                      width="320"
+                      height="240"
+                      loading="lazy"
+                    />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--Testimonials-->
+      <section class="fricta-testi-section">
+        <div class="vlt-gap-120"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <div class="vlt-animated-block">
+                <span class="fricta-testi-label">Testimonials</span>
+                <h2 class="fricta-testi-title">Brands that love working with us</h2>
+              </div>
+              <div class="vlt-gap-40"></div>
+              <div class="fricta-testi-grid">
+                <div class="fricta-testi-card">
+                  <div class="fricta-testi-video">
+                    <video autoplay muted loop playsinline>
+                      <source src="/static/img/video/about.mp4" type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                  <div class="fricta-testi-meta">
+                    <img
+                      class="fricta-testi-avatar"
+                      src="/static/img/kmedia.png"
+                      alt="Кадърѣ Медия logo"
+                      width="48"
+                      height="48"
+                      loading="lazy"
+                    />
+                    <div>
+                      <div class="fricta-testi-name">Toni P. Lyubenova</div>
+                      <div class="fricta-testi-role">Кадърѣ Медия / CEO</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="fricta-testi-card">
+                  <div class="fricta-testi-video">
+                    <video autoplay muted loop playsinline>
+                      <source src="/static/img/video/services.mp4" type="video/mp4" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+                  <div class="fricta-testi-meta">
+                    <img
+                      class="fricta-testi-avatar"
+                      src="/static/img/nurident.png"
+                      alt="Nurident logo"
+                      width="48"
+                      height="48"
+                      loading="lazy"
+                    />
+                    <div>
+                      <div class="fricta-testi-name">Dr. Nuri</div>
+                      <div class="fricta-testi-role">Nurident / CEO</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="vlt-gap-120"></div>
+      </section>
+
+      <!--Closing CTA-->
+      <section>
+        <div class="vlt-gap-120"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <div
+                class="vlt-animated-block text-center"
+                style="display:flex; flex-direction:column; align-items:center; gap:20px;"
+              >
+                <h2 class="fricta-cta-title">One team. One plan. Ready when you are.</h2>
+                <p class="fricta-cta-text">
+                  Book a free call and see what your growth plan would look like.
+                </p>
+                <div class="vlt-gap-10"></div>
+                <div class="fricta-cta-buttons">
+                  <a class="vlt-btn ah-btn" href="/call/" target="_self">
+                    Book a call
+                    <i class="ah-btn-icon">
+                      <svg width="14" height="14" viewBox="0 0 17 17" fill="none" aria-hidden="true"
+                        ><path
+                          d="M4 13 L13 4 M6 4 H13 V11"
+                          stroke="#ffffff"
+                          stroke-width="1.8"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"></path></svg
+                      >
+                    </i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--Included in every partnership-->
+      <section>
+        <div class="vlt-gap-120"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <div class="vlt-animated-block">
+                <div class="fricta-included">
+                  <div class="fricta-included__eyebrow">EVERY PARTNERSHIP</div>
+                  <h2 class="fricta-included__title">Included in every partnership</h2>
+                  <p class="fricta-included__price">Partnerships from &euro;300/month.</p>
+                  <div class="fricta-included-grid">
+                    <div class="fricta-included-card">
+                      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"
+                        ><rect
+                          x="4"
+                          y="10.5"
+                          width="16"
+                          height="10"
+                          rx="1.5"
+                          stroke="#DCD7FF"
+                          stroke-width="1.5"></rect><path
+                          d="M8 10.5 V7.5 a4 4 0 0 1 8 0 V10.5"
+                          stroke="#DCD7FF"
+                          stroke-width="1.5"></path></svg
+                      >
+                      <span>You own everything: brand assets, accounts, data and automations.</span>
+                    </div>
+                    <div class="fricta-included-card">
+                      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"
+                        ><rect
+                          x="5"
+                          y="3.5"
+                          width="14"
+                          height="17"
+                          rx="1.5"
+                          stroke="#DCD7FF"
+                          stroke-width="1.5"></rect><path
+                          d="M8.5 8.5 H15.5 M8.5 12 H15.5 M8.5 15.5 H12.5"
+                          stroke="#DCD7FF"
+                          stroke-width="1.5"
+                          stroke-linecap="round"></path></svg
+                      >
+                      <span>One team, one plan, one monthly report.</span>
+                    </div>
+                    <div class="fricta-included-card">
+                      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true"
+                        ><path
+                          d="M19.5 12 a7.5 7.5 0 1 1 -2.2 -5.3"
+                          stroke="#DCD7FF"
+                          stroke-width="1.5"
+                          stroke-linecap="round"></path><path
+                          d="M19.5 4 V7.5 H16"
+                          stroke="#DCD7FF"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"></path></svg
+                      >
+                      <span>A strategy review every quarter to adjust as you grow.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!--FAQ-->
+      <section>
+        <div class="vlt-gap-120"></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-10 offset-md-1">
+              <div class="vlt-animated-block">
+                <span class="fricta-package-label">FAQ</span>
+                <h2 class="fricta-package-title ah-navy-gradient-title">
+                  Common questions, answered
+                </h2>
+              </div>
+              <div class="vlt-gap-40"></div>
+              <div class="fricta-faq-list">
+                <details class="fricta-faq-item">
+                  <summary class="fricta-faq-item__q">
+                    How is this different from hiring freelancers?
+                    <span class="fricta-faq-item__icon" aria-hidden="true">+</span>
+                  </summary>
+                  <p class="fricta-faq-item__a">
+                    One team is accountable for the whole plan, not just their one piece. No passing
+                    the blame between a designer, an ads person and a developer when something
+                    underperforms.
+                  </p>
+                </details>
+                <details class="fricta-faq-item">
+                  <summary class="fricta-faq-item__q">
+                    What's included each month?
+                    <span class="fricta-faq-item__icon" aria-hidden="true">+</span>
+                  </summary>
+                  <p class="fricta-faq-item__a">
+                    Strategy, brand, website and marketing work, ads and SEO management, and
+                    automation and CRM upkeep, all run as one plan with a single monthly report.
+                  </p>
+                </details>
+                <details class="fricta-faq-item">
+                  <summary class="fricta-faq-item__q">
+                    How fast will we see results?
+                    <span class="fricta-faq-item__icon" aria-hidden="true">+</span>
+                  </summary>
+                  <p class="fricta-faq-item__a">
+                    Research and brand foundations typically take the first few weeks. Ads and
+                    automation can start generating leads sooner, while SEO and content compound
+                    over months.
+                  </p>
+                </details>
+                <details class="fricta-faq-item">
+                  <summary class="fricta-faq-item__q">
+                    Do we own everything you build?
+                    <span class="fricta-faq-item__icon" aria-hidden="true">+</span>
+                  </summary>
+                  <p class="fricta-faq-item__a">
+                    Yes. Brand assets, accounts, data and automations are yours, not locked to us.
+                  </p>
+                </details>
+                <details class="fricta-faq-item">
+                  <summary class="fricta-faq-item__q">
+                    What if we only need one or two services?
+                    <span class="fricta-faq-item__icon" aria-hidden="true">+</span>
+                  </summary>
+                  <p class="fricta-faq-item__a">
+                    Book a free call and we&rsquo;ll look at where your growth is actually stuck,
+                    then recommend only what moves the needle, even if that&rsquo;s less than the
+                    full plan.
+                  </p>
+                </details>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="vlt-gap-120"></div>
+      </section>
+    </div>
+  </main>
+</BaseLayout>

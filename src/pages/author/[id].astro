@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { imageDims } from '../../lib/image-dims';
 
 export async function getStaticPaths() {
   const authors = await getCollection('authors');
@@ -11,9 +12,18 @@ export async function getStaticPaths() {
 }
 
 const { author } = Astro.props;
+// canonical_slug posts are duplicates of another entry — see blog.astro.
 const posts = (await getCollection('blog'))
-  .filter((p) => p.data.author_id === author.data.id)
+  .filter((p) => p.data.author_id === author.data.id && !p.data.canonical_slug)
   .sort((a, b) => b.data.published_date.localeCompare(a.data.published_date));
+
+// Each post's thumbnail is a different size — see blog.astro's own copy of
+// this comment for why.
+const thumbDims = new Map(
+  await Promise.all(
+    posts.map(async (post) => [post.data.slug, await imageDims(post.data.thumbnail)] as const),
+  ),
+);
 ---
 
 <BaseLayout
@@ -36,7 +46,8 @@ const posts = (await getCollection('blog'))
                 class="vlt-page-title__phantom-title lax"
                 data-lax-translate-x="0 0, vw (vw*0.5)"
                 data-lax-opacity="1 1, 250 0"
-                data-lax-anchor=".vlt-page-title">
+                data-lax-anchor=".vlt-page-title"
+              >
                 {author.data.name}
               </div>
             </div>
@@ -58,30 +69,42 @@ const posts = (await getCollection('blog'))
                 data-y-gap="80|80"
               >
                 <div class="grid-sizer"></div>
-                {posts.map((post) => (
-                  <div class=" grid-item filter-design">
-                    <article class="vlt-post vlt-post--style-4">
-                      <div class="vlt-post__media">
-                        <a class="vlt-post__link" href={`/post/${post.data.slug}`}></a>
-                        <img src={post.data.thumbnail} alt={post.data.thumbnail_alt} loading="lazy" />
-                      </div>
-                      <div class="vlt-post__content">
-                        <header class="vlt-post__header">
-                          <div class="vlt-post-meta">
-                            <span>{post.data.published_date_raw}</span>
-                            <span>{post.data.category_title}</span>
-                          </div>
-                          <h3 class="vlt-post-title">
-                            <a href={`/post/${post.data.slug}`}>{post.data.title}</a>
-                          </h3>
-                        </header>
-                        <div class="vlt-post-excerpt">
-                          <p>{post.data.brief}</p>
+                {
+                  posts.map((post) => (
+                    <div class=" grid-item filter-design">
+                      <article class="vlt-post vlt-post--style-4">
+                        <div class="vlt-post__media">
+                          <a
+                            class="vlt-post__link"
+                            href={`/post/${post.data.slug}/`}
+                            aria-label={post.data.title}
+                          />
+                          <img
+                            src={post.data.thumbnail}
+                            alt={post.data.thumbnail_alt}
+                            width={thumbDims.get(post.data.slug)?.width}
+                            height={thumbDims.get(post.data.slug)?.height}
+                            loading="lazy"
+                          />
                         </div>
-                      </div>
-                    </article>
-                  </div>
-                ))}
+                        <div class="vlt-post__content">
+                          <header class="vlt-post__header">
+                            <div class="vlt-post-meta">
+                              <span>{post.data.published_date_raw}</span>
+                              <span>{post.data.category_title}</span>
+                            </div>
+                            <h2 class="vlt-post-title">
+                              <a href={`/post/${post.data.slug}/`}>{post.data.title}</a>
+                            </h2>
+                          </header>
+                          <div class="vlt-post-excerpt">
+                            <p>{post.data.brief}</p>
+                          </div>
+                        </div>
+                      </article>
+                    </div>
+                  ))
+                }
               </div>
               <div class="vlt-gap-100"></div>
             </div>
