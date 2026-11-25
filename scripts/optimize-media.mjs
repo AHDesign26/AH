@@ -50,6 +50,11 @@ import ffmpegPath from 'ffmpeg-static';
 
 const execFileAsync = promisify(execFile);
 
+// Don't let libvips keep decoded files / operations cached between images:
+// we rewrite files in place, so a stale cached handle is exactly the kind of
+// thing that must not outlive the write.
+sharp.cache(false);
+
 const ROOT = process.cwd();
 // public/uploads (not just .../cms) — also covers public/uploads/blog and
 // public/uploads/authors, the Decap-imported blog hero/thumbnail images and
@@ -126,12 +131,18 @@ async function processImage(filePath, cache) {
   const maxDim = isIconPath(filePath) ? MAX_ICON_DIM : MAX_DIM;
   const animated = ext === '.gif';
 
-  const base = sharp(filePath, { animated });
+  // Read the file into memory once and hand sharp the Buffer, never the path.
+  // With a path, libvips memory-maps the file; we then overwrite that same
+  // file in place below, and on Linux (Cloudflare's build image) touching a
+  // mapping whose file was truncated is a SIGBUS — "Bus error (core dumped)",
+  // which no try/catch can intercept and which killed the deploy build.
+  const source = await readFile(filePath);
+  const base = sharp(source, { animated });
   const meta = await base.metadata();
   const oversized = (meta.width ?? 0) > maxDim || (meta.height ?? 0) > maxDim;
 
   function resized() {
-    const img = sharp(filePath, { animated });
+    const img = sharp(source, { animated });
     return oversized
       ? img.resize({ width: maxDim, height: maxDim, fit: 'inside', withoutEnlargement: true })
       : img;
