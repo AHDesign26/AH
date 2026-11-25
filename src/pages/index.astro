@@ -190,6 +190,33 @@ const MARQUEE_ITEMS = [
 // Rendered twice back-to-back so the CSS marquee animation can loop seamlessly.
 const MARQUEE_LOOP = [...MARQUEE_ITEMS, ...MARQUEE_ITEMS];
 
+// Latest Projects marquee — images + names are the same ones on /projects.
+const PROJECTS_ROW_A = [
+  { name: 'Dentistry', img: 'nuris' },
+  { name: 'Factory', img: 'bfs' },
+  { name: 'Portal', img: 'obs' },
+  { name: 'Business', img: 'zvb' },
+  { name: 'Pet Care', img: 'pet' },
+  { name: 'Ecommerce', img: 'ecommerce' },
+  { name: 'Yoga', img: 'yoga' },
+  { name: 'Learning', img: 'learning' },
+];
+const PROJECTS_ROW_B = [
+  { name: 'Flooring', img: 'gulv' },
+  { name: 'Tour', img: 'tour' },
+  { name: 'Psychology', img: 'psy' },
+  { name: 'Construction', img: 'niks' },
+  { name: 'Network', img: 'chain' },
+  { name: 'Flower Shop', img: 'daymumet' },
+  { name: 'Bakery', img: 'cake' },
+  { name: 'Mentoring', img: 'ana' },
+];
+// Each row is rendered twice so the CSS animation (-50%) loops seamlessly.
+const PROJECT_ROWS = [
+  { items: PROJECTS_ROW_A, dir: 'left' },
+  { items: PROJECTS_ROW_B, dir: 'right' },
+];
+
 const PARTNERSHIP_FEATURES = [
   'A clear brand and digital presence',
   'Your website and online identity',
@@ -948,6 +975,37 @@ const NEED_SERVICES = [
               </div>
             </div>
           </div>
+        </div>
+        <div class="vlt-gap-60"></div>
+        <div class="ah-projects">
+          {
+            PROJECT_ROWS.map((row) => (
+              <div class="ah-projects__row">
+                <div class={`ah-projects__track ah-projects__track--${row.dir}`}>
+                  {[0, 1].map((copy) =>
+                    row.items.map((p) => (
+                      <a
+                        class="ah-projects__card"
+                        href="/projects/"
+                        aria-hidden={copy === 1 ? 'true' : undefined}
+                        tabindex={copy === 1 ? -1 : undefined}
+                      >
+                        <img
+                          src={`/static/img/works/${p.img}.webp`}
+                          width="440"
+                          height="275"
+                          alt={copy === 0 ? `${p.name} website designed by AH Design` : ''}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        <span class="ah-projects__label">{p.name}</span>
+                      </a>
+                    ))
+                  )}
+                </div>
+              </div>
+            ))
+          }
         </div>
         <div class="vlt-gap-120"></div>
       </section>
