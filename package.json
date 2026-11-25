@@ -6,7 +6,7 @@
   "description": "AHDesign website — Astro on Cloudflare Pages",
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "node scripts/optimize-media.mjs",
+    "prebuild": "node scripts/optimize-media.mjs || echo \"optimize-media failed, building with the media as committed\"",
     "build": "astro build",
     "preview": "astro preview",
     "optimize-media": "node scripts/optimize-media.mjs",
