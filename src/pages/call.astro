@@ -10,7 +10,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
 <BaseLayout
   title="Book a Call | AH Design"
   description="Pick a 30 minute slot and talk to the two people who would build your site. No sales script, no obligation."
-  htmlClass="no-js vlt-is--contact-02 vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
+  htmlClass="no-js vlt-is--call vlt-is--contact-02 vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
 >
   <Fragment slot="head">
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline
@@ -28,7 +28,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
         <div class="container">
           <div class="row">
             <div class="col-md-11 offset-md-1">
-              <h1 class="vlt-page-title__title">Talk to the people who would build it</h1>
+              <h1 class="vlt-page-title__title">From your vision straight to the builders.</h1>
             </div>
           </div>
         </div>
@@ -43,12 +43,13 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
             <div class="col-lg-12">
               <!--Animated block-->
               <div class="vlt-animated-block" data-aos="fade" data-aos-delay="0">
-                <h2>Book a call</h2>
+                <h2 class="ah-gradient-title">Book a call</h2>
               </div>
               <div class="vlt-gap-30"></div>
               <p class="cb-intro">
-                {BOOKING_CONFIG.durationMinutes} minutes, no sales script. Pick a time that suits you
-                and we will call you on the number you leave. If you would rather write it all down instead,
+                In just {BOOKING_CONFIG.durationMinutes} minutes, we&rsquo;ll dive straight into your
+                project goals, explore practical solutions, and map out what building it would actually
+                take. Or, if you&rsquo;d rather write it all down first, feel free to
                 <a href="/order/">pitch us your project</a>.
               </p>
               <div class="vlt-gap-60"></div>
@@ -73,9 +74,24 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
                             Nothing free in the next {BOOKING_CONFIG.horizonDays} days. Send us your project
                             instead and we will come back with times by email.
                           </p>
-                          <a class="vlt-btn vlt-btn--secondary" href="/order/"
-                            >Pitch us your project</a
-                          >
+                          <a class="vlt-btn ah-btn" href="/order/">
+                            Pitch us your project
+                            <i class="ah-btn-icon">
+                              <svg
+                                width="14"
+                                height="14"
+                                viewBox="0 0 17 17"
+                                fill="none"
+                                aria-hidden="true"
+                                ><path
+                                  d="M4 13 L13 4 M6 4 H13 V11"
+                                  stroke="#ffffff"
+                                  stroke-width="1.8"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"></path></svg
+                              >
+                            </i>
+                          </a>
                         </div>
 
                         <div id="cbPicker" hidden>
@@ -177,9 +193,24 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
                         </div>
 
                         <div class="cb-nav">
-                          <button type="submit" class="cb-submit" id="cbSubmit"
-                            >Confirm booking</button
-                          >
+                          <button type="submit" class="vlt-btn ah-btn cb-submit" id="cbSubmit">
+                            Confirm booking
+                            <i class="ah-btn-icon">
+                              <svg
+                                width="14"
+                                height="14"
+                                viewBox="0 0 17 17"
+                                fill="none"
+                                aria-hidden="true"
+                                ><path
+                                  d="M4 13 L13 4 M6 4 H13 V11"
+                                  stroke="#ffffff"
+                                  stroke-width="1.8"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"></path></svg
+                              >
+                            </i>
+                          </button>
                         </div>
                         <p class="cb-fineprint">
                           We use your details only to hold and make this call. See our
@@ -217,7 +248,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
                       <div class="vlt-gap-20"></div>
                       <a href="mailto:info@ahdesign.website">info@ahdesign.website</a>
                       <div class="vlt-gap-20"></div>
-                      <a href="tel:+359886660034">(+359)- 88 666 0034</a>
+                      <a href="tel:+359887786022">(+359)- 88 77 86 022</a>
                     </div>
                     <div class="vlt-gap-60"></div>
                   </div>

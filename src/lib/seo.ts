@@ -21,11 +21,11 @@ export const SITE = {
   lang: 'en',
   email: 'info@ahdesign.website',
   /** E.164, used for schema.org and tel: links. */
-  phone: '+359886660034',
-  phoneDisplay: '(+359) 88 666 0034',
+  phone: '+359887786022',
+  phoneDisplay: '(+359) 88 77 86 022',
   logo: '/static/img/root/logoAH-black.png',
-  /** Social preview image. Square; a 1200x630 version would render better. */
-  ogImage: '/static/img/root/logoAH-black.png',
+  /** Social preview image, 1200x630 — see scripts/generate-og-image.mjs. */
+  ogImage: '/static/img/root/og-image.png',
 } as const;
 
 /**
@@ -59,10 +59,16 @@ export function organizationSchema() {
     logo: {
       '@type': 'ImageObject',
       url: absoluteUrl(SITE.logo),
-      width: 761,
-      height: 762,
+      width: 300,
+      height: 300,
     },
     image: absoluteUrl(SITE.ogImage),
+    // Only the first names the site publishes anywhere (about-us.astro) —
+    // no surnames or titles exist in the site's own content to add here.
+    founder: [
+      { '@type': 'Person', name: 'Afif', jobTitle: 'Co-Founder, Design & SEO' },
+      { '@type': 'Person', name: 'Hamid', jobTitle: 'Co-Founder, Engineering & Automation' },
+    ],
     sameAs: socialUrls,
     areaServed: [
       { '@type': 'Country', name: 'Bulgaria' },
@@ -115,6 +121,18 @@ export function webPageSchema(opts: { url: string; title: string; description: s
     inLanguage: SITE.lang,
     isPartOf: { '@id': SITE_ID },
     about: { '@id': ORG_ID },
+  };
+}
+
+/** Renders alongside an on-page FAQ (`<details>/<summary>` pairs) built from the same Q&A list. */
+export function faqSchema(items: { question: string; answer: string }[]) {
+  return {
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
   };
 }
 

@@ -1,0 +1,282 @@
+/* Web Development page — "website designing process:" scroll-pinned
+   phase wheel. Loaded only on /web-development/. All positioning that
+   depends on scroll progress or viewport size (arc geometry, per-number
+   transforms, tag content, progress fill width) is computed and applied
+   at runtime by process-wheel.js — the same pattern the rest of the site
+   uses for scroll-driven layout (see index2.js's pinInTrack). */
+.ah-process-wheel {
+  position: relative;
+  height: 560vh;
+  background: #201f42;
+}
+
+/* This page's nearest `overflow` ancestor is the theme's `.vlt-main`
+   (vlt-main.min.css sets `overflow: hidden` on it site-wide), which becomes
+   the containing block for `position: sticky` and breaks native pinning.
+   process-wheel.js pins this panel at runtime instead — same workaround as
+   index2.js's pinInTrack — so position/top/bottom are set in JS, not here. */
+.ah-process-wheel__sticky {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(120% 90% at 12% 50%, #2a1668 0%, #201f42 55%, #1a1938 100%);
+}
+
+.ah-process-wheel__arc {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: visible;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+}
+
+.ah-process-wheel__numbers {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.ah-process-wheel__number {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: left center;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  white-space: nowrap;
+  color: rgba(251, 243, 218, 0.34);
+  transition: color 0.35s ease;
+}
+
+.ah-process-wheel__number.is-active {
+  color: #fbf3da;
+}
+
+.ah-process-wheel__number-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  background: #5bcdbe;
+  box-shadow: 0 0 0 6px rgba(91, 205, 190, 0.18);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.ah-process-wheel__number.is-active .ah-process-wheel__number-dot {
+  opacity: 1;
+}
+
+.ah-process-wheel__content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 640px;
+  margin-left: 30%;
+  margin-right: clamp(24px, 6vw, 120px);
+  padding-left: 40px;
+}
+
+.ah-process-wheel__content > * {
+  margin-top: 26px;
+}
+
+.ah-process-wheel__content > *:first-child {
+  margin-top: 0;
+}
+
+/* `.ah-process-wheel__content > *:first-child` above matches (class +
+   pseudo-class) specificity, so the margin-top override needs the same
+   two-selector weight to win — a bare `.ah-process-wheel__heading` rule
+   would lose to it regardless of source order. */
+.ah-process-wheel__content > .ah-process-wheel__heading {
+  margin: 0;
+  margin-top: -50px;
+  margin-bottom: 50px;
+}
+
+.ah-process-wheel__heading {
+  font-size: clamp(18px, 2vw, 24px);
+  font-weight: 600;
+  background: linear-gradient(90deg, #5bcdbe, #fff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+
+.ah-process-wheel__eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: #5bcdbe;
+}
+
+.ah-process-wheel__title {
+  margin: 0;
+  margin-top: 26px;
+  font-weight: 700;
+  font-size: clamp(40px, 6vw, 88px);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  color: #fbf3da;
+}
+
+.ah-process-wheel__desc {
+  margin: 0;
+  margin-top: 26px;
+  font-size: clamp(16px, 1.5vw, 20px);
+  line-height: 1.6;
+  color: rgba(251, 243, 218, 0.62);
+}
+
+.ah-process-wheel__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 26px;
+}
+
+.ah-process-wheel__tag {
+  padding: 11px 20px;
+  border-radius: 999px;
+  background: rgba(25, 24, 52, 0.6);
+  border: 1px solid rgba(161, 138, 251, 0.22);
+  font-size: 15px;
+  color: rgba(251, 243, 218, 0.9);
+}
+
+.ah-process-wheel__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: 34px;
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  color: rgba(251, 243, 218, 0.4);
+}
+
+.ah-process-wheel__scroll-track {
+  display: inline-block;
+  width: 46px;
+  height: 1px;
+  background: rgba(251, 243, 218, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.ah-process-wheel__scroll-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0%;
+  background: #5bcdbe;
+}
+
+@media (max-width: 760px) {
+  .ah-process-wheel__content {
+    padding-left: 24px;
+    padding-right: 24px;
+    text-align: center;
+    align-items: center;
+    margin: 0 auto;
+  }
+  /* Stacks every phase's step tags in one column instead of letting them
+     flex-wrap: short phases (2-3 short words) fit two tags per row while
+     longer ones fit only one, so which phases "line up" as a clean
+     column was pure accident of each phase's text length. */
+  .ah-process-wheel__tags {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* The arc (and the numbers strung along it, below) is geometrically
+     placed assuming desktop's margin-left: 30% content column, so it
+     lands in the left ~30% of the viewport — empty space on desktop,
+     but cutting through the middle of the centered title/description
+     once .ah-process-wheel__content goes full-width and centered here.
+     Both are aria-hidden decoration (the real phase indicator is the
+     "PHASE 01 / 05" eyebrow and the scroll progress bar), so hide them
+     rather than re-deriving the arc for a centered layout. */
+  .ah-process-wheel__arc,
+  .ah-process-wheel__numbers {
+    display: none;
+  }
+}
+
+/* Height-based, not width-based: .ah-process-wheel__sticky is pinned at
+   100vh and its content vertically centered, so what clips the heading
+   isn't viewport width but how little vertical room there is — a short
+   phone in landscape (e.g. 667x375) hits this at desktop widths too.
+   Centering combined with .ah-process-wheel__heading's margin-top: -50px
+   (tuned for desktop's much taller centering room) pulls the heading up
+   far enough that on short viewports it renders behind the site's fixed
+   logo/menu icons instead of below them, and how far varies with content
+   height (itself viewport-width-dependent via the vw-based font clamps),
+   so a fixed margin tweak doesn't reliably clear it either. Anchoring to
+   a fixed top offset instead of centering pins the heading's position
+   regardless of content height or font size. */
+@media (max-height: 700px) {
+  .ah-process-wheel__content {
+    justify-content: flex-start;
+    /* The site header (.vlt-navbar, fixed/z-index:50) paints a solid
+       white bar exactly 90px tall once scrolled, regardless of viewport
+       width — measured directly off rendered pixels, not the element's
+       own box (its layout rect reports 0x0; the painted area comes from
+       a child). 96px clears it with a few px to spare. */
+    padding-top: 96px;
+  }
+
+  .ah-process-wheel__content > * {
+    margin-top: 10px;
+  }
+
+  .ah-process-wheel__content > .ah-process-wheel__heading {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .ah-process-wheel__title {
+    margin-top: 10px;
+    font-size: clamp(30px, 5vw, 64px);
+  }
+
+  .ah-process-wheel__desc {
+    margin-top: 8px;
+    font-size: 14px;
+    line-height: 1.35;
+  }
+
+  .ah-process-wheel__tags {
+    margin-top: 12px;
+    gap: 8px;
+  }
+
+  .ah-process-wheel__tag {
+    padding: 7px 14px;
+    font-size: 13px;
+  }
+
+  /* Decorative scroll-progress hint — drop it rather than the real
+     content when there isn't room for both. */
+  .ah-process-wheel__scroll {
+    display: none;
+  }
+}

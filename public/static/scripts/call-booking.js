@@ -8,6 +8,20 @@
 
   function $(sel) { return document.querySelector(sel); }
 
+  // #cbSubmit has an icon bubble alongside its text (see call.astro), so
+  // setting the button's own textContent would wipe the icon out — same
+  // fix as order-wizard.js's setNextLabel. The label is a plain text node
+  // (not a wrapper element) so the theme's ripple-span injection
+  // (VLTJS.button, vlt-controllers.min.js) doesn't mistake it for its own
+  // auto-appended span.
+  function setSubmitLabel(el, text) {
+    if (!el) return;
+    var textNode = Array.prototype.find.call(el.childNodes, function (n) {
+      return n.nodeType === Node.TEXT_NODE && n.textContent.trim();
+    });
+    if (textNode) textNode.textContent = text;
+  }
+
   var els = {
     form: $('#callbooking'),
     zone: $('#cbZone'),
@@ -193,7 +207,7 @@
 
     hideError();
     els.submit.disabled = true;
-    els.submit.textContent = 'Booking…';
+    setSubmitLabel(els.submit, 'Booking…');
 
     if (els.visitorZone) els.visitorZone.value = visitorZone;
     var data = new FormData(els.form);
@@ -234,7 +248,7 @@
           showError('Something went wrong, please try again.');
         }
         els.submit.disabled = false;
-        els.submit.textContent = 'Confirm booking';
+        setSubmitLabel(els.submit, 'Confirm booking');
         if (window.turnstile) window.turnstile.reset();
       })
       .finally(function () { clearTimeout(bail); });

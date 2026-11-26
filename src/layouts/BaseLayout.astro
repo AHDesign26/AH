@@ -30,6 +30,12 @@ interface Props {
    * same content, so search engines consolidate on one of them.
    */
   canonicalPath?: string;
+  /**
+   * Omit the canonical tag entirely. For pages with no single "correct" URL
+   * of their own — a 404 can be reached at any mistyped path, so a canonical
+   * pointing at that path (or anywhere else) is simply wrong.
+   */
+  noCanonical?: boolean;
   /** Extra JSON-LD entities merged into the page's @graph. */
   schema?: Record<string, unknown>[];
 }
@@ -42,6 +48,7 @@ const {
   ogType = 'website',
   noindex = false,
   canonicalPath,
+  noCanonical = false,
   schema = [],
 } = Astro.props;
 
@@ -49,7 +56,7 @@ const {
 // Strip any trailing slash so /about-us and /about-us/ share one canonical.
 const canonical = absoluteUrl(canonicalPath ?? Astro.url.pathname);
 const ogImage = image.startsWith('http') ? image : absoluteUrl(image);
-const imageAlt = image === SITE.ogImage ? `${SITE.name} logo` : title;
+const imageAlt = title;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -70,7 +77,8 @@ const jsonLd = {
     <meta name="description" content={description} />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="application/rss+xml" title={`${SITE.name} blog`} href="/rss.xml" />
+    {!noCanonical && <link rel="canonical" href={canonical} />}
     {
       noindex ? (
         <meta name="robots" content="noindex, follow" />
@@ -126,7 +134,9 @@ const jsonLd = {
                       class="black"
                       src="/static/img/root/logoAH-black.png"
                       alt="AH Design"
-                      style="height: 100px;"
+                      width="300"
+                      height="300"
+                      style="height: 100px; width: auto;"
                       fetchpriority="high"
                     />
                   </a>
@@ -135,7 +145,12 @@ const jsonLd = {
               <div class="vlt-navbar-inner--right">
                 <div class="d-flex align-items-center justify-content-center h-100">
                   <div class="vlt-navbar-buttons d-flex align-items-center">
-                    <a class="vlt-menu-burger js-fullscreen-menu-toggle" href="#" role="button" aria-label="Toggle menu">
+                    <a
+                      class="vlt-menu-burger js-fullscreen-menu-toggle"
+                      href="#"
+                      role="button"
+                      aria-label="Toggle menu"
+                    >
                       <span class="line-one"></span><span class="line-two"></span>
                     </a>
                   </div>
@@ -168,11 +183,18 @@ const jsonLd = {
                     <img
                       src="/static/img/root/logoAH-black.png"
                       alt="AH Design"
-                      style="height:100px;"
+                      width="300"
+                      height="300"
+                      style="height: 100px; width: auto;"
                       loading="lazy"
                     />
                   </a>
-                  <a class="vlt-menu-burger js-fullscreen-menu-toggle" href="#" role="button" aria-label="Toggle menu">
+                  <a
+                    class="vlt-menu-burger js-fullscreen-menu-toggle"
+                    href="#"
+                    role="button"
+                    aria-label="Toggle menu"
+                  >
                     <span class="line-one"></span>
                     <span class="line-two"></span>
                   </a>
@@ -188,22 +210,22 @@ const jsonLd = {
                     <a href="/"><span>Home</span></a>
                   </li>
                   <li>
-                    <a href="/about-us"><span>About</span></a>
+                    <a href="/about-us/"><span>About</span></a>
                   </li>
                   <li>
-                    <a href="/services"><span>Services</span></a>
+                    <a href="/services/"><span>Services</span></a>
                   </li>
                   <li>
-                    <a href="/projects"><span>Projects</span></a>
+                    <a href="/projects/"><span>Projects</span></a>
                   </li>
                   <li>
-                    <a href="/price"><span>Prices</span></a>
+                    <a href="/price/"><span>Prices</span></a>
                   </li>
                   <li>
-                    <a href="/blog"><span>Blog</span></a>
+                    <a href="/blog/"><span>Blog</span></a>
                   </li>
                   <li>
-                    <a href="/contact"><span>Contact</span></a>
+                    <a href="/contact/"><span>Contact</span></a>
                   </li>
                 </ul>
               </div>
@@ -221,7 +243,8 @@ const jsonLd = {
                           href={s.url}
                           target="_blank"
                           rel="noopener"
-                          aria-label={`AH Design on ${s.name}`}>
+                          aria-label={`AH Design on ${s.name}`}
+                        >
                           {s.short}.
                         </a>
                       ))
@@ -232,11 +255,13 @@ const jsonLd = {
                       <a
                         class="vlt-simple-link vlt-simple-link--sm"
                         href="mailto:info@ahdesign.website"
-                        target="_self">info@ahdesign.website</a><br />
+                        target="_self">info@ahdesign.website</a
+                      ><br />
                       <a
                         class="vlt-simple-link vlt-simple-link--sm"
-                        href="tel:+359886660034"
-                        target="_self">(+359)- 88 666 0034</a>
+                        href="tel:+359887786022"
+                        target="_self">(+359)- 88 77 86 022</a
+                      >
                     </div>
                   </div>
                 </div>
@@ -260,7 +285,9 @@ const jsonLd = {
                       class="black"
                       src="/static/img/root/logoAH-black.png"
                       alt="AH Design"
-                      style="height: 60px;"
+                      width="300"
+                      height="300"
+                      style="height: 60px; width: auto;"
                       fetchpriority="high"
                     />
                   </a>
@@ -269,7 +296,12 @@ const jsonLd = {
               <div class="vlt-navbar-inner--right">
                 <div class="d-flex align-items-center justify-content-center h-100">
                   <div class="vlt-navbar-buttons d-flex align-items-center">
-                    <a class="vlt-menu-burger js-fullscreen-menu-toggle" href="#" role="button" aria-label="Toggle menu">
+                    <a
+                      class="vlt-menu-burger js-fullscreen-menu-toggle"
+                      href="#"
+                      role="button"
+                      aria-label="Toggle menu"
+                    >
                       <span class="line-one"></span><span class="line-two"></span>
                     </a>
                   </div>
@@ -290,11 +322,18 @@ const jsonLd = {
                     <img
                       src="/static/img/root/logoAH-black.png"
                       alt="AH Design"
-                      style="height: 60px;"
+                      width="300"
+                      height="300"
+                      style="height: 60px; width: auto;"
                       loading="lazy"
                     />
                   </a>
-                  <a class="vlt-menu-burger js-fullscreen-menu-toggle" href="#" role="button" aria-label="Toggle menu">
+                  <a
+                    class="vlt-menu-burger js-fullscreen-menu-toggle"
+                    href="#"
+                    role="button"
+                    aria-label="Toggle menu"
+                  >
                     <span class="line-one"></span><span class="line-two"></span>
                   </a>
                 </div>
@@ -309,22 +348,22 @@ const jsonLd = {
                     <a href="/"><span>Home</span></a>
                   </li>
                   <li>
-                    <a href="/about-us"><span>About</span></a>
+                    <a href="/about-us/"><span>About</span></a>
                   </li>
                   <li>
-                    <a href="/services"><span>Services</span></a>
+                    <a href="/services/"><span>Services</span></a>
                   </li>
                   <li>
-                    <a href="/projects"><span>Projects</span></a>
+                    <a href="/projects/"><span>Projects</span></a>
                   </li>
                   <li>
-                    <a href="/price"><span>Prices</span></a>
+                    <a href="/price/"><span>Prices</span></a>
                   </li>
                   <li>
-                    <a href="/blog"><span>Blog</span></a>
+                    <a href="/blog/"><span>Blog</span></a>
                   </li>
                   <li>
-                    <a href="/contact"><span>Contact</span></a>
+                    <a href="/contact/"><span>Contact</span></a>
                   </li>
                 </ul>
               </div>
@@ -349,7 +388,9 @@ const jsonLd = {
                 <img
                   src="/static/img/root/logoAH.png"
                   alt="AH Design"
-                  style="height: 80px;"
+                  width="300"
+                  height="300"
+                  style="height: 80px; width: auto;"
                   loading="lazy"
                 />
               </a>
@@ -361,19 +402,19 @@ const jsonLd = {
                 What we do: <br />To Be Efficient: Web-app Design<br />
                 To Be Seen: SEO & Marketing<br />
                 To Grow: Business Scaling<br />
-                <a href="/about-us">Read more about us</a>
+                <a href="/about-us/">Read more about us</a>
               </p>
             </div>
           </div>
           <div class="col-lg-2 col-sm-6">
             <div class="vlt-widget vlt-widget--text vlt-widget--white">
               <ul>
-                <li><a href="/services"><b>Services:</b></a></li>
-                <li><a href="/price">Prices</a></li>
-                <li><a href="/about-us">About</a></li>
-                <li><a href="/blog">Blog</a></li>
-                <li><a href="/contact">Contact</a></li>
-                <li><a href="/privacy">Privacy</a></li>
+                <li><a href="/services/"><b>Services:</b></a></li>
+                <li><a href="/price/">Prices</a></li>
+                <li><a href="/about-us/">About</a></li>
+                <li><a href="/blog/">Blog</a></li>
+                <li><a href="/contact/">Contact</a></li>
+                <li><a href="/privacy/">Privacy</a></li>
               </ul>
             </div>
           </div>
@@ -397,12 +438,14 @@ const jsonLd = {
             <div class="vlt-widget vlt-widget--text vlt-widget--white">
               <b>Contact Info:</b><br /><br />
               <a href="mailto:info@ahdesign.website">info@ahdesign.website<br /></a>
-              <a href="tel:+359886660034">(+359)- 88 666 0034</a>
-              {whatsappUrl && (
-                <a href={whatsappUrl} target="_blank" rel="noopener">
-                  WhatsApp
-                </a>
-              )}
+              <a href="tel:+359887786022">(+359)- 88 77 86 022</a>
+              {
+                whatsappUrl && (
+                  <a href={whatsappUrl} target="_blank" rel="noopener">
+                    WhatsApp
+                  </a>
+                )
+              }
             </div>
           </div>
         </div>

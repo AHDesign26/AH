@@ -4,7 +4,7 @@
    import here. */
 .ow-card {
   color: #111;
-  background: #fff;
+  background: var(--ah-lavender-bg);
   border: 1px solid #ececE6;
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
@@ -19,13 +19,13 @@
 .ow-progress__fill {
   height: 100%;
   width: 33.3333%;
-  background: #e82e31;
+  background: var(--ah-purple);
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .ow-body {
   padding: 38px 40px 40px;
-  background: #f5f5f5;
+  background: var(--ah-lavender-bg);
 }
 
 @media only screen and (max-width: 575px) {
@@ -72,8 +72,8 @@
 }
 
 .ow-steps__item.is-active .ow-steps__num {
-  border-color: #e82e31;
-  color: #e82e31;
+  border-color: var(--ah-purple);
+  color: var(--ah-purple);
 }
 
 .ow-steps__item.is-active .ow-steps__label {
@@ -82,8 +82,8 @@
 }
 
 .ow-steps__item.is-done .ow-steps__num {
-  border-color: #e82e31;
-  background: #e82e31;
+  border-color: var(--ah-purple);
+  background: var(--ah-purple);
   color: #fff;
 }
 
@@ -157,6 +157,7 @@
   gap: 12px;
   padding: 22px;
   border: 1.5px solid #e6e6e2;
+  border-radius: 15px;
   background: #fff;
   color: #111;
   cursor: pointer;
@@ -167,12 +168,11 @@
 }
 
 .ow-optioncard:hover {
-  border-color: #111;
+  border-color: var(--ah-purple);
 }
 
 .ow-optioncard.is-selected {
-  border-color: #111;
-  background: #111;
+  background: linear-gradient(90deg, var(--ah-purple), #b072c3);
   color: #fff;
   box-shadow: 0 12px 30px -16px rgba(0, 0, 0, 0.4);
 }
@@ -200,7 +200,7 @@
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: #e82e31;
+  background: var(--ah-purple);
   color: #fff;
   display: flex;
   align-items: center;
@@ -249,6 +249,7 @@
   width: 100%;
   padding: 14px 16px;
   border: 1.5px solid #e6e6e2;
+  border-radius: 15px;
   background: #fff;
   font-size: 15px;
   font-family: inherit;
@@ -295,6 +296,7 @@
 .ow-pill {
   padding: 13px 20px;
   border: 1.5px solid #e6e6e2;
+  border-radius: 25px;
   background: #fff;
   color: #111;
   cursor: pointer;
@@ -310,8 +312,8 @@
 }
 
 .ow-pill.is-selected {
-  border-color: #e82e31;
-  background: #e82e31;
+  border-color: var(--ah-purple);
+  background: var(--ah-purple);
   color: #fff;
 }
 
@@ -357,14 +359,12 @@
   color: #111;
 }
 
+/* Shape/colors come from .ah-btn/.ah-btn-icon (custom.css) — same recipe
+   as index2's "See all projects" (.ah-project-cta). This class now only
+   handles this button's own layout and disabled/active states. */
 .ow-next {
   margin-left: auto;
-  padding: 14px 30px;
   border: none;
-  background: #e82e31;
-  color: #fff;
-  font-size: 15px;
-  font-weight: 700;
   font-family: inherit;
   cursor: pointer;
   transition: opacity 0.2s, transform 0.1s;

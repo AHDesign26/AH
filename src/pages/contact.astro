@@ -21,7 +21,8 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
   htmlClass="no-js vlt-is--contact-01 vlt-is--header-fullscreen vlt-is--footer-style-1 vlt-is--footer-fixed"
 >
   <Fragment slot="head">
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline></script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer is:inline
+    ></script>
   </Fragment>
 
   <div class="vlt-site-overlay"></div>
@@ -39,7 +40,8 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
                 class="vlt-page-title__phantom-title lax"
                 data-lax-translate-x="0 0, vw (vw*0.5)"
                 data-lax-opacity="1 1, 250 0"
-                data-lax-anchor=".vlt-page-title">
+                data-lax-anchor=".vlt-page-title"
+              >
                 Contact
               </div>
             </div>
@@ -66,34 +68,74 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
           >
             <div class="vlt-form-row two-col">
               <div class="vlt-form-group">
-                <input class="vlt-form-control" type="text" name="name" required="required" placeholder=" " />
-                <label class="vlt-form-label">Your name*</label>
+                <input
+                  class="vlt-form-control"
+                  type="text"
+                  id="contactName"
+                  name="name"
+                  required="required"
+                  placeholder=" "
+                />
+                <label class="vlt-form-label" for="contactName">Your name*</label>
               </div>
               <div class="vlt-form-group">
-                <input class="vlt-form-control" type="email" name="email" required="required" placeholder=" " />
-                <label class="vlt-form-label">Email address*</label>
+                <input
+                  class="vlt-form-control"
+                  type="email"
+                  id="contactEmail"
+                  name="email"
+                  required="required"
+                  placeholder=" "
+                />
+                <label class="vlt-form-label" for="contactEmail">Email address*</label>
               </div>
             </div>
             <div class="vlt-form-row two-col">
               <div class="vlt-form-group">
-                <input class="vlt-form-control" type="tel" name="phone" placeholder=" " />
-                <label class="vlt-form-label">Phone number</label>
+                <input
+                  class="vlt-form-control"
+                  type="tel"
+                  id="contactPhone"
+                  name="phone"
+                  placeholder=" "
+                />
+                <label class="vlt-form-label" for="contactPhone">Phone number</label>
               </div>
               <div class="vlt-form-group">
-                <input class="vlt-form-control" type="text" name="company" placeholder=" " />
-                <label class="vlt-form-label">Company</label>
+                <input
+                  class="vlt-form-control"
+                  type="text"
+                  id="contactCompany"
+                  name="company"
+                  placeholder=" "
+                />
+                <label class="vlt-form-label" for="contactCompany">Company</label>
               </div>
             </div>
             <div class="vlt-form-group">
-              <input class="vlt-form-control" type="text" name="title" required="required" placeholder=" " />
-              <label class="vlt-form-label">Title*</label>
+              <input
+                class="vlt-form-control"
+                type="text"
+                id="contactTitle"
+                name="title"
+                required="required"
+                placeholder=" "
+              />
+              <label class="vlt-form-label" for="contactTitle">Title*</label>
             </div>
             <div class="vlt-form-group">
-              <textarea class="vlt-form-control" name="message" rows="5" placeholder=" "></textarea>
-              <label class="vlt-form-label">Message*</label>
+              <textarea
+                class="vlt-form-control"
+                id="contactMessage"
+                name="message"
+                rows="5"
+                placeholder=" "></textarea>
+              <label class="vlt-form-label" for="contactMessage">Message*</label>
             </div>
 
-            {/* Honeypot — bots fill it, real users never see it. Off-screen via inline style + tabindex/autocomplete to keep keyboard users / password managers away. */}
+            {
+              /* Honeypot — bots fill it, real users never see it. Off-screen via inline style + tabindex/autocomplete to keep keyboard users / password managers away. */
+            }
             <input
               type="text"
               name="website"
@@ -110,7 +152,19 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
             <div class="message danger">Sorry something went wrong!</div>
             <div class="vlt-gap-40"></div>
             <div class="text-center">
-              <button class="vlt-btn vlt-btn--secondary vlt-btn--lg">Submit</button>
+              <button class="vlt-btn ah-btn">
+                Submit
+                <i class="ah-btn-icon">
+                  <svg width="14" height="14" viewBox="0 0 17 17" fill="none" aria-hidden="true"
+                    ><path
+                      d="M4 13 L13 4 M6 4 H13 V11"
+                      stroke="#ffffff"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"></path></svg
+                  >
+                </i>
+              </button>
             </div>
             <p id="msgoutput" style="display: none;"></p>
           </form>
@@ -123,14 +177,18 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
           <div class="row">
             <div class="col-md-4">
               <div class="vlt-simple-image">
-                <div class="vlt-simple-image__mask" data-aos="image-mask-animation" data-aos-delay="0">
+                <div
+                  class="vlt-simple-image__mask"
+                  data-aos="image-mask-animation"
+                  data-aos-delay="0"
+                >
                   <div class="inside"></div>
                 </div>
-                <img src="/static/img/4.png" alt="" loading="lazy" />
+                <img src="/static/img/4.png" alt="" width="350" height="243" loading="lazy" />
               </div>
               <div class="vlt-gap-35"></div>
               <div class="vlt-animated-block" data-aos="fade" data-aos-delay="0">
-                <h5>Email:</h5>
+                <h2>Email:</h2>
                 <div class="vlt-gap-20"></div>
                 <p class="lh-2"><a href="mailto:info@ahdesign.website">info@ahdesign.website</a></p>
               </div>
@@ -138,45 +196,56 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY ?? '1x0000000
             </div>
             <div class="col-md-4">
               <div class="vlt-simple-image">
-                <div class="vlt-simple-image__mask" data-aos="image-mask-animation" data-aos-delay="100">
+                <div
+                  class="vlt-simple-image__mask"
+                  data-aos="image-mask-animation"
+                  data-aos-delay="100"
+                >
                   <div class="inside"></div>
                 </div>
-                <img src="/static/img/6.png" alt="" loading="lazy" />
+                <img src="/static/img/5.png" alt="" width="350" height="243" loading="lazy" />
               </div>
               <div class="vlt-gap-35"></div>
               <div class="vlt-animated-block" data-aos="fade" data-aos-delay="100">
-                <h5>Phone:</h5>
+                <h2>Phone:</h2>
                 <div class="vlt-gap-20"></div>
-                <p class="lh-2"><a href="tel:+359886660034">(+359)- 88 666 0034</a></p>
+                <p class="lh-2"><a href="tel:+359887786022">(+359)- 88 77 86 022</a></p>
               </div>
               <div class="vlt-gap-60--sm"></div>
             </div>
             <div class="col-md-4">
               <div class="vlt-simple-image">
-                <div class="vlt-simple-image__mask" data-aos="image-mask-animation" data-aos-delay="200">
+                <div
+                  class="vlt-simple-image__mask"
+                  data-aos="image-mask-animation"
+                  data-aos-delay="200"
+                >
                   <div class="inside"></div>
                 </div>
-                <img src="/static/img/5.png" alt="" loading="lazy" />
+                <img src="/static/img/6.png" alt="" width="350" height="243" loading="lazy" />
               </div>
               <div class="vlt-gap-35"></div>
               <div class="vlt-animated-block" data-aos="fade" data-aos-delay="200">
-                <h5>Working hours:</h5>
+                <h2>Working hours:</h2>
                 <div class="vlt-gap-20"></div>
                 <p class="lh-2">Monday to Friday, 10am to 6pm</p>
                 <div class="vlt-gap-30"></div>
-                <h5>Follow us:</h5>
+                <h2>Follow us:</h2>
                 <div class="vlt-gap-20"></div>
                 <div class="has-black-color">
-                  {socials.map((s) => (
-                    <a
-                      class="vlt-social-icon vlt-social-icon--style-1"
-                      href={s.url}
-                      target="_blank"
-                      rel="noopener"
-                      aria-label={`AH Design on ${s.name}`}>
-                      {s.short}.
-                    </a>
-                  ))}
+                  {
+                    socials.map((s) => (
+                      <a
+                        class="vlt-social-icon vlt-social-icon--style-1"
+                        href={s.url}
+                        target="_blank"
+                        rel="noopener"
+                        aria-label={`AH Design on ${s.name}`}
+                      >
+                        {s.short}.
+                      </a>
+                    ))
+                  }
                 </div>
               </div>
             </div>

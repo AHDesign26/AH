@@ -1,21 +1,28 @@
-/* Call booking — loaded only on /call/. Shares the order wizard's palette
-   (#e82e31 accent, #f5f5f5 body, #ececE6 rules) and inherits the site font
-   from body, so there is no font import here either. */
+/* Call booking — loaded only on /call/. Mirrors /order's wizard palette
+   and shape language (order-wizard.css): var(--ah-purple) accents,
+   lavender card background, 15px rounded corners, and the same muted
+   error red (#c0392b) instead of the theme's red. Font is inherited from
+   body's own Swansea, so there is no font import here either. */
 .cb-intro {
   max-width: 62ch;
 }
 
+.cb-intro a {
+  color: var(--ah-teal);
+}
+
 .cb-card {
   color: #111;
-  background: #fff;
+  background: var(--ah-lavender-bg);
   border: 1px solid #ececE6;
+  border-radius: 15px;
   overflow: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
 .cb-body {
   padding: 38px 40px 40px;
-  background: #f5f5f5;
+  background: var(--ah-lavender-bg);
 }
 
 @media only screen and (max-width: 575px) {
@@ -29,6 +36,10 @@
   margin: 0 0 6px;
 }
 
+[data-panel='slots'] .cb-heading {
+  color: var(--ah-purple);
+}
+
 .cb-zone {
   font-size: 14px;
   color: #8a8a83;
@@ -40,6 +51,10 @@
   font-size: 15px;
   color: #6f6f68;
   padding: 20px 0;
+}
+
+.cb-empty .ah-btn {
+  margin-top: 30px;
 }
 
 /* Day strip */
@@ -58,6 +73,7 @@
   min-width: 78px;
   padding: 10px 12px;
   border: 1.5px solid #e6e6e2;
+  border-radius: 12px;
   background: #fff;
   color: #111;
   font-family: inherit;
@@ -71,12 +87,12 @@
 }
 
 .cb-day:hover {
-  border-color: #111;
+  border-color: var(--ah-purple);
 }
 
 .cb-day[aria-selected='true'] {
-  border-color: #111;
-  background: #111;
+  border-color: var(--ah-purple);
+  background: var(--ah-purple);
   color: #fff;
 }
 
@@ -103,6 +119,7 @@
 .cb-time {
   padding: 13px 8px;
   border: 1.5px solid #e6e6e2;
+  border-radius: 12px;
   background: #fff;
   color: #111;
   font-family: inherit;
@@ -116,8 +133,8 @@
 }
 
 .cb-time:hover {
-  border-color: #e82e31;
-  color: #e82e31;
+  border-color: var(--ah-purple);
+  color: var(--ah-purple);
 }
 
 .cb-time:active {
@@ -134,7 +151,8 @@
   padding: 14px 16px;
   margin: 0 0 26px;
   background: #fff;
-  border-left: 3px solid #e82e31;
+  border-radius: 12px;
+  border-left: 3px solid var(--ah-purple);
 }
 
 .cb-chosen__time {
@@ -154,7 +172,7 @@
 }
 
 .cb-change:hover {
-  color: #e82e31;
+  color: var(--ah-purple);
 }
 
 /* Fields */
@@ -189,6 +207,7 @@
   width: 100%;
   padding: 14px 16px;
   border: 1.5px solid #e6e6e2;
+  border-radius: 15px;
   background: #fff;
   font-size: 15px;
   font-family: inherit;
@@ -212,7 +231,7 @@
 }
 
 .cb-input.is-invalid {
-  border-color: #e82e31;
+  border-color: #c0392b;
 }
 
 .cb-honeypot {
@@ -223,7 +242,9 @@
   opacity: 0;
 }
 
-/* Actions */
+/* Actions. Shape/colors come from .ah-btn/.ah-btn-icon (custom.css) — same
+   recipe as /order's .ow-next. This class only handles layout and
+   disabled/active states. */
 .cb-nav {
   display: flex;
   margin-top: 26px;
@@ -231,12 +252,7 @@
 
 .cb-submit {
   margin-left: auto;
-  padding: 14px 30px;
   border: none;
-  background: #e82e31;
-  color: #fff;
-  font-size: 15px;
-  font-weight: 700;
   font-family: inherit;
   cursor: pointer;
   transition:
@@ -261,7 +277,7 @@
 
 .cb-error {
   margin: 16px 0 0;
-  color: #e82e31;
+  color: #c0392b;
   font-size: 15px;
   opacity: 0;
   transition: opacity 0.2s;
@@ -277,7 +293,7 @@
   height: 54px;
   margin: 0 auto 18px;
   border-radius: 50%;
-  background: #e82e31;
+  background: var(--ah-purple);
   color: #fff;
   font-size: 26px;
   display: flex;
@@ -300,4 +316,11 @@
 .cb-success__note {
   font-size: 14px;
   color: #6f6f68;
+}
+
+/* Fine-print links (privacy policy) — theme `p a` red -> brand teal.
+   The .cb-error message is deliberately left red. */
+.cb-fineprint a,
+.cb-fineprint a:hover {
+  color: var(--ah-teal);
 }
